@@ -1,6 +1,8 @@
 # Croupier SDK (Java)
 
-Skeleton for Java SDK managed by Gradle.
+Work in progress. This module will provide a Java SDK for Croupier to:
+- Register local handlers (FunctionService) and interact with Agent
+- Call functions via FunctionService (Core/Agent) with retries/metadata
 
 Build & Test
 ```
@@ -8,4 +10,9 @@ Build & Test
 # or: gradle build      # using system Gradle
 ```
 
-Status: skeleton only; gRPC bindings and features will be added later.
+Links
+- Main project: https://github.com/cuihairu/croupier
+- Go SDK (reference): https://github.com/cuihairu/croupier-sdk-go
+
+Status
+- Skeleton only; API shape will follow the Go SDK first, then evolve with IDL-generated stubs.
