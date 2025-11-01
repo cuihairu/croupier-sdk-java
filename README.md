@@ -2,7 +2,7 @@
 
 Work in progress. This module will provide a Java SDK for Croupier to:
 - Register local handlers (FunctionService) and interact with Agent
-- Call functions via FunctionService (Core/Agent) with retries/metadata
+- Call functions via FunctionService (Server/Agent) with retries/metadata
 
 Build & Test
 ```
