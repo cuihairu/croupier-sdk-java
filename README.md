@@ -1,5 +1,7 @@
 # Croupier Java SDK
 
+[![Nightly Build](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml)
+
 Java SDK for Croupier game function registration and execution system.
 
 ## Overview
