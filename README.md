@@ -25,8 +25,8 @@ Key principles:
 
 ## Requirements
 
-- Java 11 or later (Temurin 17+ recommended)
-- Gradle 8+ (included via `./gradlew`, no global install required)
+- JDK 11 或更高版本即可编译 & 运行（Gradle Wrapper 已锁定 8.x，默认编译到 `options.release = 11`）。
+- Gradle Wrapper 已随仓库提供（无需全局安装）。
 
 ## Quick Start
 
