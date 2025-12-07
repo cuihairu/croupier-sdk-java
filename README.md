@@ -22,8 +22,8 @@ The Croupier Java SDK enables game servers to register functions with the Croupi
 
 ## Requirements
 
-- Java 11 or later
-- Maven 3.6 or later
+- Java 11 or later (Temurin 17+ recommended)
+- Gradle 8+ (included via `./gradlew`, no global install required)
 
 ## Quick Start
 
@@ -197,27 +197,22 @@ CroupierClient client = CroupierSDK.createClient(config);
 
 ### Local Development (Mock gRPC)
 
-For local development, the SDK uses mock implementations:
+使用内置 Gradle Wrapper：
 
 ```bash
-mvn clean compile
-mvn exec:java -Dexec.mainClass="com.croupier.sdk.examples.BasicExample"
+./gradlew --no-daemon clean build
+./gradlew --no-daemon test
 ```
 
 ### CI/Production (Real gRPC)
 
-For CI builds with real proto-generated code:
+CI/CD 与生产环境同样使用 Gradle，直接调用：
 
 ```bash
-export CROUPIER_CI_BUILD=ON
-mvn clean compile -Pci-build
+./gradlew --no-daemon clean build
 ```
 
-The CI system automatically:
-1. Downloads proto files from main repository
-2. Generates Java gRPC code using protobuf-maven-plugin
-3. Builds with real gRPC implementation
-4. Runs tests and examples
+Gradle 配好的 `com.google.protobuf` 插件会读取 `proto/` 子模块中的 `.proto`，生成 gRPC 代码并写入 `build/generated/source`，同时运行全部单元测试。
 
 ## Architecture
 
@@ -269,17 +264,14 @@ See the `examples/` directory for complete usage examples:
 ### Building
 
 ```bash
-# Local development (mock)
-mvn clean compile
+# Local development / CI
+./gradlew --no-daemon clean build
 
-# CI build (real gRPC)
-mvn clean compile -Pci-build
+# Run tests standalone
+./gradlew --no-daemon test
 
-# Run tests
-mvn test
-
-# Package
-mvn package
+# Package jar (already part of build, but can be explicit)
+./gradlew --no-daemon jar
 ```
 
 ### Project Structure
