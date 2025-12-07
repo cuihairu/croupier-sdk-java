@@ -1,7 +1,12 @@
 package com.croupier.sdk;
 
-import croupier.function.v1.Function;
-import croupier.function.v1.FunctionServiceGrpc;
+import com.croupier.function.v1.CancelJobRequest;
+import com.croupier.function.v1.InvokeRequest;
+import com.croupier.function.v1.InvokeResponse;
+import com.croupier.function.v1.JobEvent;
+import com.croupier.function.v1.JobStreamRequest;
+import com.croupier.function.v1.StartJobResponse;
+import com.croupier.function.v1.FunctionServiceGrpc;
 import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -39,7 +44,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
     }
 
     @Override
-    public void invoke(Function.InvokeRequest request, StreamObserver<Function.InvokeResponse> responseObserver) {
+    public void invoke(InvokeRequest request, StreamObserver<InvokeResponse> responseObserver) {
         try {
             FunctionHandler handler = lookupHandler(request, responseObserver);
             if (handler == null) {
@@ -50,7 +55,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
             String result = handler.handle(context, payload);
             ByteString body = result == null ? ByteString.EMPTY : ByteString.copyFrom(result, StandardCharsets.UTF_8);
 
-            responseObserver.onNext(Function.InvokeResponse.newBuilder().setPayload(body).build());
+            responseObserver.onNext(InvokeResponse.newBuilder().setPayload(body).build());
             responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL.withDescription("handler failed").withCause(e).asRuntimeException());
@@ -58,7 +63,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
     }
 
     @Override
-    public void startJob(Function.InvokeRequest request, StreamObserver<Function.StartJobResponse> responseObserver) {
+    public void startJob(InvokeRequest request, StreamObserver<StartJobResponse> responseObserver) {
         try {
             FunctionHandler handler = lookupHandler(request, responseObserver);
             if (handler == null) {
@@ -74,7 +79,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
 
             state.future = jobExecutor.submit(() -> runJob(jobId, handler, context, payload, state));
 
-            responseObserver.onNext(Function.StartJobResponse.newBuilder().setJobId(jobId).build());
+            responseObserver.onNext(StartJobResponse.newBuilder().setJobId(jobId).build());
             responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(Status.INTERNAL.withDescription("start job failed").withCause(e).asRuntimeException());
@@ -82,7 +87,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
     }
 
     @Override
-    public void streamJob(Function.JobStreamRequest request, StreamObserver<Function.JobEvent> responseObserver) {
+    public void streamJob(JobStreamRequest request, StreamObserver<JobEvent> responseObserver) {
         String jobId = request.getJobId();
         if (jobId == null || jobId.isEmpty()) {
             responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("job_id is required").asRuntimeException());
@@ -95,7 +100,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
         }
         try {
             while (true) {
-                Function.JobEvent event = state.events.poll(500, TimeUnit.MILLISECONDS);
+                JobEvent event = state.events.poll(500, TimeUnit.MILLISECONDS);
                 if (event != null) {
                     responseObserver.onNext(event);
                     if (isTerminal(event)) {
@@ -116,7 +121,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
     }
 
     @Override
-    public void cancelJob(Function.CancelJobRequest request, StreamObserver<Function.StartJobResponse> responseObserver) {
+    public void cancelJob(CancelJobRequest request, StreamObserver<StartJobResponse> responseObserver) {
         String jobId = request.getJobId();
         if (jobId == null || jobId.isEmpty()) {
             responseObserver.onError(Status.INVALID_ARGUMENT.withDescription("job_id is required").asRuntimeException());
@@ -134,7 +139,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
         state.events.offer(jobEvent("cancelled", "job cancelled", null));
         state.completed.set(true);
 
-        responseObserver.onNext(Function.StartJobResponse.newBuilder().setJobId(jobId).build());
+        responseObserver.onNext(StartJobResponse.newBuilder().setJobId(jobId).build());
         responseObserver.onCompleted();
     }
 
@@ -149,7 +154,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
         jobExecutor.shutdownNow();
     }
 
-    private FunctionHandler lookupHandler(Function.InvokeRequest request, StreamObserver<?> observer) {
+    private FunctionHandler lookupHandler(InvokeRequest request, StreamObserver<?> observer) {
         if (request == null || request.getFunctionId().isEmpty()) {
             observer.onError(Status.INVALID_ARGUMENT.withDescription("function_id is required").asRuntimeException());
             return null;
@@ -184,8 +189,8 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
         }
     }
 
-    private Function.JobEvent jobEvent(String type, String message, ByteString payload) {
-        Function.JobEvent.Builder builder = Function.JobEvent.newBuilder().setType(type);
+    private JobEvent jobEvent(String type, String message, ByteString payload) {
+        JobEvent.Builder builder = JobEvent.newBuilder().setType(type);
         if (message != null) {
             builder.setMessage(message);
         }
@@ -195,7 +200,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
         return builder.build();
     }
 
-    private boolean isTerminal(Function.JobEvent event) {
+    private boolean isTerminal(JobEvent event) {
         if (event == null) {
             return false;
         }
@@ -204,7 +209,7 @@ public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImpl
     }
 
     private static class JobState {
-        final BlockingQueue<Function.JobEvent> events = new LinkedBlockingQueue<>();
+        final BlockingQueue<JobEvent> events = new LinkedBlockingQueue<>();
         final AtomicBoolean completed = new AtomicBoolean(false);
         final AtomicBoolean cancelled = new AtomicBoolean(false);
         Future<?> future;

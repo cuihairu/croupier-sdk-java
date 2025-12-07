@@ -1,7 +1,9 @@
 package com.croupier.sdk;
 
-import croupier.agent.local.v1.Local;
-import croupier.agent.local.v1.LocalControlServiceGrpc;
+import com.croupier.agent.local.v1.HeartbeatRequest;
+import com.croupier.agent.local.v1.LocalControlServiceGrpc;
+import com.croupier.agent.local.v1.RegisterLocalRequest;
+import com.croupier.agent.local.v1.RegisterLocalResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
@@ -102,7 +104,7 @@ public class GrpcManager {
         }
 
         try {
-            Local.RegisterLocalRequest.Builder builder = Local.RegisterLocalRequest.newBuilder()
+            RegisterLocalRequest.Builder builder = RegisterLocalRequest.newBuilder()
                 .setServiceId(serviceId)
                 .setVersion(serviceVersion)
                 .setRpcAddr(localAddress);
@@ -111,13 +113,13 @@ public class GrpcManager {
                     if (func.getId() == null || func.getId().isEmpty()) {
                         continue;
                     }
-                    builder.addFunctions(Local.LocalFunctionDescriptor.newBuilder()
+                    builder.addFunctions(com.croupier.agent.local.v1.LocalFunctionDescriptor.newBuilder()
                         .setId(func.getId())
                         .setVersion(func.getVersion() == null ? "" : func.getVersion()));
                 }
             }
 
-            Local.RegisterLocalResponse resp = localControl.registerLocal(builder.build());
+            RegisterLocalResponse resp = localControl.registerLocal(builder.build());
             String newSessionId = resp.getSessionId();
             if (newSessionId == null || newSessionId.isEmpty()) {
                 throw new CroupierException("Agent returned empty session ID");
@@ -276,7 +278,7 @@ public class GrpcManager {
             try {
                 if (localControl != null && sessionId != null && currentServiceId != null) {
                     localControl.heartbeat(
-                        Local.HeartbeatRequest.newBuilder()
+                        HeartbeatRequest.newBuilder()
                             .setServiceId(currentServiceId)
                             .setSessionId(sessionId)
                             .build()
