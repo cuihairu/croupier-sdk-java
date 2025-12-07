@@ -1,24 +1,27 @@
 # Croupier Java SDK
 
 [![Nightly Build](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml)
+[![CI Build](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml)
 
-Java SDK for Croupier game function registration and execution system.
+Production-ready client for registering and executing Croupier “functions” (remote procedures) from JVM game services.
 
 ## Overview
 
-The Croupier Java SDK enables game servers to register functions with the Croupier system and handle incoming function calls through gRPC communication. This SDK is aligned with the official Croupier proto definitions.
+The SDK speaks the same gRPC/Protobuf contracts as the [Croupier platform](https://github.com/cuihairu/croupier).  
+Key principles:
 
-## Features
+- **Single source of truth** – proto definitions live in the `proto/` submodule (shared with the main platform). Generated Java stubs are checked into `generated/` so consumers are not forced to run protoc.
+- **Gradle-first pipeline** – the repo ships with a wrapper and protobuf plugin configuration; `./gradlew clean build` is all you need locally or in CI.
+- **Ergonomic APIs** – descriptors, handlers, config builders, and async helpers wrap the raw gRPC channels.
 
-- **Proto-aligned data structures**: All types match the official Croupier proto definitions
-- **Dual build system**: Mock implementation for local development, real gRPC for CI/production
-- **Multi-tenant support**: Built-in support for game_id/env isolation
-- **Function registration**: Register game functions with descriptors and handlers
-- **gRPC communication**: Efficient bi-directional communication with agents
-- **Async support**: CompletableFuture-based async operations
-- **Provider manifest uploads**: Automatically publishes function capabilities when a control-plane address is configured
-- **Error handling**: Comprehensive error handling and connection management
-- **Builder pattern**: Fluent API for easy configuration
+## Highlights
+
+- **Proto-aligned types**：`FunctionDescriptor`、`LocalFunctionDescriptor` 与官方 IDL 100% 对齐。
+- **多租户 / 环境隔离**：内置 `gameId`、`env`、`serviceId` 维度。
+- **函数注册到执行链路**：完成注册、心跳、执行、返回值、错误处理。
+- **异步能力**：基于 `CompletableFuture`，便于与现有任务系统整合。
+- **Provider manifest 上传**：控制面地址可用时，自动发布能力声明，便于 Dashboard 渲染。
+- **Gradle + Buf 生态**：CI 自动拉取 proto、生成代码、执行测试并发布产物。
 
 ## Requirements
 
@@ -27,15 +30,15 @@ The Croupier Java SDK enables game servers to register functions with the Croupi
 
 ## Quick Start
 
-### Installation
+### Install
 
-Add to your `pom.xml`:
+Published coordinates (replace version tag accordingly):
 
 ```xml
 <dependency>
     <groupId>com.croupier</groupId>
     <artifactId>croupier-sdk-java</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -193,26 +196,27 @@ CroupierClient client = CroupierSDK.createClient("game-id", "service-id", "local
 CroupierClient client = CroupierSDK.createClient(config);
 ```
 
-## Build Modes
+## Proto & Build Pipeline
 
-### Local Development (Mock gRPC)
+- `proto/`：Git submodule 指向 [`cuihairu/croupier-proto`](https://github.com/cuihairu/croupier-proto)，包含所有 `.proto`。
+- `generated/`：已经提交的 `.java` gRPC Stubs，方便依赖方直接使用；当 proto 更新时由自动化流程重建并提交。
+- `./gradlew`：内置 Gradle Wrapper + `com.google.protobuf` 插件，负责读取 `proto/` 并生成临时文件到 `build/generated/source`，然后与 `src/main/java` 合并编译。
+- CI (`.github/workflows/ci.yml` & `nightly.yml`) 会在 JDK 11/17/21 上运行 `./gradlew --no-daemon clean build`，同时上传构建产物。
 
-使用内置 Gradle Wrapper：
+### 本地开发与测试
 
 ```bash
+# 全量构建（编译 + 测试 + jar）
 ./gradlew --no-daemon clean build
+
+# 仅运行单元测试
 ./gradlew --no-daemon test
+
+# 查看生成的 gRPC 代码（可选）
+ls build/generated/source/proto/main/java
 ```
 
-### CI/Production (Real gRPC)
-
-CI/CD 与生产环境同样使用 Gradle，直接调用：
-
-```bash
-./gradlew --no-daemon clean build
-```
-
-Gradle 配好的 `com.google.protobuf` 插件会读取 `proto/` 子模块中的 `.proto`，生成 gRPC 代码并写入 `build/generated/source`，同时运行全部单元测试。
+> 提交 PR 前建议运行 `./gradlew --no-daemon clean build -x test`（如需跳测）以及 `./gradlew test` 分离定位失败案例。
 
 ## Architecture
 
@@ -254,10 +258,17 @@ client.connect()
 
 ## Examples
 
-See the `examples/` directory for complete usage examples:
+`examples/` 提供可独立构建的 Demo（目前使用 Maven，保持与多数游戏项目一致）。
 
-- `examples/basic/`: Basic function registration and serving
-- More examples coming soon...
+- `examples/basic`：最小化示例，展示函数注册与伪造执行。
+- `examples/comprehensive`：更完整的配置示例，包括控制面回传、错误处理等。
+
+运行综合示例：
+
+```bash
+cd examples/comprehensive
+mvn compile exec:java -Dexec.mainClass="com.croupier.sdk.examples.ComprehensiveExample"
+```
 
 ## Development
 
@@ -277,23 +288,20 @@ See the `examples/` directory for complete usage examples:
 ### Project Structure
 
 ```
+proto/                    # 子模块：官方 API/SDK proto
+generated/                # 已提交的 gRPC stubs（同步自 proto）
 src/
 ├── main/java/com/croupier/sdk/
-│   ├── CroupierSDK.java           # Factory class
-│   ├── CroupierClient.java        # Client interface
-│   ├── CroupierClientImpl.java    # Client implementation
-│   ├── FunctionDescriptor.java    # Proto-aligned descriptor
-│   ├── LocalFunctionDescriptor.java # Local descriptor
-│   ├── FunctionHandler.java       # Handler interface
-│   ├── ClientConfig.java          # Configuration
-│   ├── GrpcManager.java          # gRPC management
-│   └── scripts/
-│       └── ProtoGenerator.java    # CI proto generator
-├── test/java/                     # Unit tests
-└── main/resources/                # Resources
+│   ├── CroupierSDK.java
+│   ├── CroupierClient*.java
+│   ├── descriptors / handlers / config
+│   └── scripts/ProtoGenerator.java   # 兼容旧流水线的下载脚本
+├── main/resources/
+└── test/java/
 
 examples/
-└── basic/                         # Basic example
+├── basic/
+└── comprehensive/
 ```
 
 ## Contributing
