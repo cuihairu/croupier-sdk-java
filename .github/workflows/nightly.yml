@@ -1,0 +1,23 @@
+name: Nightly Build
+
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+      - name: Build
+        run: ./gradlew --no-daemon clean build
