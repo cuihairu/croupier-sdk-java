@@ -5,6 +5,8 @@
 
 Production-ready client for registering and executing Croupier “functions” (remote procedures) from JVM game services.
 
+> 本 SDK 与 [Croupier 主项目](https://github.com/cuihairu/croupier) 使用同一套 proto/控制面协议，可直接接入其 Server / Agent。
+
 ## Overview
 
 The SDK speaks the same gRPC/Protobuf contracts as the [Croupier platform](https://github.com/cuihairu/croupier).  
