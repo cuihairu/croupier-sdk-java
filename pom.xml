@@ -19,8 +19,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency versions -->
-        <grpc.version>1.58.0</grpc.version>
-        <protobuf.version>3.24.4</protobuf.version>
+        <grpc.version>1.67.1</grpc.version>
+        <protobuf.version>4.33.1</protobuf.version>
         <jackson.version>2.15.2</jackson.version>
         <junit.version>5.10.0</junit.version>
         <slf4j.version>2.0.9</slf4j.version>
@@ -136,6 +136,28 @@
             </plugin>
 
             <!-- Protocol Buffers Plugin -->
+            <!-- Add generated proto sources to compilation -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>add-proto-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/generated</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Comment out protobuf plugin - we use pre-generated files
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
@@ -144,7 +166,7 @@
                     <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
                     <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                    <protoSourceRoot>${basedir}/downloaded_proto</protoSourceRoot>
+                    <protoSourceRoot>${basedir}/generated</protoSourceRoot>
                 </configuration>
                 <executions>
                     <execution>
@@ -156,6 +178,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
 
             <!-- OS Maven Plugin for platform detection -->
             <plugin>
