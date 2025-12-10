@@ -1,41 +1,100 @@
-# Croupier Java SDK
+<p align="center">
+  <h1 align="center">Croupier Java SDK</h1>
+  <p align="center">
+    <strong>生产级 Java SDK，用于 Croupier 游戏函数注册与执行系统</strong>
+  </p>
+</p>
 
-[![Nightly Build](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml)
-[![CI Build](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml)
+<p align="center">
+  <a href="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml">
+    <img src="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/nightly.yml/badge.svg" alt="Nightly Build">
+  </a>
+  <a href="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml">
+    <img src="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml/badge.svg" alt="CI Build">
+  </a>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
+  </a>
+  <a href="https://www.oracle.com/java/">
+    <img src="https://img.shields.io/badge/Java-11+-orange.svg" alt="Java Version">
+  </a>
+</p>
 
-Production-ready client for registering and executing Croupier “functions” (remote procedures) from JVM game services.
+<p align="center">
+  <a href="#支持平台">
+    <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg" alt="Platform">
+  </a>
+  <a href="https://github.com/cuihairu/croupier">
+    <img src="https://img.shields.io/badge/Main%20Project-Croupier-green.svg" alt="Main Project">
+  </a>
+</p>
 
-> 本 SDK 与 [Croupier 主项目](https://github.com/cuihairu/croupier) 使用同一套 proto/控制面协议，可直接接入其 Server / Agent。
+---
 
-## Overview
+## 📋 目录
 
-The SDK speaks the same gRPC/Protobuf contracts as the [Croupier platform](https://github.com/cuihairu/croupier).  
-Key principles:
+- [简介](#简介)
+- [主项目](#主项目)
+- [其他语言 SDK](#其他语言-sdk)
+- [支持平台](#支持平台)
+- [核心特性](#核心特性)
+- [快速开始](#快速开始)
+- [使用示例](#使用示例)
+- [架构设计](#架构设计)
+- [API 参考](#api-参考)
+- [开发指南](#开发指南)
+- [贡献指南](#贡献指南)
+- [许可证](#许可证)
 
-- **Single source of truth** – proto definitions live in the `proto/` submodule (shared with the main platform). Generated Java stubs are checked into `generated/` so consumers are not forced to run protoc.
-- **Gradle-first pipeline** – the repo ships with a wrapper and protobuf plugin configuration; `./gradlew clean build` is all you need locally or in CI.
-- **Ergonomic APIs** – descriptors, handlers, config builders, and async helpers wrap the raw gRPC channels.
+---
 
-## Highlights
+## 简介
 
-- **Proto-aligned types**：`FunctionDescriptor`、`LocalFunctionDescriptor` 与官方 IDL 100% 对齐。
-- **多租户 / 环境隔离**：内置 `gameId`、`env`、`serviceId` 维度。
-- **函数注册到执行链路**：完成注册、心跳、执行、返回值、错误处理。
-- **异步能力**：基于 `CompletableFuture`，便于与现有任务系统整合。
-- **Provider manifest 上传**：控制面地址可用时，自动发布能力声明，便于 Dashboard 渲染。
-- **Gradle + Buf 生态**：CI 自动拉取 proto、生成代码、执行测试并发布产物。
+Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 游戏后端平台的官方 Java 客户端实现。它提供了与官方 Croupier proto 定义 100% 对齐的类型、基于 `CompletableFuture` 的异步能力以及完整的函数注册到执行链路。
 
-## Requirements
+## 主项目
 
-- JDK 11 或更高版本即可编译 & 运行（Gradle Wrapper 已锁定 8.x，默认编译到 `options.release = 11`）。
-- Gradle Wrapper 已随仓库提供（无需全局安装）。
+| 项目 | 描述 | 链接 |
+|------|------|------|
+| **Croupier** | 游戏后端平台主项目 | [cuihairu/croupier](https://github.com/cuihairu/croupier) |
+| **Croupier Proto** | 协议定义（Protobuf/gRPC） | [cuihairu/croupier-proto](https://github.com/cuihairu/croupier-proto) |
 
-## Quick Start
+## 其他语言 SDK
 
-### Install
+| 语言 | 仓库 | 状态 |
+|------|------|------|
+| **C++** | [cuihairu/croupier-sdk-cpp](https://github.com/cuihairu/croupier-sdk-cpp) | [![C++ Build](https://github.com/cuihairu/croupier-sdk-cpp/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-cpp/actions/workflows/nightly.yml) |
+| **Go** | [cuihairu/croupier-sdk-go](https://github.com/cuihairu/croupier-sdk-go) | [![Go Build](https://github.com/cuihairu/croupier-sdk-go/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-go/actions/workflows/nightly.yml) |
+| **JavaScript/TypeScript** | [cuihairu/croupier-sdk-js](https://github.com/cuihairu/croupier-sdk-js) | [![JS Build](https://github.com/cuihairu/croupier-sdk-js/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-js/actions/workflows/nightly.yml) |
+| **Python** | [cuihairu/croupier-sdk-python](https://github.com/cuihairu/croupier-sdk-python) | [![Python Build](https://github.com/cuihairu/croupier-sdk-python/actions/workflows/nightly.yml/badge.svg)](https://github.com/cuihairu/croupier-sdk-python/actions/workflows/nightly.yml) |
 
-Published coordinates (replace version tag accordingly):
+## 支持平台
 
+| 平台 | 架构 | 状态 |
+|------|------|------|
+| **Windows** | x64, x86 | ✅ 支持 |
+| **Linux** | x64, ARM64 | ✅ 支持 |
+| **macOS** | x64, ARM64 (Apple Silicon) | ✅ 支持 |
+
+## 核心特性
+
+- 📡 **Proto 对齐** - `FunctionDescriptor`、`LocalFunctionDescriptor` 与官方 IDL 100% 对齐
+- 🏢 **多租户支持** - 内置 `gameId`、`env`、`serviceId` 维度隔离
+- 🔄 **完整链路** - 函数注册、心跳、执行、返回值、错误处理
+- ⚡ **异步能力** - 基于 `CompletableFuture`，便于与现有任务系统整合
+- 📤 **Provider Manifest** - 控制面地址可用时，自动发布能力声明
+- 🛠️ **Gradle + Buf** - CI 自动拉取 proto、生成代码、执行测试并发布产物
+
+## 快速开始
+
+### 系统要求
+
+- **JDK 11+**（Gradle Wrapper 已锁定 8.x，默认编译到 `options.release = 11`）
+- **Gradle Wrapper** 已随仓库提供（无需全局安装）
+
+### 安装
+
+Maven:
 ```xml
 <dependency>
     <groupId>com.croupier</groupId>
@@ -44,26 +103,31 @@ Published coordinates (replace version tag accordingly):
 </dependency>
 ```
 
-### Basic Usage
+Gradle:
+```groovy
+implementation 'com.croupier:croupier-sdk-java:0.1.0'
+```
+
+### 基础使用
 
 ```java
 import com.croupier.sdk.*;
 
 public class GameServer {
     public static void main(String[] args) throws Exception {
-        // Create client configuration
+        // 创建客户端配置
         ClientConfig config = new ClientConfig("my-game", "my-service");
         config.setAgentAddr("localhost:19090");
-        config.setControlAddr("localhost:18080"); // Control plane for manifest upload
+        config.setControlAddr("localhost:18080"); // 控制面用于 manifest 上传
         config.setEnv("development");
-        config.setInsecure(true); // For development
+        config.setInsecure(true); // 开发环境
         config.setProviderLang("java");
         config.setProviderSdk("croupier-java-sdk");
 
-        // Create client
+        // 创建客户端
         CroupierClient client = CroupierSDK.createClient(config);
 
-        // Register a function
+        // 注册函数
         FunctionDescriptor desc = CroupierSDK.functionDescriptor("player.ban", "1.0.0")
                 .category("moderation")
                 .risk("high")
@@ -72,140 +136,197 @@ public class GameServer {
                 .build();
 
         FunctionHandler handler = (context, payload) -> {
-            // Handle the function call
+            // 处理函数调用
             return "{\"status\":\"success\"}";
         };
 
         client.registerFunction(desc, handler);
 
-        // Start serving
-        client.serve(); // Blocks until stopped
+        // 启动服务
+        client.serve(); // 阻塞直到停止
     }
 }
 ```
 
-### Async Usage
+## 使用示例
+
+### 异步使用
 
 ```java
-// Connect and serve asynchronously
+// 异步连接和服务
 client.connect()
     .thenCompose(v -> client.serveAsync())
-    .thenRun(() -> System.out.println("Service started"))
+    .thenRun(() -> System.out.println("服务已启动"))
     .exceptionally(throwable -> {
-        System.err.println("Failed: " + throwable.getMessage());
+        System.err.println("失败: " + throwable.getMessage());
         return null;
     });
 ```
 
-## Data Types
+### 函数描述符
 
-### FunctionDescriptor
-
-Aligned with `control.proto`:
+与 `control.proto` 对齐：
 
 ```java
 FunctionDescriptor descriptor = CroupierSDK.functionDescriptor("player.ban", "1.0.0")
-        .category("moderation")     // grouping category
+        .category("moderation")     // 分组类别
         .risk("high")              // "low"|"medium"|"high"
-        .entity("player")          // entity type
+        .entity("player")          // 实体类型
         .operation("update")       // "create"|"read"|"update"|"delete"
-        .enabled(true)             // whether enabled
+        .enabled(true)             // 是否启用
         .build();
 ```
 
-### LocalFunctionDescriptor
+### 本地函数描述符
 
-Aligned with `agent/local/v1/local.proto`:
+与 `agent/local/v1/local.proto` 对齐：
 
 ```java
 LocalFunctionDescriptor localDesc = new LocalFunctionDescriptor("player.ban", "1.0.0");
 ```
 
-### FunctionHandler
+### 函数处理器
 
-Functional interface for implementing game functions:
+实现游戏函数的函数式接口：
 
 ```java
 FunctionHandler handler = (context, payload) -> {
-    // context: execution context (JSON string)
-    // payload: function payload (JSON string)
-    // return: result (JSON string)
+    // context: 执行上下文（JSON 字符串）
+    // payload: 函数载荷（JSON 字符串）
+    // return: 结果（JSON 字符串）
     return "{\"status\":\"success\"}";
 };
 ```
 
-## Configuration
+## 架构设计
+
+### 数据流
+
+```
+Game Server → Java SDK → Agent → Croupier Server
+```
+
+SDK 实现两层注册系统：
+1. **SDK → Agent**: 使用 `LocalControlService`（来自 `local.proto`）
+2. **Agent → Server**: 使用 `ControlService`（来自 `control.proto`）
+
+### Proto 与构建流水线
+
+- `proto/`：Git submodule 指向 [`cuihairu/croupier-proto`](https://github.com/cuihairu/croupier-proto)
+- `generated/`：已提交的 `.java` gRPC Stubs，方便依赖方直接使用
+- `./gradlew`：内置 Gradle Wrapper + `com.google.protobuf` 插件
+- CI 会在 JDK 11/17/21 上运行 `./gradlew --no-daemon clean build`
+
+## API 参考
 
 ### ClientConfig
 
 ```java
 ClientConfig config = new ClientConfig();
-config.setAgentAddr("localhost:19090");     // Agent address
-config.setGameId("my-game");                // Game identifier
-config.setEnv("development");               // Environment
-config.setServiceId("my-service");          // Service identifier
-config.setServiceVersion("1.0.0");         // Service version
-config.setLocalListen(":0");                // Local server (auto-port)
-config.setControlAddr("localhost:18080");   // Optional control-plane endpoint for manifests
-config.setTimeoutSeconds(30);              // Connection timeout
-config.setInsecure(true);                   // Use insecure gRPC
-config.setProviderLang("java");             // Provider metadata
+config.setAgentAddr("localhost:19090");     // Agent 地址
+config.setGameId("my-game");                // 游戏标识符
+config.setEnv("development");               // 环境
+config.setServiceId("my-service");          // 服务标识符
+config.setServiceVersion("1.0.0");          // 服务版本
+config.setLocalListen(":0");                // 本地服务器（自动端口）
+config.setControlAddr("localhost:18080");   // 可选控制面端点
+config.setTimeoutSeconds(30);               // 连接超时
+config.setInsecure(true);                   // 使用不安全的 gRPC
+config.setProviderLang("java");             // Provider 元数据
 config.setProviderSdk("croupier-java-sdk");
 
-// TLS settings (when not insecure)
+// TLS 设置（非 insecure 模式）
 config.setCaFile("/path/to/ca.pem");
 config.setCertFile("/path/to/cert.pem");
 config.setKeyFile("/path/to/key.pem");
 ```
 
-## API Reference
-
-### CroupierClient Interface
+### CroupierClient 接口
 
 ```java
 public interface CroupierClient {
-    // Function registration
+    // 函数注册
     void registerFunction(FunctionDescriptor descriptor, FunctionHandler handler);
 
-    // Connection management
+    // 连接管理
     CompletableFuture<Void> connect();
 
-    // Service operations
-    void serve();                           // Blocks until stopped
-    CompletableFuture<Void> serveAsync();  // Non-blocking
+    // 服务操作
+    void serve();                           // 阻塞直到停止
+    CompletableFuture<Void> serveAsync();   // 非阻塞
 
-    // Lifecycle
+    // 生命周期
     void stop();
     void close();
 
-    // Status
+    // 状态
     boolean isConnected();
     boolean isServing();
     String getLocalAddress();
 }
 ```
 
-### Factory Methods
+### 工厂方法
 
 ```java
-// Simple creation
+// 简单创建
 CroupierClient client = CroupierSDK.createClient("game-id", "service-id");
 
-// With agent address
+// 带 Agent 地址
 CroupierClient client = CroupierSDK.createClient("game-id", "service-id", "localhost:19090");
 
-// With full configuration
+// 完整配置
 CroupierClient client = CroupierSDK.createClient(config);
 ```
 
-## Proto & Build Pipeline
+### 错误处理
 
-- `proto/`：Git submodule 指向 [`cuihairu/croupier-proto`](https://github.com/cuihairu/croupier-proto)，包含所有 `.proto`。
-- `generated/`：已经提交的 `.java` gRPC Stubs，方便依赖方直接使用；当 proto 更新时由自动化流程重建并提交。
-- `./gradlew`：内置 Gradle Wrapper + `com.google.protobuf` 插件，负责读取 `proto/` 并生成临时文件到 `build/generated/source`，然后与 `src/main/java` 合并编译。
-- CI (`.github/workflows/ci.yml` & `nightly.yml`) 会在 JDK 11/17/21 上运行 `./gradlew --no-daemon clean build`，同时上传构建产物。
+```java
+try {
+    client.registerFunction(descriptor, handler);
+    client.serve();
+} catch (CroupierException e) {
+    System.err.println("Croupier 错误: " + e.getMessage());
+    e.printStackTrace();
+} catch (Exception e) {
+    System.err.println("意外错误: " + e.getMessage());
+}
+```
 
-### 本地开发与测试
+异步错误处理：
+
+```java
+client.connect()
+    .exceptionally(throwable -> {
+        if (throwable.getCause() instanceof CroupierException) {
+            System.err.println("Croupier 错误: " + throwable.getCause().getMessage());
+        }
+        return null;
+    });
+```
+
+## 开发指南
+
+### 项目结构
+
+```
+croupier-sdk-java/
+├── proto/                    # 子模块：官方 API/SDK proto
+├── generated/                # 已提交的 gRPC stubs
+├── src/
+│   ├── main/java/com/croupier/sdk/
+│   │   ├── CroupierSDK.java
+│   │   ├── CroupierClient*.java
+│   │   ├── descriptors / handlers / config
+│   │   └── scripts/ProtoGenerator.java
+│   ├── main/resources/
+│   └── test/java/
+└── examples/
+    ├── basic/
+    └── comprehensive/
+```
+
+### 构建命令
 
 ```bash
 # 全量构建（编译 + 测试 + jar）
@@ -214,106 +335,33 @@ CroupierClient client = CroupierSDK.createClient(config);
 # 仅运行单元测试
 ./gradlew --no-daemon test
 
-# 查看生成的 gRPC 代码（可选）
+# 查看生成的 gRPC 代码
 ls build/generated/source/proto/main/java
 ```
 
-> 提交 PR 前建议运行 `./gradlew --no-daemon clean build -x test`（如需跳测）以及 `./gradlew test` 分离定位失败案例。
-
-## Architecture
-
-```
-Game Server → Java SDK → Agent → Croupier Server
-```
-
-The SDK implements a two-layer registration system:
-1. **SDK → Agent**: Uses `LocalControlService` (from `local.proto`)
-2. **Agent → Server**: Uses `ControlService` (from `control.proto`)
-
-## Error Handling
-
-The SDK provides comprehensive error handling:
-
-```java
-try {
-    client.registerFunction(descriptor, handler);
-    client.serve();
-} catch (CroupierException e) {
-    System.err.println("Croupier error: " + e.getMessage());
-    e.printStackTrace();
-} catch (Exception e) {
-    System.err.println("Unexpected error: " + e.getMessage());
-}
-```
-
-Async error handling:
-
-```java
-client.connect()
-    .exceptionally(throwable -> {
-        if (throwable.getCause() instanceof CroupierException) {
-            System.err.println("Croupier error: " + throwable.getCause().getMessage());
-        }
-        return null;
-    });
-```
-
-## Examples
-
-`examples/` 提供可独立构建的 Demo（目前使用 Maven，保持与多数游戏项目一致）。
-
-- `examples/basic`：最小化示例，展示函数注册与伪造执行。
-- `examples/comprehensive`：更完整的配置示例，包括控制面回传、错误处理等。
-
-运行综合示例：
+### 运行示例
 
 ```bash
 cd examples/comprehensive
 mvn compile exec:java -Dexec.mainClass="com.croupier.sdk.examples.ComprehensiveExample"
 ```
 
-## Development
+## 贡献指南
 
-### Building
+1. 确保所有类型与 proto 定义对齐
+2. 为新功能添加测试
+3. 更新 API 变更的文档
+4. 测试本地和 CI 两种构建模式
+5. 遵循 Java 编码规范
 
-```bash
-# Local development / CI
-./gradlew --no-daemon clean build
+## 许可证
 
-# Run tests standalone
-./gradlew --no-daemon test
+本项目采用 [Apache License 2.0](LICENSE) 开源协议。
 
-# Package jar (already part of build, but can be explicit)
-./gradlew --no-daemon jar
-```
+---
 
-### Project Structure
-
-```
-proto/                    # 子模块：官方 API/SDK proto
-generated/                # 已提交的 gRPC stubs（同步自 proto）
-src/
-├── main/java/com/croupier/sdk/
-│   ├── CroupierSDK.java
-│   ├── CroupierClient*.java
-│   ├── descriptors / handlers / config
-│   └── scripts/ProtoGenerator.java   # 兼容旧流水线的下载脚本
-├── main/resources/
-└── test/java/
-
-examples/
-├── basic/
-└── comprehensive/
-```
-
-## Contributing
-
-1. Ensure all types align with proto definitions
-2. Add tests for new functionality
-3. Update documentation for API changes
-4. Test both local and CI build modes
-5. Follow Java coding conventions
-
-## License
-
-See LICENSE file for details.
+<p align="center">
+  <a href="https://github.com/cuihairu/croupier">🏠 主项目</a> •
+  <a href="https://github.com/cuihairu/croupier-sdk-java/issues">🐛 问题反馈</a> •
+  <a href="https://github.com/cuihairu/croupier/discussions">💬 讨论区</a>
+</p>
