@@ -14,9 +14,12 @@ repositories {
 
 def grpcVersion = "1.74.0"
 
+// 固定 protobuf 版本到 4.29.5 (对应 proto 29.x / protobuf 5.29.x LTS)
+def protobufVersion = "4.29.5"
+
 dependencies {
     // Protobuf / gRPC runtime (v1 API)
-    implementation "com.google.protobuf:protobuf-java:4.33.1"
+    implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
     implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
@@ -60,8 +63,8 @@ tasks.jar {
 
 protobuf {
     protoc {
-        // Align with protobuf-java 4.33.x (matching protoc major)
-        artifact = "com.google.protobuf:protoc:4.33.1"
+        // Align with protobuf-java 4.29.x (matching protoc major, LTS version)
+        artifact = "com.google.protobuf:protoc:${protobufVersion}"
     }
     plugins {
         grpc {
