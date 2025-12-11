@@ -14,8 +14,8 @@ repositories {
 
 def grpcVersion = "1.74.0"
 
-// 固定 protobuf 版本到 5.29.5 (对应 proto 29.x / protobuf 5.29.x LTS)
-def protobufVersion = "5.29.5"
+// 固定 protobuf 版本到 4.28.0 (最新稳定版，与 C++ protobuf 5.29.5 兼容)
+def protobufVersion = "4.28.0"
 
 dependencies {
     // Protobuf / gRPC runtime (v1 API)
