@@ -50,8 +50,8 @@ sourceSets {
             srcDir "$projectDir/generated"
         }
         proto {
-            // Point to the monorepo proto root
-            srcDirs += ["${projectDir}/../../proto"]
+            // Point to the local proto submodule
+            srcDirs += ["${projectDir}/proto"]
         }
     }
 }
