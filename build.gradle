@@ -12,7 +12,7 @@ repositories {
     mavenCentral()
 }
 
-def grpcVersion = "1.74.0"
+def grpcVersion = "1.68.1"  // Compatible with protobuf 5.29.x
 
 // 固定 protobuf 版本到 4.32.1 (C++ protobuf 5.29.5 对应的 Java 版本)
 def protobufVersion = "4.32.1"
@@ -63,8 +63,8 @@ tasks.jar {
 
 protobuf {
     protoc {
-        // Align with protobuf-java 4.29.x (matching protoc major, LTS version)
-        artifact = "com.google.protobuf:protoc:${protobufVersion}"
+        // Align with protobuf-java 4.32.x (matching protoc major)
+        artifact = "com.google.protobuf:protoc:4.32.1"
     }
     plugins {
         grpc {
