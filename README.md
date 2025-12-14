@@ -89,7 +89,7 @@ Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 游戏后
 
 ### 系统要求
 
-- **JDK 11+**（Gradle Wrapper 已锁定 8.x，默认编译到 `options.release = 11`）
+- **JDK 17+**（Gradle Wrapper 已锁定 8.x，默认编译到 `options.release = 17`）
 - **Gradle Wrapper** 已随仓库提供（无需全局安装）
 
 ### 安装
@@ -215,7 +215,7 @@ SDK 实现两层注册系统：
 - `proto/`：Git submodule 指向 [`cuihairu/croupier-proto`](https://github.com/cuihairu/croupier-proto)
 - `generated/`：已提交的 `.java` gRPC Stubs，方便依赖方直接使用
 - `./gradlew`：内置 Gradle Wrapper + `com.google.protobuf` 插件
-- CI 会在 JDK 11/17/21 上运行 `./gradlew --no-daemon clean build`
+- CI 会在 JDK 17/21 上运行 `./gradlew --no-daemon clean build`
 
 ## API 参考
 

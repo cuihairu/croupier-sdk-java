@@ -35,9 +35,9 @@ tasks.withType(Test).configureEach {
     useJUnitPlatform()
 }
 
-// Compile to Java 11 bytecode for broader compatibility
+// Compile to Java 17 bytecode for modern features
 tasks.withType(JavaCompile).configureEach {
-    options.release = 11
+    options.release = 17
 }
 
 // Use Gradle to generate Java stubs from repo protos (v1 API),
