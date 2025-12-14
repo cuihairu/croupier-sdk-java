@@ -97,7 +97,7 @@ Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 游戏后
 Maven:
 ```xml
 <dependency>
-    <groupId>com.croupier</groupId>
+    <groupId>croupier.cuihairu.github.io</groupId>
     <artifactId>croupier-sdk-java</artifactId>
     <version>0.1.0</version>
 </dependency>
@@ -105,7 +105,7 @@ Maven:
 
 Gradle:
 ```groovy
-implementation 'com.croupier:croupier-sdk-java:0.1.0'
+implementation 'croupier.cuihairu.github.io:croupier-sdk-java:0.1.0'
 ```
 
 ### 基础使用
