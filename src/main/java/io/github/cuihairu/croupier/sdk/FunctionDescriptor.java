@@ -1,4 +1,4 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
 /**
  * Function descriptor aligned with control.proto definition

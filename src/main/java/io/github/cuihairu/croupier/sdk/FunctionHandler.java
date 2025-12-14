@@ -1,4 +1,4 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
 /**
  * Function handler interface for game function implementations

@@ -1,4 +1,4 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
 /**
  * Local function descriptor for SDK->Agent registration

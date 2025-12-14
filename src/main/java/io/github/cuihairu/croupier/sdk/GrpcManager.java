@@ -1,9 +1,9 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
-import com.croupier.agent.local.v1.HeartbeatRequest;
-import com.croupier.agent.local.v1.LocalControlServiceGrpc;
-import com.croupier.agent.local.v1.RegisterLocalRequest;
-import com.croupier.agent.local.v1.RegisterLocalResponse;
+import io.github.cuihairu.croupier.agent.local.v1.HeartbeatRequest;
+import io.github.cuihairu.croupier.agent.local.v1.LocalControlServiceGrpc;
+import io.github.cuihairu.croupier.agent.local.v1.RegisterLocalRequest;
+import io.github.cuihairu.croupier.agent.local.v1.RegisterLocalResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.Server;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;

@@ -1,4 +1,4 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
 /**
  * Configuration for Croupier client

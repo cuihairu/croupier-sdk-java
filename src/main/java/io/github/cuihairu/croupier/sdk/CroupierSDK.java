@@ -1,4 +1,4 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
 /**
  * Factory class for creating Croupier SDK instances

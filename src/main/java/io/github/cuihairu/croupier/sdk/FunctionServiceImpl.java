@@ -1,12 +1,12 @@
-package com.croupier.sdk;
+package io.github.cuihairu.croupier.sdk;
 
-import com.croupier.function.v1.CancelJobRequest;
-import com.croupier.function.v1.InvokeRequest;
-import com.croupier.function.v1.InvokeResponse;
-import com.croupier.function.v1.JobEvent;
-import com.croupier.function.v1.JobStreamRequest;
-import com.croupier.function.v1.StartJobResponse;
-import com.croupier.function.v1.FunctionServiceGrpc;
+import io.github.cuihairu.croupier.function.v1.CancelJobRequest;
+import io.github.cuihairu.croupier.function.v1.InvokeRequest;
+import io.github.cuihairu.croupier.function.v1.InvokeResponse;
+import io.github.cuihairu.croupier.function.v1.JobEvent;
+import io.github.cuihairu.croupier.function.v1.JobStreamRequest;
+import io.github.cuihairu.croupier.function.v1.StartJobResponse;
+import io.github.cuihairu.croupier.function.v1.FunctionServiceGrpc;
 import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;

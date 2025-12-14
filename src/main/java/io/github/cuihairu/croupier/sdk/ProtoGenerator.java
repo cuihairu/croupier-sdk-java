@@ -1,4 +1,4 @@
-package com.croupier.sdk.scripts;
+package io.github.cuihairu.croupier.sdk.scripts;
 
 import java.io.*;
 import java.net.HttpURLConnection;
