@@ -113,7 +113,7 @@ public class GrpcManager {
                     if (func.getId() == null || func.getId().isEmpty()) {
                         continue;
                     }
-                    builder.addFunctions(com.croupier.agent.local.v1.LocalFunctionDescriptor.newBuilder()
+                    builder.addFunctions(io.github.cuihairu.croupier.agent.local.v1.LocalFunctionDescriptor.newBuilder()
                         .setId(func.getId())
                         .setVersion(func.getVersion() == null ? "" : func.getVersion()));
                 }
