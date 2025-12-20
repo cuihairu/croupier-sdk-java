@@ -12,6 +12,9 @@
   <a href="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml">
     <img src="https://github.com/cuihairu/croupier-sdk-java/actions/workflows/ci.yml/badge.svg" alt="CI Build">
   </a>
+  <a href="https://codecov.io/gh/cuihairu/croupier-sdk-java">
+    <img src="https://codecov.io/gh/cuihairu/croupier-sdk-java/branch/main/graph/badge.svg" alt="Coverage">
+  </a>
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   </a>
