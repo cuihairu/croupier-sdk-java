@@ -1,5 +1,3 @@
-rootProject.name = "croupier-sdk-java"
-
 pluginManagement {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
@@ -16,3 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+rootProject.name = "croupier-sdk-java"
