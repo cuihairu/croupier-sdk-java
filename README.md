@@ -19,7 +19,7 @@
     <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   </a>
   <a href="https://www.oracle.com/java/">
-    <img src="https://img.shields.io/badge/Java-11+-orange.svg" alt="Java Version">
+    <img src="https://img.shields.io/badge/Java-17+-orange.svg" alt="Java Version">
   </a>
 </p>
 
