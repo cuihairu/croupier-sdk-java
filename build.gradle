@@ -9,10 +9,6 @@ version = '0.1.0'
 
 java { withSourcesJar() }
 
-repositories {
-    mavenCentral()
-}
-
 def grpcVersion = "1.65.0"  // Stable version compatible with protobuf 5.x
 
 // 使用最新的 protobuf 4.x 版本 (5.29.5 的 Java 等效版本)
