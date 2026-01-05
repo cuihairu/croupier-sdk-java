@@ -12,7 +12,7 @@ export default defineUserConfig({
     ['meta', { name: 'keywords', content: 'croupier,java,sdk,gRPC,游戏开发' }],
     ['meta', { name: 'theme-color', content: '#0074BD' }],
   ],
-  base: '/',
+  base: '/croupier-sdk-java/',
   bundler: viteBundler(),
   theme: defaultTheme({
     repo: 'cuihairu/croupier-sdk-java',
