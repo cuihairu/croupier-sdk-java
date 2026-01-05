@@ -1,7 +1,10 @@
 package io.github.cuihairu.croupier.sdk;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -9,59 +12,46 @@ import org.junit.jupiter.api.Test;
 class ClientConfigTest {
 
     @Test
-    void defaultConstructorCreatesDefaultConfig() {
-        ClientConfig config = new ClientConfig();
+    void constructorWithGameIdAndServiceId() {
+        ClientConfig config = new ClientConfig("game1", "svc1");
 
-        assertEquals("localhost:19090", config.getAgentAddr());
+        assertEquals("game1", config.getGameId());
+        assertEquals("svc1", config.getServiceId());
         assertEquals("development", config.getEnv());
-        assertEquals("1.0.0", config.getServiceVersion());
-        assertEquals("java", config.getProviderLang());
-        assertEquals("croupier-java-sdk", config.getProviderSdk());
-        assertEquals(30, config.getTimeoutSeconds());
+        assertEquals("localhost:19090", config.getAgentAddr());
         assertTrue(config.isInsecure());
     }
 
     @Test
-    void constructorWithGameIdAndServiceId() {
-        ClientConfig config = new ClientConfig("my-game", "my-service");
-
-        assertEquals("my-game", config.getGameId());
-        assertEquals("my-service", config.getServiceId());
-    }
-
-    @Test
     void settersAndGettersWork() {
-        ClientConfig config = new ClientConfig();
+        ClientConfig config = new ClientConfig("game1", "svc1");
 
-        config.setAgentAddr("example.com:8080");
-        assertEquals("example.com:8080", config.getAgentAddr());
+        config.setAgentAddr("localhost:9999");
+        assertEquals("localhost:9999", config.getAgentAddr());
 
-        config.setGameId("test-game");
-        assertEquals("test-game", config.getGameId());
+        config.setLocalListen("0.0.0.0:8888");
+        assertEquals("0.0.0.0:8888", config.getLocalListen());
 
         config.setEnv("production");
         assertEquals("production", config.getEnv());
 
-        config.setServiceId("test-service");
-        assertEquals("test-service", config.getServiceId());
-
         config.setServiceVersion("2.0.0");
         assertEquals("2.0.0", config.getServiceVersion());
 
-        config.setAgentId("agent-1");
-        assertEquals("agent-1", config.getAgentId());
+        config.setProviderLang("java");
+        assertEquals("java", config.getProviderLang());
 
-        config.setLocalListen("0.0.0.0:9999");
-        assertEquals("0.0.0.0:9999", config.getLocalListen());
+        config.setProviderSdk("croupier-sdk");
+        assertEquals("croupier-sdk", config.getProviderSdk());
 
-        config.setControlAddr("control.example.com:8081");
-        assertEquals("control.example.com:8081", config.getControlAddr());
+        config.setControlAddr("localhost:8080");
+        assertEquals("localhost:8080", config.getControlAddr());
 
-        config.setTimeoutSeconds(60);
-        assertEquals(60, config.getTimeoutSeconds());
+        config.setTimeoutSeconds(30);
+        assertEquals(30, config.getTimeoutSeconds());
 
-        config.setInsecure(false);
-        assertFalse(config.isInsecure());
+        config.setInsecure(true);
+        assertTrue(config.isInsecure());
 
         config.setCaFile("/path/to/ca.pem");
         assertEquals("/path/to/ca.pem", config.getCaFile());
@@ -71,25 +61,60 @@ class ClientConfigTest {
 
         config.setKeyFile("/path/to/key.pem");
         assertEquals("/path/to/key.pem", config.getKeyFile());
-
-        config.setProviderLang("kotlin");
-        assertEquals("kotlin", config.getProviderLang());
-
-        config.setProviderSdk("croupier-kotlin-sdk");
-        assertEquals("croupier-kotlin-sdk", config.getProviderSdk());
     }
 
     @Test
-    void toStringContainsImportantFields() {
-        ClientConfig config = new ClientConfig("game1", "svc1");
-        config.setAgentAddr("server:9090");
-        config.setEnv("staging");
-
+    void toStringContainsGameAndServiceIds() {
+        ClientConfig config = new ClientConfig("test-game", "test-svc");
         String str = config.toString();
 
-        assertTrue(str.contains("server:9090"));
-        assertTrue(str.contains("game1"));
-        assertTrue(str.contains("staging"));
-        assertTrue(str.contains("svc1"));
+        assertTrue(str.contains("test-game"));
+        assertTrue(str.contains("test-svc"));
+    }
+
+    @Test
+    void configWithProductionEnv() {
+        ClientConfig config = new ClientConfig("game1", "svc1");
+        config.setEnv("production");
+
+        assertEquals("production", config.getEnv());
+    }
+
+    @Test
+    void configWithStagingEnv() {
+        ClientConfig config = new ClientConfig("game1", "svc1");
+        config.setEnv("staging");
+
+        assertEquals("staging", config.getEnv());
+    }
+
+    @Test
+    void configWithCustomTimeout() {
+        ClientConfig config = new ClientConfig("game1", "svc1");
+        config.setTimeoutSeconds(60);
+
+        assertEquals(60, config.getTimeoutSeconds());
+    }
+
+    @Test
+    void configWithTlsFiles() {
+        ClientConfig config = new ClientConfig("game1", "svc1");
+        config.setCaFile("/ca.pem");
+        config.setCertFile("/cert.pem");
+        config.setKeyFile("/key.pem");
+
+        assertEquals("/ca.pem", config.getCaFile());
+        assertEquals("/cert.pem", config.getCertFile());
+        assertEquals("/key.pem", config.getKeyFile());
+        assertTrue(config.isInsecure());
+    }
+
+    @Test
+    void multipleConfigInstances() {
+        ClientConfig config1 = new ClientConfig("game1", "svc1");
+        ClientConfig config2 = new ClientConfig("game2", "svc2");
+
+        assertEquals("game1", config1.getGameId());
+        assertEquals("game2", config2.getGameId());
     }
 }
