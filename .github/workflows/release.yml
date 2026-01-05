@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  packages: write
 
 jobs:
   release:
@@ -31,6 +32,11 @@ jobs:
 
       - name: Build
         run: ./gradlew --no-daemon clean build
+
+      - name: Publish to GitHub Packages
+        run: ./gradlew --no-daemon publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Package
         run: |

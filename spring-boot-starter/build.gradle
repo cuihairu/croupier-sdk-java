@@ -1,0 +1,74 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    // Depend on the main SDK project
+    api project(':')
+
+    // Spring Boot autoconfigure
+    api 'org.springframework.boot:spring-boot-autoconfigure:3.4.0'
+
+    // Spring Boot configuration processor (for metadata)
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.4.0'
+
+    // Optional: Provide spring-boot-starter for developers who want it
+    compileOnly 'org.springframework.boot:spring-boot-starter:3.4.0'
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+}
+
+// Generate spring-configuration-metadata.json
+tasks.named('compileJava') {
+    inputs.files(tasks.named('processResources'))
+}
+
+
+// Maven publishing configuration for GitHub Packages
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'croupier-spring-boot-starter'
+            from components.java
+            pom {
+                name = 'Croupier Spring Boot Starter'
+                description = 'Spring Boot Starter for Croupier Java SDK'
+                url = 'https://github.com/cuihairu/croupier-sdk-java'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'cuihairu'
+                        name = 'Cui Hairu'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/cuihairu/croupier-sdk-java.git'
+                    developerConnection = 'scm:git:ssh://github.com:cuihairu/croupier-sdk-java.git'
+                    url = 'https://github.com/cuihairu/croupier-sdk-java'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/cuihairu/croupier-sdk-java')
+            credentials {
+                username = System.getenv('GITHUB_ACTOR')
+                password = System.getenv('GITHUB_TOKEN')
+            }
+        }
+    }
+}
