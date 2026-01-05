@@ -9,49 +9,170 @@
 
 ## 安装
 
-### Maven
+### 方式一：Spring Boot Starter（推荐）
+
+如果你使用 Spring Boot，推荐使用 Spring Boot Starter，它提供自动配置和简化的集成方式。
+
+#### Maven
 
 ```xml
 <dependency>
-    <groupId>com.github.cuihairu</groupId>
-    <artifactId>croupier-sdk-java</artifactId>
+    <groupId>croupier.cuihairu.github.io</groupId>
+    <artifactId>croupier-spring-boot-starter</artifactId>
     <version>0.1.0</version>
 </dependency>
 ```
 
-### Gradle
+#### Gradle
 
 ```groovy
-implementation 'com.github.cuihairu:croupier-sdk-java:0.1.0'
+implementation 'croupier.cuihairu.github.io:croupier-spring-boot-starter:0.1.0'
 ```
 
-## 快速开始
+#### 配置
+
+在 `application.yml` 中添加配置：
+
+```yaml
+croupier:
+  game-id: my-game
+  service-id: my-service
+  agent-address: localhost:19090
+  env: development
+  insecure: true
+```
+
+#### 使用
 
 ```java
-import com.github.cuihairu.croupier.sdk.*;
+import io.github.cuihairu.croupier.sdk.CroupierClient;
+import io.github.cuihairu.croupier.sdk.FunctionDescriptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class Example {
-    public static void main(String[] args) {
-        ClientConfig config = ClientConfig.builder()
-            .gameId("demo-game")
-            .env("development")
-            .agentAddr("localhost:19090")
-            .insecure(true)
-            .build();
+@Component
+public class MyGameService {
 
-        CroupierClient client = new CroupierClient(config);
+    @Autowired
+    private CroupierClient croupierClient;
 
+    @PostConstruct
+    public void init() {
+        // 注册函数
         FunctionDescriptor desc = FunctionDescriptor.builder()
             .id("hello.world")
             .version("0.1.0")
+            .name("Hello World")
+            .description("A simple hello function")
+            .build();
+
+        croupierClient.registerFunction(desc, (ctx, payload) -> {
+            return "{\"message\":\"Hello from Spring Boot!\"}";
+        });
+    }
+}
+```
+
+### 方式二：手动集成 SDK
+
+如果你不使用 Spring Boot，可以手动集成 SDK。
+
+#### Maven
+
+```xml
+<dependency>
+    <groupId>croupier.cuihairu.github.io</groupId>
+    <artifactId>croupier-java-sdk</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
+#### Gradle
+
+```groovy
+implementation 'croupier.cuihairu.github.io:croupier-java-sdk:0.1.0'
+```
+
+#### 使用
+
+```java
+import io.github.cuihairu.croupier.sdk.*;
+
+public class Example {
+    public static void main(String[] args) {
+        // 创建配置
+        ClientConfig config = new ClientConfig("demo-game", "demo-service");
+        config.setAgentAddr("localhost:19090");
+        config.setEnv("development");
+        config.setInsecure(true);
+
+        // 创建客户端
+        CroupierClient client = CroupierSDK.createClient(config);
+
+        // 注册函数
+        FunctionDescriptor desc = FunctionDescriptor.builder()
+            .id("hello.world")
+            .version("0.1.0")
+            .name("Hello World")
+            .description("A simple hello function")
             .build();
 
         client.registerFunction(desc, (ctx, payload) -> {
             return "{\"message\":\"Hello from Java!\"}";
         });
 
-        client.connect();
+        // 连接并启动服务
+        client.connect().join();
         client.serve();
     }
 }
 ```
+
+## GitHub Packages 仓库配置
+
+由于 SDK 发布在 GitHub Packages，你需要添加仓库配置：
+
+### Maven (settings.xml)
+
+```xml
+<settings>
+    <servers>
+        <server>
+            <id>github</id>
+            <username>YOUR_GITHUB_USERNAME</username>
+            <password>YOUR_GITHUB_TOKEN</password>
+        </server>
+    </servers>
+</settings>
+```
+
+### Maven (pom.xml)
+
+```xml
+<repositories>
+    <repository>
+        <id>github</id>
+        <url>https://maven.pkg.github.com/cuihairu/croupier-sdk-java</url>
+    </repository>
+</repositories>
+```
+
+### Gradle
+
+```groovy
+repositories {
+    maven {
+        url = uri('https://maven.pkg.github.com/cuihairu/croupier-sdk-java')
+        credentials {
+            username = System.getenv('GITHUB_USERNAME') ?: project.findProperty('github.username')
+            password = System.getenv('GITHUB_TOKEN') ?: project.findProperty('github.token')
+        }
+    }
+}
+```
+
+## 下一步
+
+- [配置选项](./installation.md) - 详细的配置选项说明
+- [API 参考](../api/) - 完整的 API 文档
+- [示例](../examples/) - 更多使用示例
