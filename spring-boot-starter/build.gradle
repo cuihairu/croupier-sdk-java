@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
 }
 
 dependencies {
@@ -30,17 +31,24 @@ tasks.named('compileJava') {
     inputs.files(tasks.named('processResources'))
 }
 
+// Determine if this is a release build (from root project)
+boolean isRelease = rootProject.hasProperty('isRelease') ? rootProject.isRelease : false
 
-// Maven publishing configuration for GitHub Packages
+// Maven publishing configuration
+// - Snapshots → GitHub Packages
+// - Releases → Maven Central (Sonatype OSSRH)
 publishing {
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             artifactId = 'croupier-spring-boot-starter'
             from components.java
             pom {
                 name = 'Croupier Spring Boot Starter'
                 description = 'Spring Boot Starter for Croupier Java SDK'
                 url = 'https://github.com/cuihairu/croupier-sdk-java'
+                
+                inceptionYear = '2025'
+                
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -51,6 +59,7 @@ publishing {
                     developer {
                         id = 'cuihairu'
                         name = 'Cui Hairu'
+                        email = 'cuihairu@gmail.com'
                     }
                 }
                 scm {
@@ -62,6 +71,18 @@ publishing {
         }
     }
     repositories {
+        // Maven Central (Sonatype OSSRH) for releases
+        if (isRelease) {
+            maven {
+                name = 'SonatypeReleases'
+                url = uri('https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/')
+                credentials {
+                    username = System.getenv('MAVEN_CENTRAL_USERNAME')
+                    password = System.getenv('MAVEN_CENTRAL_PASSWORD')
+                }
+            }
+        }
+        // GitHub Packages for snapshots
         maven {
             name = 'GitHubPackages'
             url = uri('https://maven.pkg.github.com/cuihairu/croupier-sdk-java')
@@ -71,4 +92,20 @@ publishing {
             }
         }
     }
+}
+
+// Sign artifacts for Maven Central (only for releases)
+if (isRelease) {
+    signing {
+        sign publishing.publications.mavenJava
+    }
+}
+
+// Configure GPG signing for Maven Central
+signing {
+    useInMemoryPgpKeys(
+        System.getenv('GPG_KEY_ID'),
+        System.getenv('GPG_PRIVATE_KEY'),
+        System.getenv('GPG_PRIVATE_KEY_PASSWORD')
+    )
 }

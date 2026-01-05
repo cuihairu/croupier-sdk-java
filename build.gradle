@@ -3,6 +3,7 @@ plugins {
     id 'com.google.protobuf' version '0.9.4'
     id 'jacoco'
     id 'maven-publish'
+    id 'signing'
 }
 
 group = 'io.github.cuihairu.croupier'
@@ -111,16 +112,24 @@ tasks.named("sourcesJar") {
 }
 
 
-// Maven publishing configuration for GitHub Packages
+// Determine if this is a release build
+boolean isRelease = System.getenv('GITHUB_REF_TYPE') == 'tag'
+
+// Maven publishing configuration
+// - Snapshots → GitHub Packages
+// - Releases → Maven Central (Sonatype OSSRH)
 publishing {
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             artifactId = 'croupier-java-sdk'
             from components.java
             pom {
                 name = 'Croupier Java SDK'
                 description = 'Java SDK for Croupier Game Backend Platform'
                 url = 'https://github.com/cuihairu/croupier-sdk-java'
+                
+                inceptionYear = '2025'
+                
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -131,6 +140,7 @@ publishing {
                     developer {
                         id = 'cuihairu'
                         name = 'Cui Hairu'
+                        email = 'cuihairu@gmail.com'
                     }
                 }
                 scm {
@@ -142,6 +152,18 @@ publishing {
         }
     }
     repositories {
+        // Maven Central (Sonatype OSSRH) for releases
+        if (isRelease) {
+            maven {
+                name = 'SonatypeReleases'
+                url = uri('https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/')
+                credentials {
+                    username = System.getenv('MAVEN_CENTRAL_USERNAME')
+                    password = System.getenv('MAVEN_CENTRAL_PASSWORD')
+                }
+            }
+        }
+        // GitHub Packages for snapshots
         maven {
             name = 'GitHubPackages'
             url = uri('https://maven.pkg.github.com/cuihairu/croupier-sdk-java')
@@ -151,4 +173,38 @@ publishing {
             }
         }
     }
+}
+
+// Sign artifacts for Maven Central (only for releases)
+if (isRelease) {
+    signing {
+        sign publishing.publications.mavenJava
+    }
+    
+    // Optional: skip signing if key is not available (for local builds)
+    tasks.withType(Sign).configureEach {
+        onlyIf { System.getenv('GPG_PRIVATE_KEY') != null }
+    }
+}
+
+// Configure GPG signing for Maven Central
+signing {
+    useInMemoryPgpKeys(
+        System.getenv('GPG_KEY_ID'),
+        System.getenv('GPG_PRIVATE_KEY'),
+        System.getenv('GPG_PRIVATE_KEY_PASSWORD')
+    )
+}
+
+
+// Pass isRelease property to subprojects
+subprojects {
+    ext {
+        isRelease = rootProject.ext.isRelease
+    }
+}
+
+// Export isRelease for subprojects
+ext {
+    isRelease = System.getenv('GITHUB_REF_TYPE') == 'tag'
 }
