@@ -3,6 +3,8 @@ package io.github.cuihairu.croupier.sdk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +25,14 @@ class CroupierExceptionTest {
         CroupierException exception = new CroupierException(message, cause);
 
         assertEquals(message, exception.getMessage());
+        assertEquals(cause, exception.getCause());
+    }
+
+    @Test
+    void constructorWithCause() {
+        Throwable cause = new RuntimeException("Root cause");
+        CroupierException exception = new CroupierException(cause);
+
         assertEquals(cause, exception.getCause());
     }
 
@@ -54,14 +64,17 @@ class CroupierExceptionTest {
     }
 
     @Test
-    void exceptionIsRuntimeException() {
-        // CroupierException should extend RuntimeException
-        assertTrue(new CroupierException("test") instanceof RuntimeException);
+    void exceptionExtendsException() {
+        // CroupierException extends Exception (checked exception)
+        assertTrue(new CroupierException("test") instanceof Exception);
     }
 
-    private void assertTrue(boolean condition) {
-        if (!condition) {
-            throw new AssertionError("Expected true but was false");
-        }
+    @Test
+    void exceptionHasUsefulToString() {
+        CroupierException exception = new CroupierException("Test error");
+
+        String str = exception.toString();
+        assertTrue(str.contains("CroupierException"));
+        assertTrue(str.contains("Test error"));
     }
 }
