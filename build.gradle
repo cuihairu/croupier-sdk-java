@@ -6,7 +6,19 @@ plugins {
 }
 
 group = 'croupier.cuihairu.github.io'
-version = '0.1.0'
+// Determine version based on build environment
+// - For tags (releases): use exact version (e.g., 0.1.0)
+// - For main branch (snapshots): use timestamped version (e.g., 0.1.0-20250105.123456)
+String baseVersion = '0.1.0'
+if (System.getenv('GITHUB_REF_TYPE') == 'tag') {
+    version = baseVersion
+} else {
+    // Get short commit hash for uniqueness
+    def commitHash = System.getenv('GITHUB_SHA')?.take(7) ?: 'local'
+    // Get timestamp for uniqueness
+    def timestamp = new Date().format('yyyyMMdd.HHmmss', TimeZone.getTimeZone('UTC'))
+    version = "${baseVersion}-SNAPSHOT-${timestamp}+${commitHash}"
+}
 
 java { withSourcesJar() }
 
