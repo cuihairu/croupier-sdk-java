@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'croupier.cuihairu.github.io'
+group = 'io.github.cuihairu.croupier'
 // Determine version based on build environment
 // - For tags (releases): use exact version (e.g., 0.1.0)
 // - For main branch (snapshots): use timestamped version (e.g., 0.1.0-20250105.123456)
