@@ -1,5 +1,10 @@
 package io.github.cuihairu.croupier.sdk;
 
+import io.github.cuihairu.croupier.sdk.invoker.InvokeOptions;
+import io.github.cuihairu.croupier.sdk.invoker.Invoker;
+import io.github.cuihairu.croupier.sdk.invoker.InvokerConfig;
+import io.github.cuihairu.croupier.sdk.invoker.InvokerImpl;
+
 /**
  * Factory class for creating Croupier SDK instances
  */
@@ -50,6 +55,49 @@ public class CroupierSDK {
      */
     public static FunctionDescriptorBuilder functionDescriptor(String id, String version) {
         return new FunctionDescriptorBuilder(id, version);
+    }
+
+    // ========== Invoker Factory Methods ==========
+
+    /**
+     * Create a new Invoker with the provided configuration.
+     *
+     * @param config Invoker configuration
+     * @return Invoker instance
+     */
+    public static Invoker createInvoker(InvokerConfig config) {
+        return new InvokerImpl(config);
+    }
+
+    /**
+     * Create a new Invoker with default configuration.
+     *
+     * @return Invoker instance with default config
+     */
+    public static Invoker createInvoker() {
+        return new InvokerImpl(InvokerConfig.createDefault());
+    }
+
+    /**
+     * Create a new Invoker with a custom server address.
+     *
+     * @param address the server address in "host:port" format
+     * @return Invoker instance
+     */
+    public static Invoker createInvoker(String address) {
+        InvokerConfig config = InvokerConfig.builder()
+            .address(address)
+            .build();
+        return new InvokerImpl(config);
+    }
+
+    /**
+     * Create a new InvokeOptions builder.
+     *
+     * @return InvokeOptions builder
+     */
+    public static InvokeOptions.Builder invokeOptions() {
+        return InvokeOptions.builder();
     }
 
     /**
