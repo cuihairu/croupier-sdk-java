@@ -197,14 +197,14 @@ signing {
 }
 
 
+// Export isRelease for subprojects and root project
+ext {
+    isRelease = System.getenv('GITHUB_REF_TYPE') == 'tag'
+}
+
 // Pass isRelease property to subprojects
 subprojects {
     ext {
         isRelease = rootProject.ext.isRelease
     }
-}
-
-// Export isRelease for subprojects
-ext {
-    isRelease = System.getenv('GITHUB_REF_TYPE') == 'tag'
 }
