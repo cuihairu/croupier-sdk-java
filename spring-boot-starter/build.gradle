@@ -4,6 +4,10 @@ plugins {
     id 'signing'
 }
 
+// Inherit version from root project
+version = rootProject.version
+group = rootProject.group
+
 dependencies {
     // Depend on the main SDK project
     api project(':')
@@ -90,6 +94,8 @@ publishing {
                 username = System.getenv('GITHUB_ACTOR')
                 password = System.getenv('GITHUB_TOKEN')
             }
+            // Allow overwriting existing artifacts for nightly builds
+            // This requires GITHUB_TOKEN to have write:packages scope
         }
     }
 }

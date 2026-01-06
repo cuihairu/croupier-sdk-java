@@ -9,16 +9,12 @@ plugins {
 group = 'io.github.cuihairu.croupier'
 // Determine version based on build environment
 // - For tags (releases): use exact version (e.g., 0.1.0)
-// - For main branch (snapshots): use timestamped version (e.g., 0.1.0-20250105.123456)
+// - For main branch (snapshots): use fixed SNAPSHOT version (e.g., 0.1.0-SNAPSHOT)
 String baseVersion = '0.1.0'
 if (System.getenv('GITHUB_REF_TYPE') == 'tag') {
     version = baseVersion
 } else {
-    // Get short commit hash for uniqueness
-    def commitHash = System.getenv('GITHUB_SHA')?.take(7) ?: 'local'
-    // Get timestamp for uniqueness
-    def timestamp = new Date().format('yyyyMMdd.HHmmss', TimeZone.getTimeZone('UTC'))
-    version = "${baseVersion}-SNAPSHOT-${timestamp}+${commitHash}"
+    version = "${baseVersion}-SNAPSHOT"
 }
 
 java { withSourcesJar() }
@@ -207,4 +203,66 @@ allprojects {
     ext {
         isRelease = System.getenv('GITHUB_REF_TYPE') == 'tag'
     }
+}
+
+// Task to delete existing SNAPSHOT versions from GitHub Packages before publishing
+// This allows overwriting nightly builds
+tasks.register('deleteOldSnapshots') {
+    description = 'Delete existing SNAPSHOT versions from GitHub Packages before publish'
+    doLast {
+        if (isRelease) {
+            println 'Release build - skipping snapshot cleanup'
+            return
+        }
+
+        def githubToken = System.getenv('GITHUB_TOKEN')
+        if (!githubToken) {
+            println 'GITHUB_TOKEN not set - skipping snapshot cleanup'
+            return
+        }
+
+        def packageName = 'croupier-sdk-java'
+        def baseUrl = 'https://api.github.com/repos/cuihairu/croupier-sdk-java/packages'
+
+        // List of artifacts to delete for each version
+        def artifactIds = ['croupier-java-sdk', 'croupier-spring-boot-starter']
+
+        artifactIds.each { artifactId ->
+            try {
+                // Get all versions for this package
+                def url = "${baseUrl}/maven/${artifactId}/versions"
+                def conn = new URL(url).openConnection() as HttpURLConnection
+                conn.setRequestProperty('Authorization', "Bearer ${githubToken}")
+                conn.setRequestProperty('Accept', 'application/vnd.github.v3+json')
+                conn.connect()
+
+                if (conn.responseCode == 200) {
+                    def versions = new groovy.json.JsonSlurper().parse(conn.inputStream) as List
+                    def snapshotVersions = versions.findAll { it.name.contains('-SNAPSHOT') || it.name == 'unspecified' }
+
+                    snapshotVersions.each { version ->
+                        def deleteConn = new URL(version.delete_url).openConnection() as HttpURLConnection
+                        deleteConn.setRequestProperty('Authorization', "Bearer ${githubToken}")
+                        deleteConn.setRequestMethod('DELETE')
+                        deleteConn.connect()
+
+                        if (deleteConn.responseCode == 204) {
+                            println "Deleted ${artifactId} version: ${version.name}"
+                        } else {
+                            println "Failed to delete ${artifactId} version ${version.name}: ${deleteConn.responseCode}"
+                        }
+                        deleteConn.disconnect()
+                    }
+                }
+                conn.disconnect()
+            } catch (Exception e) {
+                println "Error cleaning up ${artifactId}: ${e.message}"
+            }
+        }
+    }
+}
+
+// Make publish depend on deleteOldSnapshots
+tasks.named('publish') {
+    dependsOn tasks.named('deleteOldSnapshots')
 }
