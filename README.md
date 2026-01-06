@@ -75,7 +75,7 @@ Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 游戏后
 
 | 平台 | 架构 | 状态 |
 |------|------|------|
-| **Windows** | x64, x86 | ✅ 支持 |
+| **Windows** | x64 | ✅ 支持 |
 | **Linux** | x64, ARM64 | ✅ 支持 |
 | **macOS** | x64, ARM64 (Apple Silicon) | ✅ 支持 |
 
