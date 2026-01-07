@@ -17,6 +17,7 @@ export default defineUserConfig({
   theme: defaultTheme({
     repo: 'cuihairu/croupier-sdk-java',
     repoLabel: 'GitHub',
+    logo: '/logo.png',
     navbar: [
       { text: '指南', link: '/guide/' },
       { text: 'API 参考', link: '/api/' },

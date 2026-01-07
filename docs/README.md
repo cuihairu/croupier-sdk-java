@@ -2,6 +2,7 @@
 home: true
 title: Croupier Java SDK
 titleTemplate: false
+heroImage: /logo.png
 heroText: Croupier Java SDK
 tagline: Java SDK for Croupier Game Backend Platform
 actions:
