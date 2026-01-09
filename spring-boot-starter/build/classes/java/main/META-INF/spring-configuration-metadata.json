@@ -1,0 +1,109 @@
+{
+  "groups": [
+    {
+      "name": "croupier",
+      "type": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "croupier.agent-address",
+      "type": "java.lang.String",
+      "description": "Agent gRPC address.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": "localhost:19090"
+    },
+    {
+      "name": "croupier.agent-id",
+      "type": "java.lang.String",
+      "description": "Agent identifier for load balancing.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.ca-file",
+      "type": "java.lang.String",
+      "description": "CA certificate file path (when not insecure).",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.cert-file",
+      "type": "java.lang.String",
+      "description": "Client certificate file path.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.control-addr",
+      "type": "java.lang.String",
+      "description": "Optional control-plane address for manifest upload.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.env",
+      "type": "java.lang.String",
+      "description": "Environment: development, staging, or production.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": "development"
+    },
+    {
+      "name": "croupier.game-id",
+      "type": "java.lang.String",
+      "description": "Game identifier for tenant isolation (required).",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.insecure",
+      "type": "java.lang.Boolean",
+      "description": "Use insecure gRPC connection (for development).",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "croupier.key-file",
+      "type": "java.lang.String",
+      "description": "Client private key file path.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.local-listen",
+      "type": "java.lang.String",
+      "description": "Local gRPC listener address.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.provider-lang",
+      "type": "java.lang.String",
+      "description": "Provider language identifier.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": "java"
+    },
+    {
+      "name": "croupier.provider-sdk",
+      "type": "java.lang.String",
+      "description": "Provider SDK identifier.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": "croupier-java-sdk"
+    },
+    {
+      "name": "croupier.service-id",
+      "type": "java.lang.String",
+      "description": "Service identifier (required).",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties"
+    },
+    {
+      "name": "croupier.service-version",
+      "type": "java.lang.String",
+      "description": "Service version for compatibility tracking.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": "1.0.0"
+    },
+    {
+      "name": "croupier.timeout-seconds",
+      "type": "java.lang.Integer",
+      "description": "Connection timeout in seconds.",
+      "sourceType": "io.github.cuihairu.croupier.spring.boot.autoconfigure.CroupierProperties",
+      "defaultValue": 30
+    }
+  ],
+  "hints": []
+}
