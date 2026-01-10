@@ -6,7 +6,7 @@ import io.github.cuihairu.croupier.sdk.v1.InvokeResponse;
 import io.github.cuihairu.croupier.sdk.v1.JobEvent;
 import io.github.cuihairu.croupier.sdk.v1.JobStreamRequest;
 import io.github.cuihairu.croupier.sdk.v1.StartJobResponse;
-import io.github.cuihairu.croupier.sdk.v1.InvokerServiceGrpc;
+import io.github.cuihairu.croupier.sdk.v1.FunctionServiceGrpc;
 import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Local FunctionService implementation that forwards gRPC calls to registered handlers.
  */
-public class FunctionServiceImpl extends InvokerServiceGrpc.InvokerServiceImplBase {
+public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImplBase {
     private static final Logger logger = LoggerFactory.getLogger(FunctionServiceImpl.class);
 
     private final Map<String, FunctionHandler> handlers;

@@ -1,8 +1,8 @@
 package io.github.cuihairu.croupier.sdk;
 
-import io.github.cuihairu.croupier.server.v1.ServerControlServiceGrpc;
-import io.github.cuihairu.croupier.server.v1.ProviderMeta;
-import io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesRequest;
+import io.github.cuihairu.croupier.control.v1.ControlServiceGrpc;
+import io.github.cuihairu.croupier.control.v1.ProviderMeta;
+import io.github.cuihairu.croupier.control.v1.RegisterCapabilitiesRequest;
 import com.google.protobuf.ByteString;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
@@ -242,7 +242,7 @@ public class CroupierClientImpl implements CroupierClient {
 
         ManagedChannel controlChannel = builder.build();
         try {
-            ServerControlServiceGrpc.ServerControlServiceBlockingStub stub = ServerControlServiceGrpc.newBlockingStub(controlChannel);
+            ControlServiceGrpc.ControlServiceBlockingStub stub = ControlServiceGrpc.newBlockingStub(controlChannel);
             if (config.getTimeoutSeconds() > 0) {
                 stub = stub.withDeadlineAfter(config.getTimeoutSeconds(), TimeUnit.SECONDS);
             }
