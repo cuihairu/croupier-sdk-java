@@ -1,12 +1,12 @@
 package io.github.cuihairu.croupier.sdk;
 
-import io.github.cuihairu.croupier.function.v1.CancelJobRequest;
-import io.github.cuihairu.croupier.function.v1.InvokeRequest;
-import io.github.cuihairu.croupier.function.v1.InvokeResponse;
-import io.github.cuihairu.croupier.function.v1.JobEvent;
-import io.github.cuihairu.croupier.function.v1.JobStreamRequest;
-import io.github.cuihairu.croupier.function.v1.StartJobResponse;
-import io.github.cuihairu.croupier.function.v1.FunctionServiceGrpc;
+import io.github.cuihairu.croupier.sdk.v1.CancelJobRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokeRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokeResponse;
+import io.github.cuihairu.croupier.sdk.v1.JobEvent;
+import io.github.cuihairu.croupier.sdk.v1.JobStreamRequest;
+import io.github.cuihairu.croupier.sdk.v1.StartJobResponse;
+import io.github.cuihairu.croupier.sdk.v1.InvokerServiceGrpc;
 import com.google.protobuf.ByteString;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Local FunctionService implementation that forwards gRPC calls to registered handlers.
  */
-public class FunctionServiceImpl extends FunctionServiceGrpc.FunctionServiceImplBase {
+public class FunctionServiceImpl extends InvokerServiceGrpc.InvokerServiceImplBase {
     private static final Logger logger = LoggerFactory.getLogger(FunctionServiceImpl.class);
 
     private final Map<String, FunctionHandler> handlers;

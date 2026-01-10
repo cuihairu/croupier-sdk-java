@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.protobuf.ByteString;
-import io.github.cuihairu.croupier.function.v1.CancelJobRequest;
-import io.github.cuihairu.croupier.function.v1.InvokeRequest;
-import io.github.cuihairu.croupier.function.v1.InvokeResponse;
-import io.github.cuihairu.croupier.function.v1.JobEvent;
-import io.github.cuihairu.croupier.function.v1.JobStreamRequest;
-import io.github.cuihairu.croupier.function.v1.StartJobResponse;
+import io.github.cuihairu.croupier.sdk.v1.CancelJobRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokeRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokeResponse;
+import io.github.cuihairu.croupier.sdk.v1.JobEvent;
+import io.github.cuihairu.croupier.sdk.v1.JobStreamRequest;
+import io.github.cuihairu.croupier.sdk.v1.StartJobResponse;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import java.util.List;

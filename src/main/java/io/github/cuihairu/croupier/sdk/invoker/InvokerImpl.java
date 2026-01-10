@@ -1,13 +1,13 @@
 package io.github.cuihairu.croupier.sdk.invoker;
 
 import com.google.protobuf.ByteString;
-import io.github.cuihairu.croupier.function.v1.CancelJobRequest;
-import io.github.cuihairu.croupier.function.v1.FunctionServiceGrpc;
-import io.github.cuihairu.croupier.function.v1.InvokeRequest;
-import io.github.cuihairu.croupier.function.v1.InvokeResponse;
-import io.github.cuihairu.croupier.function.v1.JobEvent;
-import io.github.cuihairu.croupier.function.v1.JobStreamRequest;
-import io.github.cuihairu.croupier.function.v1.StartJobResponse;
+import io.github.cuihairu.croupier.sdk.v1.CancelJobRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokerServiceGrpc;
+import io.github.cuihairu.croupier.sdk.v1.InvokeRequest;
+import io.github.cuihairu.croupier.sdk.v1.InvokeResponse;
+import io.github.cuihairu.croupier.sdk.v1.JobEvent;
+import io.github.cuihairu.croupier.sdk.v1.JobStreamRequest;
+import io.github.cuihairu.croupier.sdk.v1.StartJobResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -49,8 +49,8 @@ public class InvokerImpl implements Invoker {
     private final ScheduledExecutorService reconnectExecutor;
 
     private ManagedChannel channel;
-    private FunctionServiceGrpc.FunctionServiceStub asyncStub;
-    private FunctionServiceGrpc.FunctionServiceBlockingStub blockingStub;
+    private InvokerServiceGrpc.InvokerServiceStub asyncStub;
+    private InvokerServiceGrpc.InvokerServiceBlockingStub blockingStub;
     private volatile boolean connected;
 
     // Reconnection state
@@ -114,8 +114,8 @@ public class InvokerImpl implements Invoker {
                 // Test connection with a short deadline
                 channel.getState(true);
 
-                asyncStub = FunctionServiceGrpc.newStub(channel);
-                blockingStub = FunctionServiceGrpc.newBlockingStub(channel);
+                asyncStub = InvokerServiceGrpc.newStub(channel);
+                blockingStub = InvokerServiceGrpc.newBlockingStub(channel);
                 connected = true;
                 reconnectAttempts = 0;  // Reset on success
 
@@ -315,7 +315,7 @@ public class InvokerImpl implements Invoker {
     /**
      * Gets the async stub for internal use (by JobEventPublisher).
      */
-    FunctionServiceGrpc.FunctionServiceStub getAsyncStub() {
+    InvokerServiceGrpc.InvokerServiceStub getAsyncStub() {
         return asyncStub;
     }
 
