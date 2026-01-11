@@ -139,6 +139,99 @@ public final class ControlServiceGrpc {
     return getRegisterCapabilitiesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest,
+      io.github.cuihairu.croupier.ops.v1.SystemInfo> getGetAgentSystemInfoMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAgentSystemInfo",
+      requestType = io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest.class,
+      responseType = io.github.cuihairu.croupier.ops.v1.SystemInfo.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest,
+      io.github.cuihairu.croupier.ops.v1.SystemInfo> getGetAgentSystemInfoMethod() {
+    io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest, io.github.cuihairu.croupier.ops.v1.SystemInfo> getGetAgentSystemInfoMethod;
+    if ((getGetAgentSystemInfoMethod = ControlServiceGrpc.getGetAgentSystemInfoMethod) == null) {
+      synchronized (ControlServiceGrpc.class) {
+        if ((getGetAgentSystemInfoMethod = ControlServiceGrpc.getGetAgentSystemInfoMethod) == null) {
+          ControlServiceGrpc.getGetAgentSystemInfoMethod = getGetAgentSystemInfoMethod =
+              io.grpc.MethodDescriptor.<io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest, io.github.cuihairu.croupier.ops.v1.SystemInfo>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAgentSystemInfo"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.ops.v1.SystemInfo.getDefaultInstance()))
+              .setSchemaDescriptor(new ControlServiceMethodDescriptorSupplier("GetAgentSystemInfo"))
+              .build();
+        }
+      }
+    }
+    return getGetAgentSystemInfoMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest,
+      io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> getListAgentProcessesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListAgentProcesses",
+      requestType = io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest.class,
+      responseType = io.github.cuihairu.croupier.ops.v1.ListProcessesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest,
+      io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> getListAgentProcessesMethod() {
+    io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest, io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> getListAgentProcessesMethod;
+    if ((getListAgentProcessesMethod = ControlServiceGrpc.getListAgentProcessesMethod) == null) {
+      synchronized (ControlServiceGrpc.class) {
+        if ((getListAgentProcessesMethod = ControlServiceGrpc.getListAgentProcessesMethod) == null) {
+          ControlServiceGrpc.getListAgentProcessesMethod = getListAgentProcessesMethod =
+              io.grpc.MethodDescriptor.<io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest, io.github.cuihairu.croupier.ops.v1.ListProcessesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListAgentProcesses"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.ops.v1.ListProcessesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ControlServiceMethodDescriptorSupplier("ListAgentProcesses"))
+              .build();
+        }
+      }
+    }
+    return getListAgentProcessesMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.QueryMetricsRequest,
+      io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> getQueryMetricsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "QueryMetrics",
+      requestType = io.github.cuihairu.croupier.server.v1.QueryMetricsRequest.class,
+      responseType = io.github.cuihairu.croupier.server.v1.QueryMetricsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.QueryMetricsRequest,
+      io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> getQueryMetricsMethod() {
+    io.grpc.MethodDescriptor<io.github.cuihairu.croupier.server.v1.QueryMetricsRequest, io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> getQueryMetricsMethod;
+    if ((getQueryMetricsMethod = ControlServiceGrpc.getQueryMetricsMethod) == null) {
+      synchronized (ControlServiceGrpc.class) {
+        if ((getQueryMetricsMethod = ControlServiceGrpc.getQueryMetricsMethod) == null) {
+          ControlServiceGrpc.getQueryMetricsMethod = getQueryMetricsMethod =
+              io.grpc.MethodDescriptor.<io.github.cuihairu.croupier.server.v1.QueryMetricsRequest, io.github.cuihairu.croupier.server.v1.QueryMetricsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "QueryMetrics"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.server.v1.QueryMetricsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  io.github.cuihairu.croupier.server.v1.QueryMetricsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ControlServiceMethodDescriptorSupplier("QueryMetrics"))
+              .build();
+        }
+      }
+    }
+    return getQueryMetricsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -244,6 +337,36 @@ public final class ControlServiceGrpc {
         io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRegisterCapabilitiesMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * GetAgentSystemInfo retrieves system info for a specific agent.
+     * </pre>
+     */
+    default void getAgentSystemInfo(io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.SystemInfo> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAgentSystemInfoMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ListAgentProcesses lists processes on a specific agent.
+     * </pre>
+     */
+    default void listAgentProcesses(io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListAgentProcessesMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * QueryMetrics queries stored metrics from agents.
+     * </pre>
+     */
+    default void queryMetrics(io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getQueryMetricsMethod(), responseObserver);
+    }
   }
 
   /**
@@ -322,6 +445,39 @@ public final class ControlServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getRegisterCapabilitiesMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * GetAgentSystemInfo retrieves system info for a specific agent.
+     * </pre>
+     */
+    public void getAgentSystemInfo(io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.SystemInfo> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAgentSystemInfoMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * ListAgentProcesses lists processes on a specific agent.
+     * </pre>
+     */
+    public void listAgentProcesses(io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListAgentProcessesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * QueryMetrics queries stored metrics from agents.
+     * </pre>
+     */
+    public void queryMetrics(io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request,
+        io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getQueryMetricsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -382,6 +538,36 @@ public final class ControlServiceGrpc {
       return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
           getChannel(), getRegisterCapabilitiesMethod(), getCallOptions(), request);
     }
+
+    /**
+     * <pre>
+     * GetAgentSystemInfo retrieves system info for a specific agent.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.ops.v1.SystemInfo getAgentSystemInfo(io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getGetAgentSystemInfoMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ListAgentProcesses lists processes on a specific agent.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.ops.v1.ListProcessesResponse listAgentProcesses(io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getListAgentProcessesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * QueryMetrics queries stored metrics from agents.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.server.v1.QueryMetricsResponse queryMetrics(io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request) throws io.grpc.StatusException {
+      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
+          getChannel(), getQueryMetricsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -441,6 +627,36 @@ public final class ControlServiceGrpc {
     public io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesResponse registerCapabilities(io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getRegisterCapabilitiesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * GetAgentSystemInfo retrieves system info for a specific agent.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.ops.v1.SystemInfo getAgentSystemInfo(io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAgentSystemInfoMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ListAgentProcesses lists processes on a specific agent.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.ops.v1.ListProcessesResponse listAgentProcesses(io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListAgentProcessesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * QueryMetrics queries stored metrics from agents.
+     * </pre>
+     */
+    public io.github.cuihairu.croupier.server.v1.QueryMetricsResponse queryMetrics(io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getQueryMetricsMethod(), getCallOptions(), request);
     }
   }
 
@@ -506,12 +722,48 @@ public final class ControlServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getRegisterCapabilitiesMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * GetAgentSystemInfo retrieves system info for a specific agent.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.github.cuihairu.croupier.ops.v1.SystemInfo> getAgentSystemInfo(
+        io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAgentSystemInfoMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * ListAgentProcesses lists processes on a specific agent.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.github.cuihairu.croupier.ops.v1.ListProcessesResponse> listAgentProcesses(
+        io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListAgentProcessesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * QueryMetrics queries stored metrics from agents.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<io.github.cuihairu.croupier.server.v1.QueryMetricsResponse> queryMetrics(
+        io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getQueryMetricsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_LIST_FUNCTIONS_SUMMARY = 0;
   private static final int METHODID_REGISTER = 1;
   private static final int METHODID_HEARTBEAT = 2;
   private static final int METHODID_REGISTER_CAPABILITIES = 3;
+  private static final int METHODID_GET_AGENT_SYSTEM_INFO = 4;
+  private static final int METHODID_LIST_AGENT_PROCESSES = 5;
+  private static final int METHODID_QUERY_METRICS = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -545,6 +797,18 @@ public final class ControlServiceGrpc {
         case METHODID_REGISTER_CAPABILITIES:
           serviceImpl.registerCapabilities((io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesRequest) request,
               (io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesResponse>) responseObserver);
+          break;
+        case METHODID_GET_AGENT_SYSTEM_INFO:
+          serviceImpl.getAgentSystemInfo((io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest) request,
+              (io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.SystemInfo>) responseObserver);
+          break;
+        case METHODID_LIST_AGENT_PROCESSES:
+          serviceImpl.listAgentProcesses((io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest) request,
+              (io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.ops.v1.ListProcessesResponse>) responseObserver);
+          break;
+        case METHODID_QUERY_METRICS:
+          serviceImpl.queryMetrics((io.github.cuihairu.croupier.server.v1.QueryMetricsRequest) request,
+              (io.grpc.stub.StreamObserver<io.github.cuihairu.croupier.server.v1.QueryMetricsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -592,6 +856,27 @@ public final class ControlServiceGrpc {
               io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesRequest,
               io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesResponse>(
                 service, METHODID_REGISTER_CAPABILITIES)))
+        .addMethod(
+          getGetAgentSystemInfoMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest,
+              io.github.cuihairu.croupier.ops.v1.SystemInfo>(
+                service, METHODID_GET_AGENT_SYSTEM_INFO)))
+        .addMethod(
+          getListAgentProcessesMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest,
+              io.github.cuihairu.croupier.ops.v1.ListProcessesResponse>(
+                service, METHODID_LIST_AGENT_PROCESSES)))
+        .addMethod(
+          getQueryMetricsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              io.github.cuihairu.croupier.server.v1.QueryMetricsRequest,
+              io.github.cuihairu.croupier.server.v1.QueryMetricsResponse>(
+                service, METHODID_QUERY_METRICS)))
         .build();
   }
 
@@ -644,6 +929,9 @@ public final class ControlServiceGrpc {
               .addMethod(getRegisterMethod())
               .addMethod(getHeartbeatMethod())
               .addMethod(getRegisterCapabilitiesMethod())
+              .addMethod(getGetAgentSystemInfoMethod())
+              .addMethod(getListAgentProcessesMethod())
+              .addMethod(getQueryMetricsMethod())
               .build();
         }
       }
