@@ -16,8 +16,6 @@ jobs:
     steps:
     - name: Checkout SDK repository
       uses: actions/checkout@v4
-      with:
-        submodules: recursive
 
     - name: Setup Java JDK
       uses: actions/setup-java@v3
@@ -28,14 +26,10 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    - name: Install Protocol Buffers
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y protobuf-compiler
-
     - name: Make gradlew executable
       run: chmod +x gradlew
 
+    # Proto 代码由 croupier-proto 的 sync-sdks workflow 同步，无需本地生成
     - name: Build SDK (includes tests)
       run: ./gradlew --no-daemon clean test jacocoTestReport
 
@@ -54,4 +48,3 @@ jobs:
         name: croupier-java-sdk-jdk${{ matrix.java-version }}
         path: |
           build/libs/*.jar
-          build/generated/source/proto/

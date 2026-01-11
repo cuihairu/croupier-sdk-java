@@ -1,6 +1,5 @@
 plugins {
     id 'java-library'
-    id 'com.google.protobuf' version '0.9.4'
     id 'jacoco'
     id 'maven-publish'
     id 'signing'
@@ -65,18 +64,13 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 17
 }
 
-// Use Gradle to generate Java stubs from repo protos (v1 API),
-// and only include our hand-written sources from src/main/java.
+// Proto 代码由 croupier-proto 的 sync-sdks workflow 统一生成并同步到 generated/ 目录
+// 不再使用 gradle protobuf 插件在构建时生成
 sourceSets {
     main {
         java {
-            srcDir "$buildDir/generated/source/proto/main/java"
-            srcDir "$buildDir/generated/source/proto/main/grpc"
             srcDir "$projectDir/generated"
-        }
-        proto {
-            // Point to the local proto submodule
-            srcDirs += ["${projectDir}/proto"]
+            srcDir "$projectDir/src/main/java"
         }
     }
 }
@@ -86,28 +80,6 @@ tasks.jar {
     archiveBaseName.set("croupier-java-sdk")
 }
 
-protobuf {
-    protoc {
-        // Use protobuf 4.29.1 (compatible with C++ 5.29.5)
-        artifact = "com.google.protobuf:protoc:4.29.1"
-    }
-    plugins {
-        grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
-        }
-    }
-    generateProtoTasks {
-        all().configureEach { task ->
-            plugins {
-                grpc {}
-            }
-            // Ensure generated sources use Java (not lite)
-            builtins {
-                java {}
-            }
-        }
-    }
-}
 tasks.named("sourcesJar") {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
@@ -128,9 +100,9 @@ publishing {
                 name = 'Croupier Java SDK'
                 description = 'Java SDK for Croupier Game Backend Platform'
                 url = 'https://github.com/cuihairu/croupier-sdk-java'
-                
+
                 inceptionYear = '2025'
-                
+
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -181,7 +153,7 @@ if (isRelease) {
     signing {
         sign publishing.publications.mavenJava
     }
-    
+
     // Optional: skip signing if key is not available (for local builds)
     tasks.withType(Sign).configureEach {
         onlyIf { System.getenv('GPG_PRIVATE_KEY') != null }
