@@ -4,6 +4,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/function/v1/function.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class FunctionServiceGrpc {
 
@@ -151,21 +154,6 @@ public final class FunctionServiceGrpc {
   }
 
   /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static FunctionServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<FunctionServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<FunctionServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public FunctionServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new FunctionServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return FunctionServiceBlockingV2Stub.newStub(factory, channel);
-  }
-
-  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static FunctionServiceBlockingStub newBlockingStub(
@@ -290,53 +278,6 @@ public final class FunctionServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service FunctionService.
-   */
-  public static final class FunctionServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<FunctionServiceBlockingV2Stub> {
-    private FunctionServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected FunctionServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new FunctionServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.function.v1.InvokeResponse invoke(io.github.cuihairu.croupier.function.v1.InvokeRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getInvokeMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.function.v1.StartJobResponse startJob(io.github.cuihairu.croupier.function.v1.InvokeRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getStartJobMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
-    public io.grpc.stub.BlockingClientCall<?, io.github.cuihairu.croupier.function.v1.JobEvent>
-        streamJob(io.github.cuihairu.croupier.function.v1.JobStreamRequest request) {
-      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
-          getChannel(), getStreamJobMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.function.v1.StartJobResponse cancelJob(io.github.cuihairu.croupier.function.v1.CancelJobRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getCancelJobMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service FunctionService.
    */
   public static final class FunctionServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<FunctionServiceBlockingStub> {

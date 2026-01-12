@@ -4,6 +4,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/agent/local/v1/local.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class LocalControlServiceGrpc {
 
@@ -151,21 +154,6 @@ public final class LocalControlServiceGrpc {
   }
 
   /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static LocalControlServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<LocalControlServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<LocalControlServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public LocalControlServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new LocalControlServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return LocalControlServiceBlockingV2Stub.newStub(factory, channel);
-  }
-
-  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static LocalControlServiceBlockingStub newBlockingStub(
@@ -290,51 +278,6 @@ public final class LocalControlServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service LocalControlService.
-   */
-  public static final class LocalControlServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<LocalControlServiceBlockingV2Stub> {
-    private LocalControlServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected LocalControlServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new LocalControlServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.agent.local.v1.RegisterLocalResponse registerLocal(io.github.cuihairu.croupier.agent.local.v1.RegisterLocalRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getRegisterLocalMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.agent.local.v1.HeartbeatResponse heartbeat(io.github.cuihairu.croupier.agent.local.v1.HeartbeatRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getHeartbeatMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.agent.local.v1.ListLocalResponse listLocal(io.github.cuihairu.croupier.agent.local.v1.ListLocalRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListLocalMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.agent.local.v1.GetJobResultResponse getJobResult(io.github.cuihairu.croupier.agent.local.v1.GetJobResultRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getGetJobResultMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service LocalControlService.
    */
   public static final class LocalControlServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<LocalControlServiceBlockingStub> {

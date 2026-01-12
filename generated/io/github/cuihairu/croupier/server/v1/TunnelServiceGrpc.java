@@ -7,6 +7,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * Server Tunnel Service - Internal interface for bidirectional communication
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/server/v1/server_tunnel.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class TunnelServiceGrpc {
 
@@ -58,21 +61,6 @@ public final class TunnelServiceGrpc {
         }
       };
     return TunnelServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static TunnelServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<TunnelServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<TunnelServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public TunnelServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new TunnelServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return TunnelServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -170,38 +158,6 @@ public final class TunnelServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service TunnelService.
-   * <pre>
-   * Server Tunnel Service - Internal interface for bidirectional communication
-   * </pre>
-   */
-  public static final class TunnelServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<TunnelServiceBlockingV2Stub> {
-    private TunnelServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected TunnelServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new TunnelServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Open a bidirectional tunnel between server and agent
-     * </pre>
-     */
-    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
-    public io.grpc.stub.BlockingClientCall<io.github.cuihairu.croupier.server.v1.TunnelMessage, io.github.cuihairu.croupier.server.v1.TunnelMessage>
-        open() {
-      return io.grpc.stub.ClientCalls.blockingBidiStreamingCall(
-          getChannel(), getOpenMethod(), getCallOptions());
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service TunnelService.
    * <pre>
    * Server Tunnel Service - Internal interface for bidirectional communication
    * </pre>

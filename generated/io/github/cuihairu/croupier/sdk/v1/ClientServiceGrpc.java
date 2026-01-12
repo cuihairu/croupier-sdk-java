@@ -8,6 +8,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * This is what SDK clients use to register themselves and their functions
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/sdk/v1/client.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ClientServiceGrpc {
 
@@ -152,21 +155,6 @@ public final class ClientServiceGrpc {
         }
       };
     return ClientServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static ClientServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<ClientServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<ClientServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public ClientServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new ClientServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return ClientServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -330,67 +318,6 @@ public final class ClientServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service ClientService.
-   * <pre>
-   * SDK Client Service - Interface for registering game functions with Agent
-   * This is what SDK clients use to register themselves and their functions
-   * </pre>
-   */
-  public static final class ClientServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<ClientServiceBlockingV2Stub> {
-    private ClientServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected ClientServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new ClientServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Register this client and its functions with the Agent
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.RegisterClientResponse registerClient(io.github.cuihairu.croupier.sdk.v1.RegisterClientRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getRegisterClientMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Send periodic heartbeats to maintain session
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.HeartbeatResponse heartbeat(io.github.cuihairu.croupier.sdk.v1.HeartbeatRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getHeartbeatMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * List all registered clients and their functions
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.ListClientsResponse listClients(io.github.cuihairu.croupier.sdk.v1.ListClientsRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListClientsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Get job result (best-effort)
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.GetJobResultResponse getJobResult(io.github.cuihairu.croupier.sdk.v1.GetJobResultRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getGetJobResultMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service ClientService.
    * <pre>
    * SDK Client Service - Interface for registering game functions with Agent
    * This is what SDK clients use to register themselves and their functions

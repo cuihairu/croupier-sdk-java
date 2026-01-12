@@ -9,6 +9,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * See operations documentation for security implications.
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/ops/v1/ops.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class OpsServiceGrpc {
 
@@ -280,21 +283,6 @@ public final class OpsServiceGrpc {
   }
 
   /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static OpsServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<OpsServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<OpsServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public OpsServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new OpsServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return OpsServiceBlockingV2Stub.newStub(factory, channel);
-  }
-
-  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static OpsServiceBlockingStub newBlockingStub(
@@ -552,115 +540,6 @@ public final class OpsServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service OpsService.
-   * <pre>
-   * OpsService provides server operations and monitoring capabilities.
-   * WARNING: This service can execute privileged operations. Enable with caution.
-   * See operations documentation for security implications.
-   * </pre>
-   */
-  public static final class OpsServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<OpsServiceBlockingV2Stub> {
-    private OpsServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected OpsServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new OpsServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * ReportMetrics reports system metrics from agent to server.
-     * </pre>
-     */
-    public com.google.protobuf.Empty reportMetrics(io.github.cuihairu.croupier.ops.v1.MetricsReport request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getReportMetricsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * StreamMetrics establishes a streaming connection for continuous metrics reporting.
-     * </pre>
-     */
-    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
-    public io.grpc.stub.BlockingClientCall<io.github.cuihairu.croupier.ops.v1.MetricsReport, com.google.protobuf.Empty>
-        streamMetrics() {
-      return io.grpc.stub.ClientCalls.blockingClientStreamingCall(
-          getChannel(), getStreamMetricsMethod(), getCallOptions());
-    }
-
-    /**
-     * <pre>
-     * GetSystemInfo returns detailed system information.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.SystemInfo getSystemInfo(com.google.protobuf.Empty request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getGetSystemInfoMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * RestartProcess restarts a managed process.
-     * Requires ops.allow_restart = true in agent config.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.RestartProcessResponse restartProcess(io.github.cuihairu.croupier.ops.v1.RestartProcessRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getRestartProcessMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * StopProcess stops a managed process.
-     * Requires ops.allow_restart = true in agent config.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.StopProcessResponse stopProcess(io.github.cuihairu.croupier.ops.v1.StopProcessRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getStopProcessMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * StartProcess starts a managed process.
-     * Requires ops.allow_restart = true in agent config.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.StartProcessResponse startProcess(io.github.cuihairu.croupier.ops.v1.StartProcessRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getStartProcessMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ListProcesses lists all managed processes.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.ListProcessesResponse listProcesses(com.google.protobuf.Empty request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListProcessesMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ExecuteCommand executes a shell command.
-     * Requires ops.allow_exec = true in agent config.
-     * WARNING: This is a high-risk operation. Use with extreme caution.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.ExecuteCommandResponse executeCommand(io.github.cuihairu.croupier.ops.v1.ExecuteCommandRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getExecuteCommandMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service OpsService.
    * <pre>
    * OpsService provides server operations and monitoring capabilities.
    * WARNING: This service can execute privileged operations. Enable with caution.

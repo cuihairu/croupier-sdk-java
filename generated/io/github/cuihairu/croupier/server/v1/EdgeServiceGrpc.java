@@ -7,6 +7,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * Server Edge Service - Internal interface for edge proxy job queries
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/server/v1/edge.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class EdgeServiceGrpc {
 
@@ -58,21 +61,6 @@ public final class EdgeServiceGrpc {
         }
       };
     return EdgeServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static EdgeServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<EdgeServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<EdgeServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public EdgeServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new EdgeServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return EdgeServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -170,36 +158,6 @@ public final class EdgeServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service EdgeService.
-   * <pre>
-   * Server Edge Service - Internal interface for edge proxy job queries
-   * </pre>
-   */
-  public static final class EdgeServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<EdgeServiceBlockingV2Stub> {
-    private EdgeServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected EdgeServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new EdgeServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Get job result through edge proxy
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.GetJobResultResponse getJobResult(io.github.cuihairu.croupier.server.v1.GetJobResultRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getGetJobResultMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service EdgeService.
    * <pre>
    * Server Edge Service - Internal interface for edge proxy job queries
    * </pre>

@@ -7,6 +7,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * Public Management Service (placeholder)
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/api/v1/management.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ManagementServiceGrpc {
 
@@ -58,21 +61,6 @@ public final class ManagementServiceGrpc {
         }
       };
     return ManagementServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static ManagementServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<ManagementServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<ManagementServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public ManagementServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new ManagementServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return ManagementServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -170,36 +158,6 @@ public final class ManagementServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service ManagementService.
-   * <pre>
-   * Public Management Service (placeholder)
-   * </pre>
-   */
-  public static final class ManagementServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<ManagementServiceBlockingV2Stub> {
-    private ManagementServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected ManagementServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new ManagementServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Future: HTTP REST API management endpoint
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.api.v1.ManagementResponse manage(io.github.cuihairu.croupier.api.v1.ManagementRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getManageMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service ManagementService.
    * <pre>
    * Public Management Service (placeholder)
    * </pre>

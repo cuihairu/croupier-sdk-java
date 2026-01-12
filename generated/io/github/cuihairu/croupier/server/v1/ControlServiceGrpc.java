@@ -7,6 +7,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * Server Control Service - Internal interface for agent registration and management
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/server/v1/server_control.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ControlServiceGrpc {
 
@@ -247,21 +250,6 @@ public final class ControlServiceGrpc {
   }
 
   /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static ControlServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<ControlServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<ControlServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public ControlServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new ControlServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return ControlServiceBlockingV2Stub.newStub(factory, channel);
-  }
-
-  /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
   public static ControlServiceBlockingStub newBlockingStub(
@@ -482,96 +470,6 @@ public final class ControlServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service ControlService.
-   * <pre>
-   * Server Control Service - Internal interface for agent registration and management
-   * </pre>
-   */
-  public static final class ControlServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<ControlServiceBlockingV2Stub> {
-    private ControlServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected ControlServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new ControlServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Summarized function catalog with UI/RBAC metadata (for dashboard)
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.ListFunctionsSummaryResponse listFunctionsSummary(com.google.protobuf.Empty request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListFunctionsSummaryMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Agent registration with server
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.RegisterResponse register(io.github.cuihairu.croupier.server.v1.RegisterRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getRegisterMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Agent heartbeat
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.HeartbeatResponse heartbeat(io.github.cuihairu.croupier.server.v1.HeartbeatRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getHeartbeatMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Provider capabilities registration
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesResponse registerCapabilities(io.github.cuihairu.croupier.server.v1.RegisterCapabilitiesRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getRegisterCapabilitiesMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * GetAgentSystemInfo retrieves system info for a specific agent.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.SystemInfo getAgentSystemInfo(io.github.cuihairu.croupier.server.v1.GetAgentSystemInfoRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getGetAgentSystemInfoMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ListAgentProcesses lists processes on a specific agent.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.ops.v1.ListProcessesResponse listAgentProcesses(io.github.cuihairu.croupier.server.v1.ListAgentProcessesRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListAgentProcessesMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * QueryMetrics queries stored metrics from agents.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.server.v1.QueryMetricsResponse queryMetrics(io.github.cuihairu.croupier.server.v1.QueryMetricsRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getQueryMetricsMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service ControlService.
    * <pre>
    * Server Control Service - Internal interface for agent registration and management
    * </pre>

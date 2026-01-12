@@ -7,6 +7,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * PlatformService provides a unified interface for calling third-party platform APIs.
  * </pre>
  */
+@javax.annotation.Generated(
+    value = "by gRPC proto compiler (version 1.69.0)",
+    comments = "Source: croupier/platform/v1/platform.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class PlatformServiceGrpc {
 
@@ -151,21 +154,6 @@ public final class PlatformServiceGrpc {
         }
       };
     return PlatformServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static PlatformServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<PlatformServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<PlatformServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public PlatformServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new PlatformServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return PlatformServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -328,67 +316,6 @@ public final class PlatformServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service PlatformService.
-   * <pre>
-   * PlatformService provides a unified interface for calling third-party platform APIs.
-   * </pre>
-   */
-  public static final class PlatformServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<PlatformServiceBlockingV2Stub> {
-    private PlatformServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected PlatformServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new PlatformServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * CallPlatform invokes a method on a third-party platform.
-     * The request and response are JSON encoded bytes.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.platform.v1.CallPlatformResponse callPlatform(io.github.cuihairu.croupier.platform.v1.CallPlatformRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getCallPlatformMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ListPlatforms returns all available platforms.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.platform.v1.ListPlatformsResponse listPlatforms(io.github.cuihairu.croupier.platform.v1.ListPlatformsRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListPlatformsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ListPlatformMethods returns the methods supported by a platform.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.platform.v1.ListPlatformMethodsResponse listPlatformMethods(io.github.cuihairu.croupier.platform.v1.ListPlatformMethodsRequest request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getListPlatformMethodsMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * ReloadPlatformConfig reloads the platform configuration.
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.platform.v1.ReloadPlatformConfigResponse reloadPlatformConfig(com.google.protobuf.Empty request) throws io.grpc.StatusException {
-      return io.grpc.stub.ClientCalls.blockingV2UnaryCall(
-          getChannel(), getReloadPlatformConfigMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service PlatformService.
    * <pre>
    * PlatformService provides a unified interface for calling third-party platform APIs.
    * </pre>
