@@ -90,51 +90,49 @@ public final class Local {
   static {
     java.lang.String[] descriptorData = {
       "\n#croupier/agent/local/v1/local.proto\022\027c" +
-      "roupier.agent.local.v1\"\363\002\n\027LocalFunction" +
+      "roupier.agent.local.v1\"\236\002\n\027LocalFunction" +
       "Descriptor\022\016\n\002id\030\001 \001(\tR\002id\022\030\n\007version\030\002 " +
       "\001(\tR\007version\022\022\n\004tags\030\003 \003(\tR\004tags\022\030\n\007summ" +
       "ary\030\004 \001(\tR\007summary\022 \n\013description\030\005 \001(\tR" +
       "\013description\022!\n\014operation_id\030\006 \001(\tR\013oper" +
       "ationId\022\036\n\ndeprecated\030\007 \001(\010R\ndeprecated\022" +
       "!\n\014input_schema\030\010 \001(\tR\013inputSchema\022#\n\rou" +
-      "tput_schema\030\t \001(\tR\014outputSchema\022&\n\017x_ren" +
-      "der_schema\030\n \001(\tR\rxRenderSchema\022+\n\022x_ren" +
-      "der_ui_schema\030\013 \001(\tR\017xRenderUiSchema\"\272\001\n" +
-      "\024RegisterLocalRequest\022\035\n\nservice_id\030\001 \001(" +
-      "\tR\tserviceId\022\030\n\007version\030\002 \001(\tR\007version\022\031" +
-      "\n\010rpc_addr\030\003 \001(\tR\007rpcAddr\022N\n\tfunctions\030\004" +
-      " \003(\01320.croupier.agent.local.v1.LocalFunc" +
-      "tionDescriptorR\tfunctions\"6\n\025RegisterLoc" +
-      "alResponse\022\035\n\nsession_id\030\001 \001(\tR\tsessionI" +
-      "d\"P\n\020HeartbeatRequest\022\035\n\nservice_id\030\001 \001(" +
-      "\tR\tserviceId\022\035\n\nsession_id\030\002 \001(\tR\tsessio" +
-      "nId\"\023\n\021HeartbeatResponse\"y\n\rLocalInstanc" +
-      "e\022\035\n\nservice_id\030\001 \001(\tR\tserviceId\022\022\n\004addr" +
-      "\030\002 \001(\tR\004addr\022\030\n\007version\030\003 \001(\tR\007version\022\033" +
-      "\n\tlast_seen\030\004 \001(\tR\010lastSeen\"e\n\rLocalFunc" +
-      "tion\022\016\n\002id\030\001 \001(\tR\002id\022D\n\tinstances\030\002 \003(\0132" +
-      "&.croupier.agent.local.v1.LocalInstanceR" +
-      "\tinstances\"\022\n\020ListLocalRequest\"Y\n\021ListLo" +
-      "calResponse\022D\n\tfunctions\030\001 \003(\0132&.croupie" +
-      "r.agent.local.v1.LocalFunctionR\tfunction" +
-      "s\",\n\023GetJobResultRequest\022\025\n\006job_id\030\001 \001(\t" +
-      "R\005jobId\"\\\n\024GetJobResultResponse\022\024\n\005state" +
-      "\030\001 \001(\tR\005state\022\030\n\007payload\030\002 \001(\014R\007payload\022" +
-      "\024\n\005error\030\003 \001(\tR\005error2\272\003\n\023LocalControlSe" +
-      "rvice\022n\n\rRegisterLocal\022-.croupier.agent." +
-      "local.v1.RegisterLocalRequest\032..croupier" +
-      ".agent.local.v1.RegisterLocalResponse\022b\n" +
-      "\tHeartbeat\022).croupier.agent.local.v1.Hea" +
-      "rtbeatRequest\032*.croupier.agent.local.v1." +
-      "HeartbeatResponse\022b\n\tListLocal\022).croupie" +
-      "r.agent.local.v1.ListLocalRequest\032*.crou" +
-      "pier.agent.local.v1.ListLocalResponse\022k\n" +
-      "\014GetJobResult\022,.croupier.agent.local.v1." +
-      "GetJobResultRequest\032-.croupier.agent.loc" +
-      "al.v1.GetJobResultResponseBs\n*io.github." +
-      "cuihairu.croupier.agent.local.v1P\001ZCgith" +
-      "ub.com/cuihairu/croupier/pkg/pb/croupier" +
-      "/agent/local/v1;localv1b\006proto3"
+      "tput_schema\030\t \001(\tR\014outputSchema\"\272\001\n\024Regi" +
+      "sterLocalRequest\022\035\n\nservice_id\030\001 \001(\tR\tse" +
+      "rviceId\022\030\n\007version\030\002 \001(\tR\007version\022\031\n\010rpc" +
+      "_addr\030\003 \001(\tR\007rpcAddr\022N\n\tfunctions\030\004 \003(\0132" +
+      "0.croupier.agent.local.v1.LocalFunctionD" +
+      "escriptorR\tfunctions\"6\n\025RegisterLocalRes" +
+      "ponse\022\035\n\nsession_id\030\001 \001(\tR\tsessionId\"P\n\020" +
+      "HeartbeatRequest\022\035\n\nservice_id\030\001 \001(\tR\tse" +
+      "rviceId\022\035\n\nsession_id\030\002 \001(\tR\tsessionId\"\023" +
+      "\n\021HeartbeatResponse\"y\n\rLocalInstance\022\035\n\n" +
+      "service_id\030\001 \001(\tR\tserviceId\022\022\n\004addr\030\002 \001(" +
+      "\tR\004addr\022\030\n\007version\030\003 \001(\tR\007version\022\033\n\tlas" +
+      "t_seen\030\004 \001(\tR\010lastSeen\"e\n\rLocalFunction\022" +
+      "\016\n\002id\030\001 \001(\tR\002id\022D\n\tinstances\030\002 \003(\0132&.cro" +
+      "upier.agent.local.v1.LocalInstanceR\tinst" +
+      "ances\"\022\n\020ListLocalRequest\"Y\n\021ListLocalRe" +
+      "sponse\022D\n\tfunctions\030\001 \003(\0132&.croupier.age" +
+      "nt.local.v1.LocalFunctionR\tfunctions\",\n\023" +
+      "GetJobResultRequest\022\025\n\006job_id\030\001 \001(\tR\005job" +
+      "Id\"\\\n\024GetJobResultResponse\022\024\n\005state\030\001 \001(" +
+      "\tR\005state\022\030\n\007payload\030\002 \001(\014R\007payload\022\024\n\005er" +
+      "ror\030\003 \001(\tR\005error2\272\003\n\023LocalControlService" +
+      "\022n\n\rRegisterLocal\022-.croupier.agent.local" +
+      ".v1.RegisterLocalRequest\032..croupier.agen" +
+      "t.local.v1.RegisterLocalResponse\022b\n\tHear" +
+      "tbeat\022).croupier.agent.local.v1.Heartbea" +
+      "tRequest\032*.croupier.agent.local.v1.Heart" +
+      "beatResponse\022b\n\tListLocal\022).croupier.age" +
+      "nt.local.v1.ListLocalRequest\032*.croupier." +
+      "agent.local.v1.ListLocalResponse\022k\n\014GetJ" +
+      "obResult\022,.croupier.agent.local.v1.GetJo" +
+      "bResultRequest\032-.croupier.agent.local.v1" +
+      ".GetJobResultResponseBs\n*io.github.cuiha" +
+      "iru.croupier.agent.local.v1P\001ZCgithub.co" +
+      "m/cuihairu/croupier/pkg/pb/croupier/agen" +
+      "t/local/v1;localv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -145,7 +143,7 @@ public final class Local {
     internal_static_croupier_agent_local_v1_LocalFunctionDescriptor_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_croupier_agent_local_v1_LocalFunctionDescriptor_descriptor,
-        new java.lang.String[] { "Id", "Version", "Tags", "Summary", "Description", "OperationId", "Deprecated", "InputSchema", "OutputSchema", "XRenderSchema", "XRenderUiSchema", });
+        new java.lang.String[] { "Id", "Version", "Tags", "Summary", "Description", "OperationId", "Deprecated", "InputSchema", "OutputSchema", });
     internal_static_croupier_agent_local_v1_RegisterLocalRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_croupier_agent_local_v1_RegisterLocalRequest_fieldAccessorTable = new

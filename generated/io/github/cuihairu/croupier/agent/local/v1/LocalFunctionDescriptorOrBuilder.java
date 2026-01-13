@@ -199,44 +199,4 @@ public interface LocalFunctionDescriptorOrBuilder extends
    */
   com.google.protobuf.ByteString
       getOutputSchemaBytes();
-
-  /**
-   * <pre>
-   * x-render extension for UI control
-   * </pre>
-   *
-   * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
-   * @return The xRenderSchema.
-   */
-  java.lang.String getXRenderSchema();
-  /**
-   * <pre>
-   * x-render extension for UI control
-   * </pre>
-   *
-   * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
-   * @return The bytes for xRenderSchema.
-   */
-  com.google.protobuf.ByteString
-      getXRenderSchemaBytes();
-
-  /**
-   * <pre>
-   * XRender UI schema for widget configuration (JSON string)
-   * </pre>
-   *
-   * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
-   * @return The xRenderUiSchema.
-   */
-  java.lang.String getXRenderUiSchema();
-  /**
-   * <pre>
-   * XRender UI schema for widget configuration (JSON string)
-   * </pre>
-   *
-   * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
-   * @return The bytes for xRenderUiSchema.
-   */
-  com.google.protobuf.ByteString
-      getXRenderUiSchemaBytes();
 }
