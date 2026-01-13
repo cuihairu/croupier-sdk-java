@@ -39,6 +39,11 @@ private static final long serialVersionUID = 0L;
     operation_ = "";
     tags_ =
         com.google.protobuf.LazyStringArrayList.emptyList();
+    inputSchema_ = "";
+    outputSchema_ = "";
+    xRenderSchema_ = "";
+    xRenderUiSchema_ = "";
+    routeDisplays_ = java.util.Collections.emptyList();
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -505,6 +510,293 @@ private static final long serialVersionUID = 0L;
     return permissions_ == null ? io.github.cuihairu.croupier.common.v1.PermissionSpec.getDefaultInstance() : permissions_;
   }
 
+  public static final int INPUT_SCHEMA_FIELD_NUMBER = 30;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object inputSchema_ = "";
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+   * @return The inputSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getInputSchema() {
+    java.lang.Object ref = inputSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      inputSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+   * @return The bytes for inputSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getInputSchemaBytes() {
+    java.lang.Object ref = inputSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      inputSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int OUTPUT_SCHEMA_FIELD_NUMBER = 31;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object outputSchema_ = "";
+  /**
+   * <pre>
+   * JSON Schema for response body
+   * </pre>
+   *
+   * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+   * @return The outputSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getOutputSchema() {
+    java.lang.Object ref = outputSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      outputSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * JSON Schema for response body
+   * </pre>
+   *
+   * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+   * @return The bytes for outputSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getOutputSchemaBytes() {
+    java.lang.Object ref = outputSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      outputSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int X_RENDER_SCHEMA_FIELD_NUMBER = 32;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object xRenderSchema_ = "";
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+   * @return The xRenderSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getXRenderSchema() {
+    java.lang.Object ref = xRenderSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      xRenderSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+   * @return The bytes for xRenderSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getXRenderSchemaBytes() {
+    java.lang.Object ref = xRenderSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      xRenderSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int X_RENDER_UI_SCHEMA_FIELD_NUMBER = 33;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object xRenderUiSchema_ = "";
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+   * @return The xRenderUiSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getXRenderUiSchema() {
+    java.lang.Object ref = xRenderUiSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      xRenderUiSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+   * @return The bytes for xRenderUiSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getXRenderUiSchemaBytes() {
+    java.lang.Object ref = xRenderUiSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      xRenderUiSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DEFAULT_FORM_CONFIG_FIELD_NUMBER = 34;
+  private io.github.cuihairu.croupier.common.v1.XRenderFormConfig defaultFormConfig_;
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   * @return Whether the defaultFormConfig field is set.
+   */
+  @java.lang.Override
+  public boolean hasDefaultFormConfig() {
+    return ((bitField0_ & 0x00000010) != 0);
+  }
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   * @return The defaultFormConfig.
+   */
+  @java.lang.Override
+  public io.github.cuihairu.croupier.common.v1.XRenderFormConfig getDefaultFormConfig() {
+    return defaultFormConfig_ == null ? io.github.cuihairu.croupier.common.v1.XRenderFormConfig.getDefaultInstance() : defaultFormConfig_;
+  }
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   */
+  @java.lang.Override
+  public io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder getDefaultFormConfigOrBuilder() {
+    return defaultFormConfig_ == null ? io.github.cuihairu.croupier.common.v1.XRenderFormConfig.getDefaultInstance() : defaultFormConfig_;
+  }
+
+  public static final int ROUTE_DISPLAYS_FIELD_NUMBER = 35;
+  @SuppressWarnings("serial")
+  private java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> routeDisplays_;
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> getRouteDisplaysList() {
+    return routeDisplays_;
+  }
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder> 
+      getRouteDisplaysOrBuilderList() {
+    return routeDisplays_;
+  }
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  @java.lang.Override
+  public int getRouteDisplaysCount() {
+    return routeDisplays_.size();
+  }
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  @java.lang.Override
+  public io.github.cuihairu.croupier.common.v1.RouteDisplayConfig getRouteDisplays(int index) {
+    return routeDisplays_.get(index);
+  }
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  @java.lang.Override
+  public io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder getRouteDisplaysOrBuilder(
+      int index) {
+    return routeDisplays_.get(index);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -554,6 +846,24 @@ private static final long serialVersionUID = 0L;
     }
     if (((bitField0_ & 0x00000008) != 0)) {
       output.writeMessage(24, getPermissions());
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(inputSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 30, inputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(outputSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 31, outputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 32, xRenderSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderUiSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 33, xRenderUiSchema_);
+    }
+    if (((bitField0_ & 0x00000010) != 0)) {
+      output.writeMessage(34, getDefaultFormConfig());
+    }
+    for (int i = 0; i < routeDisplays_.size(); i++) {
+      output.writeMessage(35, routeDisplays_.get(i));
     }
     getUnknownFields().writeTo(output);
   }
@@ -610,6 +920,26 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(24, getPermissions());
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(inputSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(30, inputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(outputSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(31, outputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(32, xRenderSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderUiSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(33, xRenderUiSchema_);
+    }
+    if (((bitField0_ & 0x00000010) != 0)) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(34, getDefaultFormConfig());
+    }
+    for (int i = 0; i < routeDisplays_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(35, routeDisplays_.get(i));
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -661,6 +991,21 @@ private static final long serialVersionUID = 0L;
       if (!getPermissions()
           .equals(other.getPermissions())) return false;
     }
+    if (!getInputSchema()
+        .equals(other.getInputSchema())) return false;
+    if (!getOutputSchema()
+        .equals(other.getOutputSchema())) return false;
+    if (!getXRenderSchema()
+        .equals(other.getXRenderSchema())) return false;
+    if (!getXRenderUiSchema()
+        .equals(other.getXRenderUiSchema())) return false;
+    if (hasDefaultFormConfig() != other.hasDefaultFormConfig()) return false;
+    if (hasDefaultFormConfig()) {
+      if (!getDefaultFormConfig()
+          .equals(other.getDefaultFormConfig())) return false;
+    }
+    if (!getRouteDisplaysList()
+        .equals(other.getRouteDisplaysList())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -706,6 +1051,22 @@ private static final long serialVersionUID = 0L;
     if (hasPermissions()) {
       hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
       hash = (53 * hash) + getPermissions().hashCode();
+    }
+    hash = (37 * hash) + INPUT_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getInputSchema().hashCode();
+    hash = (37 * hash) + OUTPUT_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getOutputSchema().hashCode();
+    hash = (37 * hash) + X_RENDER_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getXRenderSchema().hashCode();
+    hash = (37 * hash) + X_RENDER_UI_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getXRenderUiSchema().hashCode();
+    if (hasDefaultFormConfig()) {
+      hash = (37 * hash) + DEFAULT_FORM_CONFIG_FIELD_NUMBER;
+      hash = (53 * hash) + getDefaultFormConfig().hashCode();
+    }
+    if (getRouteDisplaysCount() > 0) {
+      hash = (37 * hash) + ROUTE_DISPLAYS_FIELD_NUMBER;
+      hash = (53 * hash) + getRouteDisplaysList().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -845,6 +1206,8 @@ private static final long serialVersionUID = 0L;
         getSummaryFieldBuilder();
         getMenuFieldBuilder();
         getPermissionsFieldBuilder();
+        getDefaultFormConfigFieldBuilder();
+        getRouteDisplaysFieldBuilder();
       }
     }
     @java.lang.Override
@@ -880,6 +1243,22 @@ private static final long serialVersionUID = 0L;
         permissionsBuilder_.dispose();
         permissionsBuilder_ = null;
       }
+      inputSchema_ = "";
+      outputSchema_ = "";
+      xRenderSchema_ = "";
+      xRenderUiSchema_ = "";
+      defaultFormConfig_ = null;
+      if (defaultFormConfigBuilder_ != null) {
+        defaultFormConfigBuilder_.dispose();
+        defaultFormConfigBuilder_ = null;
+      }
+      if (routeDisplaysBuilder_ == null) {
+        routeDisplays_ = java.util.Collections.emptyList();
+      } else {
+        routeDisplays_ = null;
+        routeDisplaysBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00020000);
       return this;
     }
 
@@ -906,9 +1285,22 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public io.github.cuihairu.croupier.server.v1.FunctionDescriptor buildPartial() {
       io.github.cuihairu.croupier.server.v1.FunctionDescriptor result = new io.github.cuihairu.croupier.server.v1.FunctionDescriptor(this);
+      buildPartialRepeatedFields(result);
       if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
+    }
+
+    private void buildPartialRepeatedFields(io.github.cuihairu.croupier.server.v1.FunctionDescriptor result) {
+      if (routeDisplaysBuilder_ == null) {
+        if (((bitField0_ & 0x00020000) != 0)) {
+          routeDisplays_ = java.util.Collections.unmodifiableList(routeDisplays_);
+          bitField0_ = (bitField0_ & ~0x00020000);
+        }
+        result.routeDisplays_ = routeDisplays_;
+      } else {
+        result.routeDisplays_ = routeDisplaysBuilder_.build();
+      }
     }
 
     private void buildPartial0(io.github.cuihairu.croupier.server.v1.FunctionDescriptor result) {
@@ -962,6 +1354,24 @@ private static final long serialVersionUID = 0L;
             ? permissions_
             : permissionsBuilder_.build();
         to_bitField0_ |= 0x00000008;
+      }
+      if (((from_bitField0_ & 0x00001000) != 0)) {
+        result.inputSchema_ = inputSchema_;
+      }
+      if (((from_bitField0_ & 0x00002000) != 0)) {
+        result.outputSchema_ = outputSchema_;
+      }
+      if (((from_bitField0_ & 0x00004000) != 0)) {
+        result.xRenderSchema_ = xRenderSchema_;
+      }
+      if (((from_bitField0_ & 0x00008000) != 0)) {
+        result.xRenderUiSchema_ = xRenderUiSchema_;
+      }
+      if (((from_bitField0_ & 0x00010000) != 0)) {
+        result.defaultFormConfig_ = defaultFormConfigBuilder_ == null
+            ? defaultFormConfig_
+            : defaultFormConfigBuilder_.build();
+        to_bitField0_ |= 0x00000010;
       }
       result.bitField0_ |= to_bitField0_;
     }
@@ -1032,6 +1442,55 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasPermissions()) {
         mergePermissions(other.getPermissions());
+      }
+      if (!other.getInputSchema().isEmpty()) {
+        inputSchema_ = other.inputSchema_;
+        bitField0_ |= 0x00001000;
+        onChanged();
+      }
+      if (!other.getOutputSchema().isEmpty()) {
+        outputSchema_ = other.outputSchema_;
+        bitField0_ |= 0x00002000;
+        onChanged();
+      }
+      if (!other.getXRenderSchema().isEmpty()) {
+        xRenderSchema_ = other.xRenderSchema_;
+        bitField0_ |= 0x00004000;
+        onChanged();
+      }
+      if (!other.getXRenderUiSchema().isEmpty()) {
+        xRenderUiSchema_ = other.xRenderUiSchema_;
+        bitField0_ |= 0x00008000;
+        onChanged();
+      }
+      if (other.hasDefaultFormConfig()) {
+        mergeDefaultFormConfig(other.getDefaultFormConfig());
+      }
+      if (routeDisplaysBuilder_ == null) {
+        if (!other.routeDisplays_.isEmpty()) {
+          if (routeDisplays_.isEmpty()) {
+            routeDisplays_ = other.routeDisplays_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+          } else {
+            ensureRouteDisplaysIsMutable();
+            routeDisplays_.addAll(other.routeDisplays_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.routeDisplays_.isEmpty()) {
+          if (routeDisplaysBuilder_.isEmpty()) {
+            routeDisplaysBuilder_.dispose();
+            routeDisplaysBuilder_ = null;
+            routeDisplays_ = other.routeDisplays_;
+            bitField0_ = (bitField0_ & ~0x00020000);
+            routeDisplaysBuilder_ = 
+              com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                 getRouteDisplaysFieldBuilder() : null;
+          } else {
+            routeDisplaysBuilder_.addAllMessages(other.routeDisplays_);
+          }
+        }
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -1128,6 +1587,46 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000800;
               break;
             } // case 194
+            case 242: {
+              inputSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00001000;
+              break;
+            } // case 242
+            case 250: {
+              outputSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00002000;
+              break;
+            } // case 250
+            case 258: {
+              xRenderSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00004000;
+              break;
+            } // case 258
+            case 266: {
+              xRenderUiSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00008000;
+              break;
+            } // case 266
+            case 274: {
+              input.readMessage(
+                  getDefaultFormConfigFieldBuilder().getBuilder(),
+                  extensionRegistry);
+              bitField0_ |= 0x00010000;
+              break;
+            } // case 274
+            case 282: {
+              io.github.cuihairu.croupier.common.v1.RouteDisplayConfig m =
+                  input.readMessage(
+                      io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.parser(),
+                      extensionRegistry);
+              if (routeDisplaysBuilder_ == null) {
+                ensureRouteDisplaysIsMutable();
+                routeDisplays_.add(m);
+              } else {
+                routeDisplaysBuilder_.addMessage(m);
+              }
+              break;
+            } // case 282
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2370,6 +2869,843 @@ private static final long serialVersionUID = 0L;
         permissions_ = null;
       }
       return permissionsBuilder_;
+    }
+
+    private java.lang.Object inputSchema_ = "";
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+     * @return The inputSchema.
+     */
+    public java.lang.String getInputSchema() {
+      java.lang.Object ref = inputSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        inputSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+     * @return The bytes for inputSchema.
+     */
+    public com.google.protobuf.ByteString
+        getInputSchemaBytes() {
+      java.lang.Object ref = inputSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        inputSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+     * @param value The inputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInputSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      inputSchema_ = value;
+      bitField0_ |= 0x00001000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearInputSchema() {
+      inputSchema_ = getDefaultInstance().getInputSchema();
+      bitField0_ = (bitField0_ & ~0x00001000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+     * @param value The bytes for inputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInputSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      inputSchema_ = value;
+      bitField0_ |= 0x00001000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object outputSchema_ = "";
+    /**
+     * <pre>
+     * JSON Schema for response body
+     * </pre>
+     *
+     * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+     * @return The outputSchema.
+     */
+    public java.lang.String getOutputSchema() {
+      java.lang.Object ref = outputSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        outputSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body
+     * </pre>
+     *
+     * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+     * @return The bytes for outputSchema.
+     */
+    public com.google.protobuf.ByteString
+        getOutputSchemaBytes() {
+      java.lang.Object ref = outputSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outputSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body
+     * </pre>
+     *
+     * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+     * @param value The outputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOutputSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      outputSchema_ = value;
+      bitField0_ |= 0x00002000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body
+     * </pre>
+     *
+     * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearOutputSchema() {
+      outputSchema_ = getDefaultInstance().getOutputSchema();
+      bitField0_ = (bitField0_ & ~0x00002000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body
+     * </pre>
+     *
+     * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+     * @param value The bytes for outputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOutputSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      outputSchema_ = value;
+      bitField0_ |= 0x00002000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object xRenderSchema_ = "";
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+     * @return The xRenderSchema.
+     */
+    public java.lang.String getXRenderSchema() {
+      java.lang.Object ref = xRenderSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xRenderSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+     * @return The bytes for xRenderSchema.
+     */
+    public com.google.protobuf.ByteString
+        getXRenderSchemaBytes() {
+      java.lang.Object ref = xRenderSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xRenderSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+     * @param value The xRenderSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      xRenderSchema_ = value;
+      bitField0_ |= 0x00004000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearXRenderSchema() {
+      xRenderSchema_ = getDefaultInstance().getXRenderSchema();
+      bitField0_ = (bitField0_ & ~0x00004000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+     * @param value The bytes for xRenderSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      xRenderSchema_ = value;
+      bitField0_ |= 0x00004000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object xRenderUiSchema_ = "";
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+     * @return The xRenderUiSchema.
+     */
+    public java.lang.String getXRenderUiSchema() {
+      java.lang.Object ref = xRenderUiSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xRenderUiSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+     * @return The bytes for xRenderUiSchema.
+     */
+    public com.google.protobuf.ByteString
+        getXRenderUiSchemaBytes() {
+      java.lang.Object ref = xRenderUiSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xRenderUiSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+     * @param value The xRenderUiSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderUiSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      xRenderUiSchema_ = value;
+      bitField0_ |= 0x00008000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearXRenderUiSchema() {
+      xRenderUiSchema_ = getDefaultInstance().getXRenderUiSchema();
+      bitField0_ = (bitField0_ & ~0x00008000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+     * @param value The bytes for xRenderUiSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderUiSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      xRenderUiSchema_ = value;
+      bitField0_ |= 0x00008000;
+      onChanged();
+      return this;
+    }
+
+    private io.github.cuihairu.croupier.common.v1.XRenderFormConfig defaultFormConfig_;
+    private com.google.protobuf.SingleFieldBuilder<
+        io.github.cuihairu.croupier.common.v1.XRenderFormConfig, io.github.cuihairu.croupier.common.v1.XRenderFormConfig.Builder, io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder> defaultFormConfigBuilder_;
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     * @return Whether the defaultFormConfig field is set.
+     */
+    public boolean hasDefaultFormConfig() {
+      return ((bitField0_ & 0x00010000) != 0);
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     * @return The defaultFormConfig.
+     */
+    public io.github.cuihairu.croupier.common.v1.XRenderFormConfig getDefaultFormConfig() {
+      if (defaultFormConfigBuilder_ == null) {
+        return defaultFormConfig_ == null ? io.github.cuihairu.croupier.common.v1.XRenderFormConfig.getDefaultInstance() : defaultFormConfig_;
+      } else {
+        return defaultFormConfigBuilder_.getMessage();
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public Builder setDefaultFormConfig(io.github.cuihairu.croupier.common.v1.XRenderFormConfig value) {
+      if (defaultFormConfigBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        defaultFormConfig_ = value;
+      } else {
+        defaultFormConfigBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00010000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public Builder setDefaultFormConfig(
+        io.github.cuihairu.croupier.common.v1.XRenderFormConfig.Builder builderForValue) {
+      if (defaultFormConfigBuilder_ == null) {
+        defaultFormConfig_ = builderForValue.build();
+      } else {
+        defaultFormConfigBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00010000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public Builder mergeDefaultFormConfig(io.github.cuihairu.croupier.common.v1.XRenderFormConfig value) {
+      if (defaultFormConfigBuilder_ == null) {
+        if (((bitField0_ & 0x00010000) != 0) &&
+          defaultFormConfig_ != null &&
+          defaultFormConfig_ != io.github.cuihairu.croupier.common.v1.XRenderFormConfig.getDefaultInstance()) {
+          getDefaultFormConfigBuilder().mergeFrom(value);
+        } else {
+          defaultFormConfig_ = value;
+        }
+      } else {
+        defaultFormConfigBuilder_.mergeFrom(value);
+      }
+      if (defaultFormConfig_ != null) {
+        bitField0_ |= 0x00010000;
+        onChanged();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public Builder clearDefaultFormConfig() {
+      bitField0_ = (bitField0_ & ~0x00010000);
+      defaultFormConfig_ = null;
+      if (defaultFormConfigBuilder_ != null) {
+        defaultFormConfigBuilder_.dispose();
+        defaultFormConfigBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.XRenderFormConfig.Builder getDefaultFormConfigBuilder() {
+      bitField0_ |= 0x00010000;
+      onChanged();
+      return getDefaultFormConfigFieldBuilder().getBuilder();
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder getDefaultFormConfigOrBuilder() {
+      if (defaultFormConfigBuilder_ != null) {
+        return defaultFormConfigBuilder_.getMessageOrBuilder();
+      } else {
+        return defaultFormConfig_ == null ?
+            io.github.cuihairu.croupier.common.v1.XRenderFormConfig.getDefaultInstance() : defaultFormConfig_;
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific display configurations (structured, for Server processing)
+     * </pre>
+     *
+     * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+     */
+    private com.google.protobuf.SingleFieldBuilder<
+        io.github.cuihairu.croupier.common.v1.XRenderFormConfig, io.github.cuihairu.croupier.common.v1.XRenderFormConfig.Builder, io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder> 
+        getDefaultFormConfigFieldBuilder() {
+      if (defaultFormConfigBuilder_ == null) {
+        defaultFormConfigBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+            io.github.cuihairu.croupier.common.v1.XRenderFormConfig, io.github.cuihairu.croupier.common.v1.XRenderFormConfig.Builder, io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder>(
+                getDefaultFormConfig(),
+                getParentForChildren(),
+                isClean());
+        defaultFormConfig_ = null;
+      }
+      return defaultFormConfigBuilder_;
+    }
+
+    private java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> routeDisplays_ =
+      java.util.Collections.emptyList();
+    private void ensureRouteDisplaysIsMutable() {
+      if (!((bitField0_ & 0x00020000) != 0)) {
+        routeDisplays_ = new java.util.ArrayList<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig>(routeDisplays_);
+        bitField0_ |= 0x00020000;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilder<
+        io.github.cuihairu.croupier.common.v1.RouteDisplayConfig, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder, io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder> routeDisplaysBuilder_;
+
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> getRouteDisplaysList() {
+      if (routeDisplaysBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(routeDisplays_);
+      } else {
+        return routeDisplaysBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public int getRouteDisplaysCount() {
+      if (routeDisplaysBuilder_ == null) {
+        return routeDisplays_.size();
+      } else {
+        return routeDisplaysBuilder_.getCount();
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.RouteDisplayConfig getRouteDisplays(int index) {
+      if (routeDisplaysBuilder_ == null) {
+        return routeDisplays_.get(index);
+      } else {
+        return routeDisplaysBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder setRouteDisplays(
+        int index, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig value) {
+      if (routeDisplaysBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.set(index, value);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder setRouteDisplays(
+        int index, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder builderForValue) {
+      if (routeDisplaysBuilder_ == null) {
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder addRouteDisplays(io.github.cuihairu.croupier.common.v1.RouteDisplayConfig value) {
+      if (routeDisplaysBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.add(value);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder addRouteDisplays(
+        int index, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig value) {
+      if (routeDisplaysBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.add(index, value);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder addRouteDisplays(
+        io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder builderForValue) {
+      if (routeDisplaysBuilder_ == null) {
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.add(builderForValue.build());
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder addRouteDisplays(
+        int index, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder builderForValue) {
+      if (routeDisplaysBuilder_ == null) {
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder addAllRouteDisplays(
+        java.lang.Iterable<? extends io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> values) {
+      if (routeDisplaysBuilder_ == null) {
+        ensureRouteDisplaysIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, routeDisplays_);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder clearRouteDisplays() {
+      if (routeDisplaysBuilder_ == null) {
+        routeDisplays_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public Builder removeRouteDisplays(int index) {
+      if (routeDisplaysBuilder_ == null) {
+        ensureRouteDisplaysIsMutable();
+        routeDisplays_.remove(index);
+        onChanged();
+      } else {
+        routeDisplaysBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder getRouteDisplaysBuilder(
+        int index) {
+      return getRouteDisplaysFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder getRouteDisplaysOrBuilder(
+        int index) {
+      if (routeDisplaysBuilder_ == null) {
+        return routeDisplays_.get(index);  } else {
+        return routeDisplaysBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public java.util.List<? extends io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder> 
+         getRouteDisplaysOrBuilderList() {
+      if (routeDisplaysBuilder_ != null) {
+        return routeDisplaysBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(routeDisplays_);
+      }
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder addRouteDisplaysBuilder() {
+      return getRouteDisplaysFieldBuilder().addBuilder(
+          io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder addRouteDisplaysBuilder(
+        int index) {
+      return getRouteDisplaysFieldBuilder().addBuilder(
+          index, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.getDefaultInstance());
+    }
+    /**
+     * <pre>
+     * Route-specific overrides
+     * </pre>
+     *
+     * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+     */
+    public java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder> 
+         getRouteDisplaysBuilderList() {
+      return getRouteDisplaysFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilder<
+        io.github.cuihairu.croupier.common.v1.RouteDisplayConfig, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder, io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder> 
+        getRouteDisplaysFieldBuilder() {
+      if (routeDisplaysBuilder_ == null) {
+        routeDisplaysBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+            io.github.cuihairu.croupier.common.v1.RouteDisplayConfig, io.github.cuihairu.croupier.common.v1.RouteDisplayConfig.Builder, io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder>(
+                routeDisplays_,
+                ((bitField0_ & 0x00020000) != 0),
+                getParentForChildren(),
+                isClean());
+        routeDisplays_ = null;
+      }
+      return routeDisplaysBuilder_;
     }
 
     // @@protoc_insertion_point(builder_scope:croupier.server.v1.FunctionDescriptor)

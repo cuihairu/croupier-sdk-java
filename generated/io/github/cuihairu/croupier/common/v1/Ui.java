@@ -50,6 +50,31 @@ public final class Ui {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_croupier_common_v1_PermissionSpec_I18nZhEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_common_v1_XRenderWidget_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_common_v1_XRenderWidget_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_common_v1_XRenderWidget_PropsEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_common_v1_XRenderWidget_PropsEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_common_v1_XRenderFormConfig_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_common_v1_XRenderFormConfig_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_common_v1_XRenderFormConfig_WidgetsEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_common_v1_XRenderFormConfig_WidgetsEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_common_v1_RouteDisplayConfig_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_common_v1_RouteDisplayConfig_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -73,10 +98,35 @@ public final class Ui {
       "s\022G\n\007i18n_zh\030\004 \003(\0132..croupier.common.v1." +
       "PermissionSpec.I18nZhEntryR\006i18nZh\0329\n\013I1" +
       "8nZhEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005value\030\002 \001" +
-      "(\tR\005value:\0028\001Bj\n%io.github.cuihairu.crou" +
-      "pier.common.v1P\001Z?github.com/cuihairu/cr" +
-      "oupier/pkg/pb/croupier/common/v1;commonv" +
-      "1b\006proto3"
+      "(\tR\005value:\0028\001\"\302\002\n\rXRenderWidget\022\026\n\006widge" +
+      "t\030\001 \001(\tR\006widget\022\024\n\005label\030\002 \001(\tR\005label\022 \n" +
+      "\013placeholder\030\003 \001(\tR\013placeholder\022\032\n\010disab" +
+      "led\030\004 \001(\010R\010disabled\022\033\n\tread_only\030\005 \001(\010R\010" +
+      "readOnly\022\026\n\006hidden\030\006 \001(\010R\006hidden\022\022\n\004span" +
+      "\030\007 \001(\005R\004span\022B\n\005props\030\010 \003(\0132,.croupier.c" +
+      "ommon.v1.XRenderWidget.PropsEntryR\005props" +
+      "\0328\n\nPropsEntry\022\020\n\003key\030\001 \001(\tR\003key\022\024\n\005valu" +
+      "e\030\002 \001(\tR\005value:\0028\001\"\366\002\n\021XRenderFormConfig" +
+      "\022\037\n\013layout_type\030\001 \001(\tR\nlayoutType\022\026\n\006col" +
+      "umn\030\002 \001(\005R\006column\022\037\n\013label_align\030\003 \001(\tR\n" +
+      "labelAlign\022\037\n\013label_width\030\004 \001(\005R\nlabelWi" +
+      "dth\022\024\n\005colon\030\005 \001(\010R\005colon\022L\n\007widgets\030\006 \003" +
+      "(\01322.croupier.common.v1.XRenderFormConfi" +
+      "g.WidgetsEntryR\007widgets\022#\n\rdisplay_order" +
+      "\030\007 \003(\tR\014displayOrder\032]\n\014WidgetsEntry\022\020\n\003" +
+      "key\030\001 \001(\tR\003key\0227\n\005value\030\002 \001(\0132!.croupier" +
+      ".common.v1.XRenderWidgetR\005value:\0028\001\"\240\002\n\022" +
+      "RouteDisplayConfig\022#\n\rroute_pattern\030\001 \001(" +
+      "\tR\014routePattern\022F\n\013form_config\030\002 \001(\0132%.c" +
+      "roupier.common.v1.XRenderFormConfigR\nfor" +
+      "mConfig\022#\n\rhidden_fields\030\003 \003(\tR\014hiddenFi" +
+      "elds\022\'\n\017required_fields\030\004 \003(\tR\016requiredF" +
+      "ields\022,\n\022submit_button_text\030\005 \001(\tR\020submi" +
+      "tButtonText\022!\n\014compact_mode\030\006 \001(\010R\013compa" +
+      "ctModeBj\n%io.github.cuihairu.croupier.co" +
+      "mmon.v1P\001Z?github.com/cuihairu/croupier/" +
+      "pkg/pb/croupier/common/v1;commonv1b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -112,6 +162,36 @@ public final class Ui {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_croupier_common_v1_PermissionSpec_I18nZhEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
+    internal_static_croupier_common_v1_XRenderWidget_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_croupier_common_v1_XRenderWidget_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_common_v1_XRenderWidget_descriptor,
+        new java.lang.String[] { "Widget", "Label", "Placeholder", "Disabled", "ReadOnly", "Hidden", "Span", "Props", });
+    internal_static_croupier_common_v1_XRenderWidget_PropsEntry_descriptor =
+      internal_static_croupier_common_v1_XRenderWidget_descriptor.getNestedTypes().get(0);
+    internal_static_croupier_common_v1_XRenderWidget_PropsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_common_v1_XRenderWidget_PropsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_croupier_common_v1_XRenderFormConfig_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_croupier_common_v1_XRenderFormConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_common_v1_XRenderFormConfig_descriptor,
+        new java.lang.String[] { "LayoutType", "Column", "LabelAlign", "LabelWidth", "Colon", "Widgets", "DisplayOrder", });
+    internal_static_croupier_common_v1_XRenderFormConfig_WidgetsEntry_descriptor =
+      internal_static_croupier_common_v1_XRenderFormConfig_descriptor.getNestedTypes().get(0);
+    internal_static_croupier_common_v1_XRenderFormConfig_WidgetsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_common_v1_XRenderFormConfig_WidgetsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_croupier_common_v1_RouteDisplayConfig_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_croupier_common_v1_RouteDisplayConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_common_v1_RouteDisplayConfig_descriptor,
+        new java.lang.String[] { "RoutePattern", "FormConfig", "HiddenFields", "RequiredFields", "SubmitButtonText", "CompactMode", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

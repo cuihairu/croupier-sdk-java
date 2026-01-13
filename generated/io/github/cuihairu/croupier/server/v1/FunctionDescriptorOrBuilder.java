@@ -235,4 +235,155 @@ public interface FunctionDescriptorOrBuilder extends
    * <code>.croupier.common.v1.PermissionSpec permissions = 24 [json_name = "permissions"];</code>
    */
   io.github.cuihairu.croupier.common.v1.PermissionSpecOrBuilder getPermissionsOrBuilder();
+
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+   * @return The inputSchema.
+   */
+  java.lang.String getInputSchema();
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 30 [json_name = "inputSchema"];</code>
+   * @return The bytes for inputSchema.
+   */
+  com.google.protobuf.ByteString
+      getInputSchemaBytes();
+
+  /**
+   * <pre>
+   * JSON Schema for response body
+   * </pre>
+   *
+   * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+   * @return The outputSchema.
+   */
+  java.lang.String getOutputSchema();
+  /**
+   * <pre>
+   * JSON Schema for response body
+   * </pre>
+   *
+   * <code>string output_schema = 31 [json_name = "outputSchema"];</code>
+   * @return The bytes for outputSchema.
+   */
+  com.google.protobuf.ByteString
+      getOutputSchemaBytes();
+
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+   * @return The xRenderSchema.
+   */
+  java.lang.String getXRenderSchema();
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 32 [json_name = "xRenderSchema"];</code>
+   * @return The bytes for xRenderSchema.
+   */
+  com.google.protobuf.ByteString
+      getXRenderSchemaBytes();
+
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+   * @return The xRenderUiSchema.
+   */
+  java.lang.String getXRenderUiSchema();
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 33 [json_name = "xRenderUiSchema"];</code>
+   * @return The bytes for xRenderUiSchema.
+   */
+  com.google.protobuf.ByteString
+      getXRenderUiSchemaBytes();
+
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   * @return Whether the defaultFormConfig field is set.
+   */
+  boolean hasDefaultFormConfig();
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   * @return The defaultFormConfig.
+   */
+  io.github.cuihairu.croupier.common.v1.XRenderFormConfig getDefaultFormConfig();
+  /**
+   * <pre>
+   * Route-specific display configurations (structured, for Server processing)
+   * </pre>
+   *
+   * <code>.croupier.common.v1.XRenderFormConfig default_form_config = 34 [json_name = "defaultFormConfig"];</code>
+   */
+  io.github.cuihairu.croupier.common.v1.XRenderFormConfigOrBuilder getDefaultFormConfigOrBuilder();
+
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  java.util.List<io.github.cuihairu.croupier.common.v1.RouteDisplayConfig> 
+      getRouteDisplaysList();
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  io.github.cuihairu.croupier.common.v1.RouteDisplayConfig getRouteDisplays(int index);
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  int getRouteDisplaysCount();
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  java.util.List<? extends io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder> 
+      getRouteDisplaysOrBuilderList();
+  /**
+   * <pre>
+   * Route-specific overrides
+   * </pre>
+   *
+   * <code>repeated .croupier.common.v1.RouteDisplayConfig route_displays = 35 [json_name = "routeDisplays"];</code>
+   */
+  io.github.cuihairu.croupier.common.v1.RouteDisplayConfigOrBuilder getRouteDisplaysOrBuilder(
+      int index);
 }

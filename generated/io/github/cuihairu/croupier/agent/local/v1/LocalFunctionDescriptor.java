@@ -39,6 +39,10 @@ private static final long serialVersionUID = 0L;
     summary_ = "";
     description_ = "";
     operationId_ = "";
+    inputSchema_ = "";
+    outputSchema_ = "";
+    xRenderSchema_ = "";
+    xRenderUiSchema_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -357,6 +361,194 @@ private static final long serialVersionUID = 0L;
     return deprecated_;
   }
 
+  public static final int INPUT_SCHEMA_FIELD_NUMBER = 8;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object inputSchema_ = "";
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+   * @return The inputSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getInputSchema() {
+    java.lang.Object ref = inputSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      inputSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+   * </pre>
+   *
+   * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+   * @return The bytes for inputSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getInputSchemaBytes() {
+    java.lang.Object ref = inputSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      inputSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int OUTPUT_SCHEMA_FIELD_NUMBER = 9;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object outputSchema_ = "";
+  /**
+   * <pre>
+   * JSON Schema for response body (responses.200.content.application/json.schema)
+   * </pre>
+   *
+   * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+   * @return The outputSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getOutputSchema() {
+    java.lang.Object ref = outputSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      outputSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * JSON Schema for response body (responses.200.content.application/json.schema)
+   * </pre>
+   *
+   * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+   * @return The bytes for outputSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getOutputSchemaBytes() {
+    java.lang.Object ref = outputSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      outputSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int X_RENDER_SCHEMA_FIELD_NUMBER = 10;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object xRenderSchema_ = "";
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+   * @return The xRenderSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getXRenderSchema() {
+    java.lang.Object ref = xRenderSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      xRenderSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * x-render extension for UI control
+   * </pre>
+   *
+   * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+   * @return The bytes for xRenderSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getXRenderSchemaBytes() {
+    java.lang.Object ref = xRenderSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      xRenderSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int X_RENDER_UI_SCHEMA_FIELD_NUMBER = 11;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object xRenderUiSchema_ = "";
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+   * @return The xRenderUiSchema.
+   */
+  @java.lang.Override
+  public java.lang.String getXRenderUiSchema() {
+    java.lang.Object ref = xRenderUiSchema_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      xRenderUiSchema_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * XRender UI schema for widget configuration (JSON string)
+   * </pre>
+   *
+   * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+   * @return The bytes for xRenderUiSchema.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getXRenderUiSchemaBytes() {
+    java.lang.Object ref = xRenderUiSchema_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      xRenderUiSchema_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -391,6 +583,18 @@ private static final long serialVersionUID = 0L;
     }
     if (deprecated_ != false) {
       output.writeBool(7, deprecated_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(inputSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 8, inputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(outputSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 9, outputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 10, xRenderSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderUiSchema_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 11, xRenderUiSchema_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -428,6 +632,18 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(7, deprecated_);
     }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(inputSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(8, inputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(outputSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(9, outputSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(10, xRenderSchema_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(xRenderUiSchema_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(11, xRenderUiSchema_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -457,6 +673,14 @@ private static final long serialVersionUID = 0L;
         .equals(other.getOperationId())) return false;
     if (getDeprecated()
         != other.getDeprecated()) return false;
+    if (!getInputSchema()
+        .equals(other.getInputSchema())) return false;
+    if (!getOutputSchema()
+        .equals(other.getOutputSchema())) return false;
+    if (!getXRenderSchema()
+        .equals(other.getXRenderSchema())) return false;
+    if (!getXRenderUiSchema()
+        .equals(other.getXRenderUiSchema())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -485,6 +709,14 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + DEPRECATED_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getDeprecated());
+    hash = (37 * hash) + INPUT_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getInputSchema().hashCode();
+    hash = (37 * hash) + OUTPUT_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getOutputSchema().hashCode();
+    hash = (37 * hash) + X_RENDER_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getXRenderSchema().hashCode();
+    hash = (37 * hash) + X_RENDER_UI_SCHEMA_FIELD_NUMBER;
+    hash = (53 * hash) + getXRenderUiSchema().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -629,6 +861,10 @@ private static final long serialVersionUID = 0L;
       description_ = "";
       operationId_ = "";
       deprecated_ = false;
+      inputSchema_ = "";
+      outputSchema_ = "";
+      xRenderSchema_ = "";
+      xRenderUiSchema_ = "";
       return this;
     }
 
@@ -684,6 +920,18 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000040) != 0)) {
         result.deprecated_ = deprecated_;
       }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.inputSchema_ = inputSchema_;
+      }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.outputSchema_ = outputSchema_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.xRenderSchema_ = xRenderSchema_;
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.xRenderUiSchema_ = xRenderUiSchema_;
+      }
     }
 
     @java.lang.Override
@@ -735,6 +983,26 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getDeprecated() != false) {
         setDeprecated(other.getDeprecated());
+      }
+      if (!other.getInputSchema().isEmpty()) {
+        inputSchema_ = other.inputSchema_;
+        bitField0_ |= 0x00000080;
+        onChanged();
+      }
+      if (!other.getOutputSchema().isEmpty()) {
+        outputSchema_ = other.outputSchema_;
+        bitField0_ |= 0x00000100;
+        onChanged();
+      }
+      if (!other.getXRenderSchema().isEmpty()) {
+        xRenderSchema_ = other.xRenderSchema_;
+        bitField0_ |= 0x00000200;
+        onChanged();
+      }
+      if (!other.getXRenderUiSchema().isEmpty()) {
+        xRenderUiSchema_ = other.xRenderUiSchema_;
+        bitField0_ |= 0x00000400;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -798,6 +1066,26 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000040;
               break;
             } // case 56
+            case 66: {
+              inputSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 66
+            case 74: {
+              outputSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 74
+            case 82: {
+              xRenderSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 82
+            case 90: {
+              xRenderUiSchema_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 90
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1462,6 +1750,374 @@ private static final long serialVersionUID = 0L;
     public Builder clearDeprecated() {
       bitField0_ = (bitField0_ & ~0x00000040);
       deprecated_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object inputSchema_ = "";
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+     * @return The inputSchema.
+     */
+    public java.lang.String getInputSchema() {
+      java.lang.Object ref = inputSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        inputSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+     * @return The bytes for inputSchema.
+     */
+    public com.google.protobuf.ByteString
+        getInputSchemaBytes() {
+      java.lang.Object ref = inputSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        inputSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+     * @param value The inputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInputSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      inputSchema_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearInputSchema() {
+      inputSchema_ = getDefaultInstance().getInputSchema();
+      bitField0_ = (bitField0_ & ~0x00000080);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * OpenAPI 3.0.3 Schema fields (JSON Schema format)
+     * </pre>
+     *
+     * <code>string input_schema = 8 [json_name = "inputSchema"];</code>
+     * @param value The bytes for inputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInputSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      inputSchema_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object outputSchema_ = "";
+    /**
+     * <pre>
+     * JSON Schema for response body (responses.200.content.application/json.schema)
+     * </pre>
+     *
+     * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+     * @return The outputSchema.
+     */
+    public java.lang.String getOutputSchema() {
+      java.lang.Object ref = outputSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        outputSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body (responses.200.content.application/json.schema)
+     * </pre>
+     *
+     * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+     * @return The bytes for outputSchema.
+     */
+    public com.google.protobuf.ByteString
+        getOutputSchemaBytes() {
+      java.lang.Object ref = outputSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        outputSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body (responses.200.content.application/json.schema)
+     * </pre>
+     *
+     * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+     * @param value The outputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOutputSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      outputSchema_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body (responses.200.content.application/json.schema)
+     * </pre>
+     *
+     * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearOutputSchema() {
+      outputSchema_ = getDefaultInstance().getOutputSchema();
+      bitField0_ = (bitField0_ & ~0x00000100);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * JSON Schema for response body (responses.200.content.application/json.schema)
+     * </pre>
+     *
+     * <code>string output_schema = 9 [json_name = "outputSchema"];</code>
+     * @param value The bytes for outputSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOutputSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      outputSchema_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object xRenderSchema_ = "";
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+     * @return The xRenderSchema.
+     */
+    public java.lang.String getXRenderSchema() {
+      java.lang.Object ref = xRenderSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xRenderSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+     * @return The bytes for xRenderSchema.
+     */
+    public com.google.protobuf.ByteString
+        getXRenderSchemaBytes() {
+      java.lang.Object ref = xRenderSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xRenderSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+     * @param value The xRenderSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      xRenderSchema_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearXRenderSchema() {
+      xRenderSchema_ = getDefaultInstance().getXRenderSchema();
+      bitField0_ = (bitField0_ & ~0x00000200);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * x-render extension for UI control
+     * </pre>
+     *
+     * <code>string x_render_schema = 10 [json_name = "xRenderSchema"];</code>
+     * @param value The bytes for xRenderSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      xRenderSchema_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object xRenderUiSchema_ = "";
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+     * @return The xRenderUiSchema.
+     */
+    public java.lang.String getXRenderUiSchema() {
+      java.lang.Object ref = xRenderUiSchema_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xRenderUiSchema_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+     * @return The bytes for xRenderUiSchema.
+     */
+    public com.google.protobuf.ByteString
+        getXRenderUiSchemaBytes() {
+      java.lang.Object ref = xRenderUiSchema_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xRenderUiSchema_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+     * @param value The xRenderUiSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderUiSchema(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      xRenderUiSchema_ = value;
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearXRenderUiSchema() {
+      xRenderUiSchema_ = getDefaultInstance().getXRenderUiSchema();
+      bitField0_ = (bitField0_ & ~0x00000400);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * XRender UI schema for widget configuration (JSON string)
+     * </pre>
+     *
+     * <code>string x_render_ui_schema = 11 [json_name = "xRenderUiSchema"];</code>
+     * @param value The bytes for xRenderUiSchema to set.
+     * @return This builder for chaining.
+     */
+    public Builder setXRenderUiSchemaBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      xRenderUiSchema_ = value;
+      bitField0_ |= 0x00000400;
       onChanged();
       return this;
     }
