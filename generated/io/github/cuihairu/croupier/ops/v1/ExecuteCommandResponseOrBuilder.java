@@ -22,28 +22,44 @@ public interface ExecuteCommandResponseOrBuilder extends
   int getExitCode();
 
   /**
-   * <code>string stdout = 3 [json_name = "stdout"];</code>
-   * @return The stdout.
+   * <pre>
+   * Renamed from 'stdout' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_out = 3 [json_name = "stdOut"];</code>
+   * @return The stdOut.
    */
-  java.lang.String getStdout();
+  java.lang.String getStdOut();
   /**
-   * <code>string stdout = 3 [json_name = "stdout"];</code>
-   * @return The bytes for stdout.
+   * <pre>
+   * Renamed from 'stdout' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_out = 3 [json_name = "stdOut"];</code>
+   * @return The bytes for stdOut.
    */
   com.google.protobuf.ByteString
-      getStdoutBytes();
+      getStdOutBytes();
 
   /**
-   * <code>string stderr = 4 [json_name = "stderr"];</code>
-   * @return The stderr.
+   * <pre>
+   * Renamed from 'stderr' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_err = 4 [json_name = "stdErr"];</code>
+   * @return The stdErr.
    */
-  java.lang.String getStderr();
+  java.lang.String getStdErr();
   /**
-   * <code>string stderr = 4 [json_name = "stderr"];</code>
-   * @return The bytes for stderr.
+   * <pre>
+   * Renamed from 'stderr' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_err = 4 [json_name = "stdErr"];</code>
+   * @return The bytes for stdErr.
    */
   com.google.protobuf.ByteString
-      getStderrBytes();
+      getStdErrBytes();
 
   /**
    * <pre>

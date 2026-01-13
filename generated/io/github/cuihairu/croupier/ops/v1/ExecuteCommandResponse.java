@@ -27,8 +27,8 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ExecuteCommandResponse() {
-    stdout_ = "";
-    stderr_ = "";
+    stdOut_ = "";
+    stdErr_ = "";
     error_ = "";
   }
 
@@ -67,78 +67,94 @@ private static final long serialVersionUID = 0L;
     return exitCode_;
   }
 
-  public static final int STDOUT_FIELD_NUMBER = 3;
+  public static final int STD_OUT_FIELD_NUMBER = 3;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object stdout_ = "";
+  private volatile java.lang.Object stdOut_ = "";
   /**
-   * <code>string stdout = 3 [json_name = "stdout"];</code>
-   * @return The stdout.
+   * <pre>
+   * Renamed from 'stdout' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_out = 3 [json_name = "stdOut"];</code>
+   * @return The stdOut.
    */
   @java.lang.Override
-  public java.lang.String getStdout() {
-    java.lang.Object ref = stdout_;
+  public java.lang.String getStdOut() {
+    java.lang.Object ref = stdOut_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      stdout_ = s;
+      stdOut_ = s;
       return s;
     }
   }
   /**
-   * <code>string stdout = 3 [json_name = "stdout"];</code>
-   * @return The bytes for stdout.
+   * <pre>
+   * Renamed from 'stdout' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_out = 3 [json_name = "stdOut"];</code>
+   * @return The bytes for stdOut.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getStdoutBytes() {
-    java.lang.Object ref = stdout_;
+      getStdOutBytes() {
+    java.lang.Object ref = stdOut_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      stdout_ = b;
+      stdOut_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int STDERR_FIELD_NUMBER = 4;
+  public static final int STD_ERR_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
-  private volatile java.lang.Object stderr_ = "";
+  private volatile java.lang.Object stdErr_ = "";
   /**
-   * <code>string stderr = 4 [json_name = "stderr"];</code>
-   * @return The stderr.
+   * <pre>
+   * Renamed from 'stderr' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_err = 4 [json_name = "stdErr"];</code>
+   * @return The stdErr.
    */
   @java.lang.Override
-  public java.lang.String getStderr() {
-    java.lang.Object ref = stderr_;
+  public java.lang.String getStdErr() {
+    java.lang.Object ref = stdErr_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      stderr_ = s;
+      stdErr_ = s;
       return s;
     }
   }
   /**
-   * <code>string stderr = 4 [json_name = "stderr"];</code>
-   * @return The bytes for stderr.
+   * <pre>
+   * Renamed from 'stderr' to avoid Windows CRT macro conflict
+   * </pre>
+   *
+   * <code>string std_err = 4 [json_name = "stdErr"];</code>
+   * @return The bytes for stdErr.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getStderrBytes() {
-    java.lang.Object ref = stderr_;
+      getStdErrBytes() {
+    java.lang.Object ref = stdErr_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      stderr_ = b;
+      stdErr_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -212,11 +228,11 @@ private static final long serialVersionUID = 0L;
     if (exitCode_ != 0) {
       output.writeInt32(2, exitCode_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdout_)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 3, stdout_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdOut_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 3, stdOut_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stderr_)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 4, stderr_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdErr_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 4, stdErr_);
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(error_)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 5, error_);
@@ -238,11 +254,11 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(2, exitCode_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdout_)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(3, stdout_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdOut_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(3, stdOut_);
     }
-    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stderr_)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(4, stderr_);
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(stdErr_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(4, stdErr_);
     }
     if (!com.google.protobuf.GeneratedMessage.isStringEmpty(error_)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(5, error_);
@@ -266,10 +282,10 @@ private static final long serialVersionUID = 0L;
         != other.getSuccess()) return false;
     if (getExitCode()
         != other.getExitCode()) return false;
-    if (!getStdout()
-        .equals(other.getStdout())) return false;
-    if (!getStderr()
-        .equals(other.getStderr())) return false;
+    if (!getStdOut()
+        .equals(other.getStdOut())) return false;
+    if (!getStdErr()
+        .equals(other.getStdErr())) return false;
     if (!getError()
         .equals(other.getError())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -288,10 +304,10 @@ private static final long serialVersionUID = 0L;
         getSuccess());
     hash = (37 * hash) + EXIT_CODE_FIELD_NUMBER;
     hash = (53 * hash) + getExitCode();
-    hash = (37 * hash) + STDOUT_FIELD_NUMBER;
-    hash = (53 * hash) + getStdout().hashCode();
-    hash = (37 * hash) + STDERR_FIELD_NUMBER;
-    hash = (53 * hash) + getStderr().hashCode();
+    hash = (37 * hash) + STD_OUT_FIELD_NUMBER;
+    hash = (53 * hash) + getStdOut().hashCode();
+    hash = (37 * hash) + STD_ERR_FIELD_NUMBER;
+    hash = (53 * hash) + getStdErr().hashCode();
     hash = (37 * hash) + ERROR_FIELD_NUMBER;
     hash = (53 * hash) + getError().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -427,8 +443,8 @@ private static final long serialVersionUID = 0L;
       bitField0_ = 0;
       success_ = false;
       exitCode_ = 0;
-      stdout_ = "";
-      stderr_ = "";
+      stdOut_ = "";
+      stdErr_ = "";
       error_ = "";
       return this;
     }
@@ -470,10 +486,10 @@ private static final long serialVersionUID = 0L;
         result.exitCode_ = exitCode_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
-        result.stdout_ = stdout_;
+        result.stdOut_ = stdOut_;
       }
       if (((from_bitField0_ & 0x00000008) != 0)) {
-        result.stderr_ = stderr_;
+        result.stdErr_ = stdErr_;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
         result.error_ = error_;
@@ -498,13 +514,13 @@ private static final long serialVersionUID = 0L;
       if (other.getExitCode() != 0) {
         setExitCode(other.getExitCode());
       }
-      if (!other.getStdout().isEmpty()) {
-        stdout_ = other.stdout_;
+      if (!other.getStdOut().isEmpty()) {
+        stdOut_ = other.stdOut_;
         bitField0_ |= 0x00000004;
         onChanged();
       }
-      if (!other.getStderr().isEmpty()) {
-        stderr_ = other.stderr_;
+      if (!other.getStdErr().isEmpty()) {
+        stdErr_ = other.stdErr_;
         bitField0_ |= 0x00000008;
         onChanged();
       }
@@ -550,12 +566,12 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 16
             case 26: {
-              stdout_ = input.readStringRequireUtf8();
+              stdOut_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000004;
               break;
             } // case 26
             case 34: {
-              stderr_ = input.readStringRequireUtf8();
+              stdErr_ = input.readStringRequireUtf8();
               bitField0_ |= 0x00000008;
               break;
             } // case 34
@@ -645,145 +661,185 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object stdout_ = "";
+    private java.lang.Object stdOut_ = "";
     /**
-     * <code>string stdout = 3 [json_name = "stdout"];</code>
-     * @return The stdout.
+     * <pre>
+     * Renamed from 'stdout' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_out = 3 [json_name = "stdOut"];</code>
+     * @return The stdOut.
      */
-    public java.lang.String getStdout() {
-      java.lang.Object ref = stdout_;
+    public java.lang.String getStdOut() {
+      java.lang.Object ref = stdOut_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        stdout_ = s;
+        stdOut_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string stdout = 3 [json_name = "stdout"];</code>
-     * @return The bytes for stdout.
+     * <pre>
+     * Renamed from 'stdout' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_out = 3 [json_name = "stdOut"];</code>
+     * @return The bytes for stdOut.
      */
     public com.google.protobuf.ByteString
-        getStdoutBytes() {
-      java.lang.Object ref = stdout_;
+        getStdOutBytes() {
+      java.lang.Object ref = stdOut_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        stdout_ = b;
+        stdOut_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string stdout = 3 [json_name = "stdout"];</code>
-     * @param value The stdout to set.
+     * <pre>
+     * Renamed from 'stdout' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_out = 3 [json_name = "stdOut"];</code>
+     * @param value The stdOut to set.
      * @return This builder for chaining.
      */
-    public Builder setStdout(
+    public Builder setStdOut(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      stdout_ = value;
+      stdOut_ = value;
       bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
-     * <code>string stdout = 3 [json_name = "stdout"];</code>
+     * <pre>
+     * Renamed from 'stdout' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_out = 3 [json_name = "stdOut"];</code>
      * @return This builder for chaining.
      */
-    public Builder clearStdout() {
-      stdout_ = getDefaultInstance().getStdout();
+    public Builder clearStdOut() {
+      stdOut_ = getDefaultInstance().getStdOut();
       bitField0_ = (bitField0_ & ~0x00000004);
       onChanged();
       return this;
     }
     /**
-     * <code>string stdout = 3 [json_name = "stdout"];</code>
-     * @param value The bytes for stdout to set.
+     * <pre>
+     * Renamed from 'stdout' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_out = 3 [json_name = "stdOut"];</code>
+     * @param value The bytes for stdOut to set.
      * @return This builder for chaining.
      */
-    public Builder setStdoutBytes(
+    public Builder setStdOutBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      stdout_ = value;
+      stdOut_ = value;
       bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
 
-    private java.lang.Object stderr_ = "";
+    private java.lang.Object stdErr_ = "";
     /**
-     * <code>string stderr = 4 [json_name = "stderr"];</code>
-     * @return The stderr.
+     * <pre>
+     * Renamed from 'stderr' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_err = 4 [json_name = "stdErr"];</code>
+     * @return The stdErr.
      */
-    public java.lang.String getStderr() {
-      java.lang.Object ref = stderr_;
+    public java.lang.String getStdErr() {
+      java.lang.Object ref = stdErr_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        stderr_ = s;
+        stdErr_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string stderr = 4 [json_name = "stderr"];</code>
-     * @return The bytes for stderr.
+     * <pre>
+     * Renamed from 'stderr' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_err = 4 [json_name = "stdErr"];</code>
+     * @return The bytes for stdErr.
      */
     public com.google.protobuf.ByteString
-        getStderrBytes() {
-      java.lang.Object ref = stderr_;
+        getStdErrBytes() {
+      java.lang.Object ref = stdErr_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        stderr_ = b;
+        stdErr_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string stderr = 4 [json_name = "stderr"];</code>
-     * @param value The stderr to set.
+     * <pre>
+     * Renamed from 'stderr' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_err = 4 [json_name = "stdErr"];</code>
+     * @param value The stdErr to set.
      * @return This builder for chaining.
      */
-    public Builder setStderr(
+    public Builder setStdErr(
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
-      stderr_ = value;
+      stdErr_ = value;
       bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
     /**
-     * <code>string stderr = 4 [json_name = "stderr"];</code>
+     * <pre>
+     * Renamed from 'stderr' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_err = 4 [json_name = "stdErr"];</code>
      * @return This builder for chaining.
      */
-    public Builder clearStderr() {
-      stderr_ = getDefaultInstance().getStderr();
+    public Builder clearStdErr() {
+      stdErr_ = getDefaultInstance().getStdErr();
       bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
     /**
-     * <code>string stderr = 4 [json_name = "stderr"];</code>
-     * @param value The bytes for stderr to set.
+     * <pre>
+     * Renamed from 'stderr' to avoid Windows CRT macro conflict
+     * </pre>
+     *
+     * <code>string std_err = 4 [json_name = "stdErr"];</code>
+     * @param value The bytes for stdErr to set.
      * @return This builder for chaining.
      */
-    public Builder setStderrBytes(
+    public Builder setStdErrBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
-      stderr_ = value;
+      stdErr_ = value;
       bitField0_ |= 0x00000008;
       onChanged();
       return this;

@@ -221,36 +221,36 @@ public final class Ops {
       "oupier.ops.v1.ExecuteCommandRequest.EnvE" +
       "ntryR\003env\022\'\n\017timeout_seconds\030\005 \001(\005R\016time" +
       "outSeconds\0326\n\010EnvEntry\022\020\n\003key\030\001 \001(\tR\003key" +
-      "\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\225\001\n\026ExecuteCo" +
+      "\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"\227\001\n\026ExecuteCo" +
       "mmandResponse\022\030\n\007success\030\001 \001(\010R\007success\022" +
-      "\033\n\texit_code\030\002 \001(\005R\010exitCode\022\026\n\006stdout\030\003" +
-      " \001(\tR\006stdout\022\026\n\006stderr\030\004 \001(\tR\006stderr\022\024\n\005" +
-      "error\030\005 \001(\tR\005error*\265\001\n\014ProcessState\022\035\n\031P" +
-      "ROCESS_STATE_UNSPECIFIED\020\000\022\031\n\025PROCESS_ST" +
-      "ATE_RUNNING\020\001\022\031\n\025PROCESS_STATE_STOPPED\020\002" +
-      "\022\030\n\024PROCESS_STATE_FAILED\020\003\022\032\n\026PROCESS_ST" +
-      "ATE_STARTING\020\004\022\032\n\026PROCESS_STATE_STOPPING" +
-      "\020\0052\264\005\n\nOpsService\022G\n\rReportMetrics\022\036.cro" +
-      "upier.ops.v1.MetricsReport\032\026.google.prot" +
-      "obuf.Empty\022I\n\rStreamMetrics\022\036.croupier.o" +
-      "ps.v1.MetricsReport\032\026.google.protobuf.Em" +
-      "pty(\001\022D\n\rGetSystemInfo\022\026.google.protobuf" +
-      ".Empty\032\033.croupier.ops.v1.SystemInfo\022a\n\016R" +
-      "estartProcess\022&.croupier.ops.v1.RestartP" +
-      "rocessRequest\032\'.croupier.ops.v1.RestartP" +
-      "rocessResponse\022X\n\013StopProcess\022#.croupier" +
-      ".ops.v1.StopProcessRequest\032$.croupier.op" +
-      "s.v1.StopProcessResponse\022[\n\014StartProcess" +
-      "\022$.croupier.ops.v1.StartProcessRequest\032%" +
-      ".croupier.ops.v1.StartProcessResponse\022O\n" +
-      "\rListProcesses\022\026.google.protobuf.Empty\032&" +
-      ".croupier.ops.v1.ListProcessesResponse\022a" +
-      "\n\016ExecuteCommand\022&.croupier.ops.v1.Execu" +
-      "teCommandRequest\032\'.croupier.ops.v1.Execu" +
-      "teCommandResponseBs\n\"io.github.cuihairu." +
-      "croupier.ops.v1P\001Z9github.com/cuihairu/c" +
-      "roupier/pkg/pb/croupier/ops/v1;opsv1\252\002\017C" +
-      "roupier.Ops.V1b\006proto3"
+      "\033\n\texit_code\030\002 \001(\005R\010exitCode\022\027\n\007std_out\030" +
+      "\003 \001(\tR\006stdOut\022\027\n\007std_err\030\004 \001(\tR\006stdErr\022\024" +
+      "\n\005error\030\005 \001(\tR\005error*\265\001\n\014ProcessState\022\035\n" +
+      "\031PROCESS_STATE_UNSPECIFIED\020\000\022\031\n\025PROCESS_" +
+      "STATE_RUNNING\020\001\022\031\n\025PROCESS_STATE_STOPPED" +
+      "\020\002\022\030\n\024PROCESS_STATE_FAILED\020\003\022\032\n\026PROCESS_" +
+      "STATE_STARTING\020\004\022\032\n\026PROCESS_STATE_STOPPI" +
+      "NG\020\0052\264\005\n\nOpsService\022G\n\rReportMetrics\022\036.c" +
+      "roupier.ops.v1.MetricsReport\032\026.google.pr" +
+      "otobuf.Empty\022I\n\rStreamMetrics\022\036.croupier" +
+      ".ops.v1.MetricsReport\032\026.google.protobuf." +
+      "Empty(\001\022D\n\rGetSystemInfo\022\026.google.protob" +
+      "uf.Empty\032\033.croupier.ops.v1.SystemInfo\022a\n" +
+      "\016RestartProcess\022&.croupier.ops.v1.Restar" +
+      "tProcessRequest\032\'.croupier.ops.v1.Restar" +
+      "tProcessResponse\022X\n\013StopProcess\022#.croupi" +
+      "er.ops.v1.StopProcessRequest\032$.croupier." +
+      "ops.v1.StopProcessResponse\022[\n\014StartProce" +
+      "ss\022$.croupier.ops.v1.StartProcessRequest" +
+      "\032%.croupier.ops.v1.StartProcessResponse\022" +
+      "O\n\rListProcesses\022\026.google.protobuf.Empty" +
+      "\032&.croupier.ops.v1.ListProcessesResponse" +
+      "\022a\n\016ExecuteCommand\022&.croupier.ops.v1.Exe" +
+      "cuteCommandRequest\032\'.croupier.ops.v1.Exe" +
+      "cuteCommandResponseBs\n\"io.github.cuihair" +
+      "u.croupier.ops.v1P\001Z9github.com/cuihairu" +
+      "/croupier/pkg/pb/croupier/ops/v1;opsv1\252\002" +
+      "\017Croupier.Ops.V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -377,7 +377,7 @@ public final class Ops {
     internal_static_croupier_ops_v1_ExecuteCommandResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_croupier_ops_v1_ExecuteCommandResponse_descriptor,
-        new java.lang.String[] { "Success", "ExitCode", "Stdout", "Stderr", "Error", });
+        new java.lang.String[] { "Success", "ExitCode", "StdOut", "StdErr", "Error", });
     descriptor.resolveAllFeaturesImmutable();
     com.google.protobuf.TimestampProto.getDescriptor();
     com.google.protobuf.EmptyProto.getDescriptor();
