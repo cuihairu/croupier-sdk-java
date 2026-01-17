@@ -174,5 +174,6 @@ repositories {
 ## 下一步
 
 - [配置选项](./installation.md) - 详细的配置选项说明
+- [主线程调度器](./threading.md) - gRPC 回调线程安全处理
 - [API 参考](../api/) - 完整的 API 文档
 - [示例](../examples/) - 更多使用示例
