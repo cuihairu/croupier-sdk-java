@@ -38,6 +38,8 @@ private static final long serialVersionUID = 0L;
     gameId_ = "";
     env_ = "";
     processes_ = java.util.Collections.emptyList();
+    region_ = "";
+    zone_ = "";
   }
 
   public static final com.google.protobuf.Descriptors.Descriptor
@@ -45,6 +47,18 @@ private static final long serialVersionUID = 0L;
     return io.github.cuihairu.croupier.server.v1.ServerControl.internal_static_croupier_server_v1_RegisterRequest_descriptor;
   }
 
+  @SuppressWarnings({"rawtypes"})
+  @java.lang.Override
+  protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+      int number) {
+    switch (number) {
+      case 12:
+        return internalGetLabels();
+      default:
+        throw new RuntimeException(
+            "Invalid map field number: " + number);
+    }
+  }
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
@@ -410,6 +424,210 @@ private static final long serialVersionUID = 0L;
     return processes_.get(index);
   }
 
+  public static final int TTL_SECONDS_FIELD_NUMBER = 8;
+  private int ttlSeconds_ = 0;
+  /**
+   * <pre>
+   * session TTL (default 300s = 5min)
+   * </pre>
+   *
+   * <code>uint32 ttl_seconds = 8 [json_name = "ttlSeconds"];</code>
+   * @return The ttlSeconds.
+   */
+  @java.lang.Override
+  public int getTtlSeconds() {
+    return ttlSeconds_;
+  }
+
+  public static final int REGION_FIELD_NUMBER = 10;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object region_ = "";
+  /**
+   * <pre>
+   * 新增：位置和标签信息
+   * </pre>
+   *
+   * <code>string region = 10 [json_name = "region"];</code>
+   * @return The region.
+   */
+  @java.lang.Override
+  public java.lang.String getRegion() {
+    java.lang.Object ref = region_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      region_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * 新增：位置和标签信息
+   * </pre>
+   *
+   * <code>string region = 10 [json_name = "region"];</code>
+   * @return The bytes for region.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getRegionBytes() {
+    java.lang.Object ref = region_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      region_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int ZONE_FIELD_NUMBER = 11;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object zone_ = "";
+  /**
+   * <pre>
+   * availability zone (e.g. "us-west-1a")
+   * </pre>
+   *
+   * <code>string zone = 11 [json_name = "zone"];</code>
+   * @return The zone.
+   */
+  @java.lang.Override
+  public java.lang.String getZone() {
+    java.lang.Object ref = zone_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      zone_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * availability zone (e.g. "us-west-1a")
+   * </pre>
+   *
+   * <code>string zone = 11 [json_name = "zone"];</code>
+   * @return The bytes for zone.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getZoneBytes() {
+    java.lang.Object ref = zone_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      zone_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LABELS_FIELD_NUMBER = 12;
+  private static final class LabelsDefaultEntryHolder {
+    static final com.google.protobuf.MapEntry<
+        java.lang.String, java.lang.String> defaultEntry =
+            com.google.protobuf.MapEntry
+            .<java.lang.String, java.lang.String>newDefaultInstance(
+                io.github.cuihairu.croupier.server.v1.ServerControl.internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_descriptor, 
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "",
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "");
+  }
+  @SuppressWarnings("serial")
+  private com.google.protobuf.MapField<
+      java.lang.String, java.lang.String> labels_;
+  private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+  internalGetLabels() {
+    if (labels_ == null) {
+      return com.google.protobuf.MapField.emptyMapField(
+          LabelsDefaultEntryHolder.defaultEntry);
+    }
+    return labels_;
+  }
+  public int getLabelsCount() {
+    return internalGetLabels().getMap().size();
+  }
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  @java.lang.Override
+  public boolean containsLabels(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    return internalGetLabels().getMap().containsKey(key);
+  }
+  /**
+   * Use {@link #getLabelsMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, java.lang.String> getLabels() {
+    return getLabelsMap();
+  }
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, java.lang.String> getLabelsMap() {
+    return internalGetLabels().getMap();
+  }
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  @java.lang.Override
+  public /* nullable */
+java.lang.String getLabelsOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetLabels().getMap();
+    return map.containsKey(key) ? map.get(key) : defaultValue;
+  }
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  @java.lang.Override
+  public java.lang.String getLabelsOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetLabels().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return map.get(key);
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -445,6 +663,21 @@ private static final long serialVersionUID = 0L;
     for (int i = 0; i < processes_.size(); i++) {
       output.writeMessage(7, processes_.get(i));
     }
+    if (ttlSeconds_ != 0) {
+      output.writeUInt32(8, ttlSeconds_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(region_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 10, region_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(zone_)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 11, zone_);
+    }
+    com.google.protobuf.GeneratedMessage
+      .serializeStringMapTo(
+        output,
+        internalGetLabels(),
+        LabelsDefaultEntryHolder.defaultEntry,
+        12);
     getUnknownFields().writeTo(output);
   }
 
@@ -477,6 +710,26 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(7, processes_.get(i));
     }
+    if (ttlSeconds_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeUInt32Size(8, ttlSeconds_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(region_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(10, region_);
+    }
+    if (!com.google.protobuf.GeneratedMessage.isStringEmpty(zone_)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(11, zone_);
+    }
+    for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+         : internalGetLabels().getMap().entrySet()) {
+      com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+      labels__ = LabelsDefaultEntryHolder.defaultEntry.newBuilderForType()
+          .setKey(entry.getKey())
+          .setValue(entry.getValue())
+          .build();
+      size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(12, labels__);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -506,6 +759,14 @@ private static final long serialVersionUID = 0L;
         .equals(other.getEnv())) return false;
     if (!getProcessesList()
         .equals(other.getProcessesList())) return false;
+    if (getTtlSeconds()
+        != other.getTtlSeconds()) return false;
+    if (!getRegion()
+        .equals(other.getRegion())) return false;
+    if (!getZone()
+        .equals(other.getZone())) return false;
+    if (!internalGetLabels().equals(
+        other.internalGetLabels())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -534,6 +795,16 @@ private static final long serialVersionUID = 0L;
     if (getProcessesCount() > 0) {
       hash = (37 * hash) + PROCESSES_FIELD_NUMBER;
       hash = (53 * hash) + getProcessesList().hashCode();
+    }
+    hash = (37 * hash) + TTL_SECONDS_FIELD_NUMBER;
+    hash = (53 * hash) + getTtlSeconds();
+    hash = (37 * hash) + REGION_FIELD_NUMBER;
+    hash = (53 * hash) + getRegion().hashCode();
+    hash = (37 * hash) + ZONE_FIELD_NUMBER;
+    hash = (53 * hash) + getZone().hashCode();
+    if (!internalGetLabels().getMap().isEmpty()) {
+      hash = (37 * hash) + LABELS_FIELD_NUMBER;
+      hash = (53 * hash) + internalGetLabels().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -648,6 +919,28 @@ private static final long serialVersionUID = 0L;
       return io.github.cuihairu.croupier.server.v1.ServerControl.internal_static_croupier_server_v1_RegisterRequest_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 12:
+          return internalGetLabels();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapFieldReflectionAccessor internalGetMutableMapFieldReflection(
+        int number) {
+      switch (number) {
+        case 12:
+          return internalGetMutableLabels();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -689,6 +982,10 @@ private static final long serialVersionUID = 0L;
         processesBuilder_.clear();
       }
       bitField0_ = (bitField0_ & ~0x00000040);
+      ttlSeconds_ = 0;
+      region_ = "";
+      zone_ = "";
+      internalGetMutableLabels().clear();
       return this;
     }
 
@@ -758,6 +1055,19 @@ private static final long serialVersionUID = 0L;
       }
       if (((from_bitField0_ & 0x00000020) != 0)) {
         result.env_ = env_;
+      }
+      if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.ttlSeconds_ = ttlSeconds_;
+      }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
+        result.region_ = region_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.zone_ = zone_;
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.labels_ = internalGetLabels();
+        result.labels_.makeImmutable();
       }
     }
 
@@ -850,6 +1160,22 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
+      if (other.getTtlSeconds() != 0) {
+        setTtlSeconds(other.getTtlSeconds());
+      }
+      if (!other.getRegion().isEmpty()) {
+        region_ = other.region_;
+        bitField0_ |= 0x00000100;
+        onChanged();
+      }
+      if (!other.getZone().isEmpty()) {
+        zone_ = other.zone_;
+        bitField0_ |= 0x00000200;
+        onChanged();
+      }
+      internalGetMutableLabels().mergeFrom(
+          other.internalGetLabels());
+      bitField0_ |= 0x00000400;
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -927,6 +1253,30 @@ private static final long serialVersionUID = 0L;
               }
               break;
             } // case 58
+            case 64: {
+              ttlSeconds_ = input.readUInt32();
+              bitField0_ |= 0x00000080;
+              break;
+            } // case 64
+            case 82: {
+              region_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 82
+            case 90: {
+              zone_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 90
+            case 98: {
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              labels__ = input.readMessage(
+                  LabelsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              internalGetMutableLabels().getMutableMap().put(
+                  labels__.getKey(), labels__.getValue());
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 98
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -2026,6 +2376,389 @@ private static final long serialVersionUID = 0L;
         processes_ = null;
       }
       return processesBuilder_;
+    }
+
+    private int ttlSeconds_ ;
+    /**
+     * <pre>
+     * session TTL (default 300s = 5min)
+     * </pre>
+     *
+     * <code>uint32 ttl_seconds = 8 [json_name = "ttlSeconds"];</code>
+     * @return The ttlSeconds.
+     */
+    @java.lang.Override
+    public int getTtlSeconds() {
+      return ttlSeconds_;
+    }
+    /**
+     * <pre>
+     * session TTL (default 300s = 5min)
+     * </pre>
+     *
+     * <code>uint32 ttl_seconds = 8 [json_name = "ttlSeconds"];</code>
+     * @param value The ttlSeconds to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTtlSeconds(int value) {
+
+      ttlSeconds_ = value;
+      bitField0_ |= 0x00000080;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * session TTL (default 300s = 5min)
+     * </pre>
+     *
+     * <code>uint32 ttl_seconds = 8 [json_name = "ttlSeconds"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTtlSeconds() {
+      bitField0_ = (bitField0_ & ~0x00000080);
+      ttlSeconds_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object region_ = "";
+    /**
+     * <pre>
+     * 新增：位置和标签信息
+     * </pre>
+     *
+     * <code>string region = 10 [json_name = "region"];</code>
+     * @return The region.
+     */
+    public java.lang.String getRegion() {
+      java.lang.Object ref = region_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        region_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 新增：位置和标签信息
+     * </pre>
+     *
+     * <code>string region = 10 [json_name = "region"];</code>
+     * @return The bytes for region.
+     */
+    public com.google.protobuf.ByteString
+        getRegionBytes() {
+      java.lang.Object ref = region_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        region_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 新增：位置和标签信息
+     * </pre>
+     *
+     * <code>string region = 10 [json_name = "region"];</code>
+     * @param value The region to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRegion(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      region_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 新增：位置和标签信息
+     * </pre>
+     *
+     * <code>string region = 10 [json_name = "region"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearRegion() {
+      region_ = getDefaultInstance().getRegion();
+      bitField0_ = (bitField0_ & ~0x00000100);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 新增：位置和标签信息
+     * </pre>
+     *
+     * <code>string region = 10 [json_name = "region"];</code>
+     * @param value The bytes for region to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRegionBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      region_ = value;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object zone_ = "";
+    /**
+     * <pre>
+     * availability zone (e.g. "us-west-1a")
+     * </pre>
+     *
+     * <code>string zone = 11 [json_name = "zone"];</code>
+     * @return The zone.
+     */
+    public java.lang.String getZone() {
+      java.lang.Object ref = zone_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        zone_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * availability zone (e.g. "us-west-1a")
+     * </pre>
+     *
+     * <code>string zone = 11 [json_name = "zone"];</code>
+     * @return The bytes for zone.
+     */
+    public com.google.protobuf.ByteString
+        getZoneBytes() {
+      java.lang.Object ref = zone_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        zone_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * availability zone (e.g. "us-west-1a")
+     * </pre>
+     *
+     * <code>string zone = 11 [json_name = "zone"];</code>
+     * @param value The zone to set.
+     * @return This builder for chaining.
+     */
+    public Builder setZone(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      zone_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * availability zone (e.g. "us-west-1a")
+     * </pre>
+     *
+     * <code>string zone = 11 [json_name = "zone"];</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearZone() {
+      zone_ = getDefaultInstance().getZone();
+      bitField0_ = (bitField0_ & ~0x00000200);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * availability zone (e.g. "us-west-1a")
+     * </pre>
+     *
+     * <code>string zone = 11 [json_name = "zone"];</code>
+     * @param value The bytes for zone to set.
+     * @return This builder for chaining.
+     */
+    public Builder setZoneBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      zone_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> labels_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetLabels() {
+      if (labels_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            LabelsDefaultEntryHolder.defaultEntry);
+      }
+      return labels_;
+    }
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetMutableLabels() {
+      if (labels_ == null) {
+        labels_ = com.google.protobuf.MapField.newMapField(
+            LabelsDefaultEntryHolder.defaultEntry);
+      }
+      if (!labels_.isMutable()) {
+        labels_ = labels_.copy();
+      }
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return labels_;
+    }
+    public int getLabelsCount() {
+      return internalGetLabels().getMap().size();
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    @java.lang.Override
+    public boolean containsLabels(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetLabels().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getLabelsMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getLabels() {
+      return getLabelsMap();
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getLabelsMap() {
+      return internalGetLabels().getMap();
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getLabelsOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetLabels().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    @java.lang.Override
+    public java.lang.String getLabelsOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetLabels().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+    public Builder clearLabels() {
+      bitField0_ = (bitField0_ & ~0x00000400);
+      internalGetMutableLabels().getMutableMap()
+          .clear();
+      return this;
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    public Builder removeLabels(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      internalGetMutableLabels().getMutableMap()
+          .remove(key);
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String>
+        getMutableLabels() {
+      bitField0_ |= 0x00000400;
+      return internalGetMutableLabels().getMutableMap();
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    public Builder putLabels(
+        java.lang.String key,
+        java.lang.String value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      if (value == null) { throw new NullPointerException("map value"); }
+      internalGetMutableLabels().getMutableMap()
+          .put(key, value);
+      bitField0_ |= 0x00000400;
+      return this;
+    }
+    /**
+     * <pre>
+     * system metadata labels (os, arch, hostname, etc.)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+     */
+    public Builder putAllLabels(
+        java.util.Map<java.lang.String, java.lang.String> values) {
+      internalGetMutableLabels().getMutableMap()
+          .putAll(values);
+      bitField0_ |= 0x00000400;
+      return this;
     }
 
     // @@protoc_insertion_point(builder_scope:croupier.server.v1.RegisterRequest)

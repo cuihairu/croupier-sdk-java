@@ -196,4 +196,108 @@ public interface RegisterRequestOrBuilder extends
    */
   io.github.cuihairu.croupier.server.v1.AgentProcessOrBuilder getProcessesOrBuilder(
       int index);
+
+  /**
+   * <pre>
+   * session TTL (default 300s = 5min)
+   * </pre>
+   *
+   * <code>uint32 ttl_seconds = 8 [json_name = "ttlSeconds"];</code>
+   * @return The ttlSeconds.
+   */
+  int getTtlSeconds();
+
+  /**
+   * <pre>
+   * 新增：位置和标签信息
+   * </pre>
+   *
+   * <code>string region = 10 [json_name = "region"];</code>
+   * @return The region.
+   */
+  java.lang.String getRegion();
+  /**
+   * <pre>
+   * 新增：位置和标签信息
+   * </pre>
+   *
+   * <code>string region = 10 [json_name = "region"];</code>
+   * @return The bytes for region.
+   */
+  com.google.protobuf.ByteString
+      getRegionBytes();
+
+  /**
+   * <pre>
+   * availability zone (e.g. "us-west-1a")
+   * </pre>
+   *
+   * <code>string zone = 11 [json_name = "zone"];</code>
+   * @return The zone.
+   */
+  java.lang.String getZone();
+  /**
+   * <pre>
+   * availability zone (e.g. "us-west-1a")
+   * </pre>
+   *
+   * <code>string zone = 11 [json_name = "zone"];</code>
+   * @return The bytes for zone.
+   */
+  com.google.protobuf.ByteString
+      getZoneBytes();
+
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  int getLabelsCount();
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  boolean containsLabels(
+      java.lang.String key);
+  /**
+   * Use {@link #getLabelsMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, java.lang.String>
+  getLabels();
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  java.util.Map<java.lang.String, java.lang.String>
+  getLabelsMap();
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  /* nullable */
+java.lang.String getLabelsOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue);
+  /**
+   * <pre>
+   * system metadata labels (os, arch, hostname, etc.)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; labels = 12 [json_name = "labels"];</code>
+   */
+  java.lang.String getLabelsOrThrow(
+      java.lang.String key);
 }

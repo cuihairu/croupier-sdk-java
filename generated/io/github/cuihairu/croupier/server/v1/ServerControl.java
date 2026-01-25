@@ -41,6 +41,11 @@ public final class ServerControl {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_croupier_server_v1_RegisterRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_croupier_server_v1_RegisterResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -130,61 +135,66 @@ public final class ServerControl {
       "\n\nservice_id\030\001 \001(\tR\tserviceId\022\022\n\004addr\030\002 " +
       "\001(\tR\004addr\022\030\n\007version\030\003 \001(\tR\007version\022$\n\016l" +
       "ast_seen_unix\030\004 \001(\003R\014lastSeenUnix\022!\n\014fun" +
-      "ction_ids\030\005 \003(\tR\013functionIds\"\222\002\n\017Registe" +
+      "ction_ids\030\005 \003(\tR\013functionIds\"\343\003\n\017Registe" +
       "rRequest\022\031\n\010agent_id\030\001 \001(\tR\007agentId\022\030\n\007v" +
       "ersion\030\002 \001(\tR\007version\022D\n\tfunctions\030\003 \003(\013" +
       "2&.croupier.server.v1.FunctionDescriptor" +
       "R\tfunctions\022\031\n\010rpc_addr\030\004 \001(\tR\007rpcAddr\022\027" +
       "\n\007game_id\030\005 \001(\tR\006gameId\022\020\n\003env\030\006 \001(\tR\003en" +
       "v\022>\n\tprocesses\030\007 \003(\0132 .croupier.server.v" +
-      "1.AgentProcessR\tprocesses\"N\n\020RegisterRes" +
-      "ponse\022\035\n\nsession_id\030\001 \001(\tR\tsessionId\022\033\n\t" +
-      "expire_at\030\002 \001(\003R\010expireAt\"L\n\020HeartbeatRe" +
-      "quest\022\031\n\010agent_id\030\001 \001(\tR\007agentId\022\035\n\nsess" +
-      "ion_id\030\002 \001(\tR\tsessionId\"\023\n\021HeartbeatResp" +
-      "onse\"^\n\014ProviderMeta\022\016\n\002id\030\001 \001(\tR\002id\022\030\n\007" +
-      "version\030\002 \001(\tR\007version\022\022\n\004lang\030\003 \001(\tR\004la" +
-      "ng\022\020\n\003sdk\030\004 \001(\tR\003sdk\"\205\001\n\033RegisterCapabil" +
-      "itiesRequest\022<\n\010provider\030\001 \001(\0132 .croupie" +
-      "r.server.v1.ProviderMetaR\010provider\022(\n\020ma" +
-      "nifest_json_gz\030\002 \001(\014R\016manifestJsonGz\"\036\n\034" +
-      "RegisterCapabilitiesResponse\"d\n\034ListFunc" +
-      "tionsSummaryResponse\022D\n\tfunctions\030\001 \003(\0132" +
-      "&.croupier.server.v1.FunctionDescriptorR" +
-      "\tfunctions\"6\n\031GetAgentSystemInfoRequest\022" +
-      "\031\n\010agent_id\030\001 \001(\tR\007agentId\"6\n\031ListAgentP" +
-      "rocessesRequest\022\031\n\010agent_id\030\001 \001(\tR\007agent" +
-      "Id\"z\n\023QueryMetricsRequest\022\033\n\tagent_ids\030\001" +
-      " \003(\tR\010agentIds\0220\n\005since\030\002 \001(\0132\032.google.p" +
-      "rotobuf.TimestampR\005since\022\024\n\005limit\030\003 \001(\rR" +
-      "\005limit\"W\n\024QueryMetricsResponse\022?\n\007entrie" +
-      "s\030\001 \003(\0132%.croupier.server.v1.AgentMetric" +
-      "sEntryR\007entries\"\242\001\n\021AgentMetricsEntry\022\031\n" +
-      "\010agent_id\030\001 \001(\tR\007agentId\0228\n\ttimestamp\030\002 " +
-      "\001(\0132\032.google.protobuf.TimestampR\ttimesta" +
-      "mp\0228\n\007metrics\030\003 \001(\0132\036.croupier.ops.v1.Me" +
-      "tricsReportR\007metrics2\320\005\n\016ControlService\022" +
-      "`\n\024ListFunctionsSummary\022\026.google.protobu" +
-      "f.Empty\0320.croupier.server.v1.ListFunctio" +
-      "nsSummaryResponse\022U\n\010Register\022#.croupier" +
-      ".server.v1.RegisterRequest\032$.croupier.se" +
-      "rver.v1.RegisterResponse\022X\n\tHeartbeat\022$." +
-      "croupier.server.v1.HeartbeatRequest\032%.cr" +
-      "oupier.server.v1.HeartbeatResponse\022y\n\024Re" +
-      "gisterCapabilities\022/.croupier.server.v1." +
-      "RegisterCapabilitiesRequest\0320.croupier.s" +
-      "erver.v1.RegisterCapabilitiesResponse\022`\n" +
-      "\022GetAgentSystemInfo\022-.croupier.server.v1" +
-      ".GetAgentSystemInfoRequest\032\033.croupier.op" +
-      "s.v1.SystemInfo\022k\n\022ListAgentProcesses\022-." +
-      "croupier.server.v1.ListAgentProcessesReq" +
-      "uest\032&.croupier.ops.v1.ListProcessesResp" +
-      "onse\022a\n\014QueryMetrics\022\'.croupier.server.v" +
-      "1.QueryMetricsRequest\032(.croupier.server." +
-      "v1.QueryMetricsResponseBj\n%io.github.cui" +
-      "hairu.croupier.server.v1P\001Z?github.com/c" +
-      "uihairu/croupier/pkg/pb/croupier/server/" +
-      "v1;serverv1b\006proto3"
+      "1.AgentProcessR\tprocesses\022\037\n\013ttl_seconds" +
+      "\030\010 \001(\rR\nttlSeconds\022\026\n\006region\030\n \001(\tR\006regi" +
+      "on\022\022\n\004zone\030\013 \001(\tR\004zone\022G\n\006labels\030\014 \003(\0132/" +
+      ".croupier.server.v1.RegisterRequest.Labe" +
+      "lsEntryR\006labels\0329\n\013LabelsEntry\022\020\n\003key\030\001 " +
+      "\001(\tR\003key\022\024\n\005value\030\002 \001(\tR\005value:\0028\001\"N\n\020Re" +
+      "gisterResponse\022\035\n\nsession_id\030\001 \001(\tR\tsess" +
+      "ionId\022\033\n\texpire_at\030\002 \001(\003R\010expireAt\"L\n\020He" +
+      "artbeatRequest\022\031\n\010agent_id\030\001 \001(\tR\007agentI" +
+      "d\022\035\n\nsession_id\030\002 \001(\tR\tsessionId\"\023\n\021Hear" +
+      "tbeatResponse\"^\n\014ProviderMeta\022\016\n\002id\030\001 \001(" +
+      "\tR\002id\022\030\n\007version\030\002 \001(\tR\007version\022\022\n\004lang\030" +
+      "\003 \001(\tR\004lang\022\020\n\003sdk\030\004 \001(\tR\003sdk\"\205\001\n\033Regist" +
+      "erCapabilitiesRequest\022<\n\010provider\030\001 \001(\0132" +
+      " .croupier.server.v1.ProviderMetaR\010provi" +
+      "der\022(\n\020manifest_json_gz\030\002 \001(\014R\016manifestJ" +
+      "sonGz\"\036\n\034RegisterCapabilitiesResponse\"d\n" +
+      "\034ListFunctionsSummaryResponse\022D\n\tfunctio" +
+      "ns\030\001 \003(\0132&.croupier.server.v1.FunctionDe" +
+      "scriptorR\tfunctions\"6\n\031GetAgentSystemInf" +
+      "oRequest\022\031\n\010agent_id\030\001 \001(\tR\007agentId\"6\n\031L" +
+      "istAgentProcessesRequest\022\031\n\010agent_id\030\001 \001" +
+      "(\tR\007agentId\"z\n\023QueryMetricsRequest\022\033\n\tag" +
+      "ent_ids\030\001 \003(\tR\010agentIds\0220\n\005since\030\002 \001(\0132\032" +
+      ".google.protobuf.TimestampR\005since\022\024\n\005lim" +
+      "it\030\003 \001(\rR\005limit\"W\n\024QueryMetricsResponse\022" +
+      "?\n\007entries\030\001 \003(\0132%.croupier.server.v1.Ag" +
+      "entMetricsEntryR\007entries\"\242\001\n\021AgentMetric" +
+      "sEntry\022\031\n\010agent_id\030\001 \001(\tR\007agentId\0228\n\ttim" +
+      "estamp\030\002 \001(\0132\032.google.protobuf.Timestamp" +
+      "R\ttimestamp\0228\n\007metrics\030\003 \001(\0132\036.croupier." +
+      "ops.v1.MetricsReportR\007metrics2\320\005\n\016Contro" +
+      "lService\022`\n\024ListFunctionsSummary\022\026.googl" +
+      "e.protobuf.Empty\0320.croupier.server.v1.Li" +
+      "stFunctionsSummaryResponse\022U\n\010Register\022#" +
+      ".croupier.server.v1.RegisterRequest\032$.cr" +
+      "oupier.server.v1.RegisterResponse\022X\n\tHea" +
+      "rtbeat\022$.croupier.server.v1.HeartbeatReq" +
+      "uest\032%.croupier.server.v1.HeartbeatRespo" +
+      "nse\022y\n\024RegisterCapabilities\022/.croupier.s" +
+      "erver.v1.RegisterCapabilitiesRequest\0320.c" +
+      "roupier.server.v1.RegisterCapabilitiesRe" +
+      "sponse\022`\n\022GetAgentSystemInfo\022-.croupier." +
+      "server.v1.GetAgentSystemInfoRequest\032\033.cr" +
+      "oupier.ops.v1.SystemInfo\022k\n\022ListAgentPro" +
+      "cesses\022-.croupier.server.v1.ListAgentPro" +
+      "cessesRequest\032&.croupier.ops.v1.ListProc" +
+      "essesResponse\022a\n\014QueryMetrics\022\'.croupier" +
+      ".server.v1.QueryMetricsRequest\032(.croupie" +
+      "r.server.v1.QueryMetricsResponseBj\n%io.g" +
+      "ithub.cuihairu.croupier.server.v1P\001Z?git" +
+      "hub.com/cuihairu/croupier/pkg/pb/croupie" +
+      "r/server/v1;serverv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -211,7 +221,13 @@ public final class ServerControl {
     internal_static_croupier_server_v1_RegisterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_croupier_server_v1_RegisterRequest_descriptor,
-        new java.lang.String[] { "AgentId", "Version", "Functions", "RpcAddr", "GameId", "Env", "Processes", });
+        new java.lang.String[] { "AgentId", "Version", "Functions", "RpcAddr", "GameId", "Env", "Processes", "TtlSeconds", "Region", "Zone", "Labels", });
+    internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_descriptor =
+      internal_static_croupier_server_v1_RegisterRequest_descriptor.getNestedTypes().get(0);
+    internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_croupier_server_v1_RegisterRequest_LabelsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_croupier_server_v1_RegisterResponse_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_croupier_server_v1_RegisterResponse_fieldAccessorTable = new
