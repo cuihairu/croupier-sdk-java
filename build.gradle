@@ -19,13 +19,14 @@ if (System.getenv('GITHUB_REF_TYPE') == 'tag') {
 java { withSourcesJar() }
 
 // ============================================================================
-// 版本锁定 - 必须与 croupier-proto/CLAUDE.md 保持一致！
+// Version Locking - Must align with croupier-proto/CLAUDE.md!
 // ============================================================================
-// buf.build/protocolbuffers/java:v25.1 uses protobuf 3.25.x
-// grpc-java 1.71.0 对应 grpc remote plugin v1.71.0
+// buf.build/protocolbuffers/java:v25.1 generates code using protobuf 4.29.5
+// grpc-java 1.71.0 corresponds to grpc remote plugin v1.71.0
+// Using protobuf-java 4.29.5 to match generated code version
 // ============================================================================
 def grpcVersion = "1.71.0"
-def protobufVersion = "3.25.8"  // Latest 3.25.x release compatible with buf v25.1
+def protobufVersion = "4.29.5"  // Must match gencode version in generated/ directory
 
 dependencies {
     // Protobuf / gRPC runtime (v1 API)
