@@ -21,11 +21,11 @@ java { withSourcesJar() }
 // ============================================================================
 // 版本锁定 - 必须与 croupier-proto/CLAUDE.md 保持一致！
 // ============================================================================
-// protobuf-java 3.25.1 对应 protoc v25.1
+// protobuf-java 4.25.1 对应 protoc 4.25.1 (buf v25.1)
 // grpc-java 1.71.0 对应 grpc remote plugin v1.71.0
 // ============================================================================
 def grpcVersion = "1.71.0"
-def protobufVersion = "3.25.1"
+def protobufVersion = "4.25.1"
 
 dependencies {
     // Protobuf / gRPC runtime (v1 API)
