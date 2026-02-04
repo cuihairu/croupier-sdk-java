@@ -104,10 +104,10 @@ public final class Control {
       "ontrol.v1.HeartbeatResponse\022{\n\024RegisterC" +
       "apabilities\0220.croupier.control.v1.Regist" +
       "erCapabilitiesRequest\0321.croupier.control" +
-      ".v1.RegisterCapabilitiesResponseBm\n&io.g" +
-      "ithub.cuihairu.croupier.control.v1P\001ZAgi" +
-      "thub.com/cuihairu/croupier/pkg/pb/croupi" +
-      "er/control/v1;controlv1b\006proto3"
+      ".v1.RegisterCapabilitiesResponseBu\n&io.g" +
+      "ithub.cuihairu.croupier.control.v1P\001ZIgi" +
+      "thub.com/cuihairu/croupier/sdks/go/pkg/p" +
+      "b/croupier/control/v1;controlv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

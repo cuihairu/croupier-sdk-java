@@ -121,10 +121,10 @@ public final class Client {
       "ntsRequest\032$.croupier.sdk.v1.ListClients" +
       "Response\022[\n\014GetJobResult\022$.croupier.sdk." +
       "v1.GetJobResultRequest\032%.croupier.sdk.v1" +
-      ".GetJobResultResponseBa\n\"io.github.cuiha" +
-      "iru.croupier.sdk.v1P\001Z9github.com/cuihai" +
-      "ru/croupier/pkg/pb/croupier/sdk/v1;sdkv1" +
-      "b\006proto3"
+      ".GetJobResultResponseBi\n\"io.github.cuiha" +
+      "iru.croupier.sdk.v1P\001ZAgithub.com/cuihai" +
+      "ru/croupier/sdks/go/pkg/pb/croupier/sdk/" +
+      "v1;sdkv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
