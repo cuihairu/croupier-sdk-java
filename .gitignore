@@ -9,3 +9,6 @@ buf.gen.yaml
 buf.lock
 coverage.out
 spring-boot-starter/build/
+
+# macOS
+.DS_Store
