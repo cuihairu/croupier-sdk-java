@@ -5,7 +5,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.71.0)",
+    value = "by gRPC proto compiler (version 1.69.0)",
     comments = "Source: croupier/control/v1/control.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class ControlServiceGrpc {
@@ -120,21 +120,6 @@ public final class ControlServiceGrpc {
         }
       };
     return ControlServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static ControlServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<ControlServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<ControlServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public ControlServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new ControlServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return ControlServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -253,47 +238,6 @@ public final class ControlServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service ControlService.
-   */
-  public static final class ControlServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<ControlServiceBlockingV2Stub> {
-    private ControlServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected ControlServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new ControlServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.control.v1.RegisterResponse register(io.github.cuihairu.croupier.control.v1.RegisterRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getRegisterMethod(), getCallOptions(), request);
-    }
-
-    /**
-     */
-    public io.github.cuihairu.croupier.control.v1.HeartbeatResponse heartbeat(io.github.cuihairu.croupier.control.v1.HeartbeatRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getHeartbeatMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * New in capabilities: provider manifest upload (language-agnostic declaration)
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.control.v1.RegisterCapabilitiesResponse registerCapabilities(io.github.cuihairu.croupier.control.v1.RegisterCapabilitiesRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getRegisterCapabilitiesMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service ControlService.
    */
   public static final class ControlServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<ControlServiceBlockingStub> {

@@ -9,7 +9,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  * </pre>
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.71.0)",
+    value = "by gRPC proto compiler (version 1.69.0)",
     comments = "Source: croupier/sdk/v1/invoker.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class InvokerServiceGrpc {
@@ -155,21 +155,6 @@ public final class InvokerServiceGrpc {
         }
       };
     return InvokerServiceStub.newStub(factory, channel);
-  }
-
-  /**
-   * Creates a new blocking-style stub that supports all types of calls on the service
-   */
-  public static InvokerServiceBlockingV2Stub newBlockingV2Stub(
-      io.grpc.Channel channel) {
-    io.grpc.stub.AbstractStub.StubFactory<InvokerServiceBlockingV2Stub> factory =
-      new io.grpc.stub.AbstractStub.StubFactory<InvokerServiceBlockingV2Stub>() {
-        @java.lang.Override
-        public InvokerServiceBlockingV2Stub newStub(io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-          return new InvokerServiceBlockingV2Stub(channel, callOptions);
-        }
-      };
-    return InvokerServiceBlockingV2Stub.newStub(factory, channel);
   }
 
   /**
@@ -333,69 +318,6 @@ public final class InvokerServiceGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service InvokerService.
-   * <pre>
-   * SDK Invoker Service - Main interface for invoking functions
-   * This is what SDK developers will use to call game functions
-   * </pre>
-   */
-  public static final class InvokerServiceBlockingV2Stub
-      extends io.grpc.stub.AbstractBlockingStub<InvokerServiceBlockingV2Stub> {
-    private InvokerServiceBlockingV2Stub(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      super(channel, callOptions);
-    }
-
-    @java.lang.Override
-    protected InvokerServiceBlockingV2Stub build(
-        io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
-      return new InvokerServiceBlockingV2Stub(channel, callOptions);
-    }
-
-    /**
-     * <pre>
-     * Synchronous function invocation
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.InvokeResponse invoke(io.github.cuihairu.croupier.sdk.v1.InvokeRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getInvokeMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Asynchronous job starting
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.StartJobResponse startJob(io.github.cuihairu.croupier.sdk.v1.InvokeRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getStartJobMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Stream job events for async operations
-     * </pre>
-     */
-    @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/10918")
-    public io.grpc.stub.BlockingClientCall<?, io.github.cuihairu.croupier.sdk.v1.JobEvent>
-        streamJob(io.github.cuihairu.croupier.sdk.v1.JobStreamRequest request) {
-      return io.grpc.stub.ClientCalls.blockingV2ServerStreamingCall(
-          getChannel(), getStreamJobMethod(), getCallOptions(), request);
-    }
-
-    /**
-     * <pre>
-     * Cancel a running job
-     * </pre>
-     */
-    public io.github.cuihairu.croupier.sdk.v1.StartJobResponse cancelJob(io.github.cuihairu.croupier.sdk.v1.CancelJobRequest request) {
-      return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCancelJobMethod(), getCallOptions(), request);
-    }
-  }
-
-  /**
-   * A stub to allow clients to do limited synchronous rpc calls to service InvokerService.
    * <pre>
    * SDK Invoker Service - Main interface for invoking functions
    * This is what SDK developers will use to call game functions
