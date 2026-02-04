@@ -129,10 +129,10 @@ public final class Local {
       "agent.local.v1.ListLocalResponse\022k\n\014GetJ" +
       "obResult\022,.croupier.agent.local.v1.GetJo" +
       "bResultRequest\032-.croupier.agent.local.v1" +
-      ".GetJobResultResponseBs\n*io.github.cuiha" +
-      "iru.croupier.agent.local.v1P\001ZCgithub.co" +
-      "m/cuihairu/croupier/pkg/pb/croupier/agen" +
-      "t/local/v1;localv1b\006proto3"
+      ".GetJobResultResponseB{\n*io.github.cuiha" +
+      "iru.croupier.agent.local.v1P\001ZKgithub.co" +
+      "m/cuihairu/croupier/sdks/go/pkg/pb/croup" +
+      "ier/agent/local/v1;localv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
