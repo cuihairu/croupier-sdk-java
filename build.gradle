@@ -22,19 +22,17 @@ java { withSourcesJar() }
 // Version Locking - Must align with croupier-proto/CLAUDE.md!
 // ============================================================================
 // buf.build/protocolbuffers/java:v25.1 generates code using protobuf 4.29.5
-// grpc-java 1.71.0 corresponds to grpc remote plugin v1.71.0
 // Using protobuf-java 4.29.5 to match generated code version
+// NNG transport replaces gRPC
 // ============================================================================
-def grpcVersion = "1.71.0"
 def protobufVersion = "4.29.5"  // Must match gencode version in generated/ directory
 
 dependencies {
-    // Protobuf / gRPC runtime (v1 API)
+    // Protobuf runtime (no gRPC)
     implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
-    implementation "io.grpc:grpc-netty-shaded:${grpcVersion}"
-    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
-    implementation "io.grpc:grpc-stub:${grpcVersion}"
-    implementation "javax.annotation:javax.annotation-api:1.3.2"
+
+    // NNG Java binding (using JNA)
+    implementation "net.java.dev.jna:jna:5.14.0"
 
     // Reactive Streams for async job streaming
     implementation "org.reactivestreams:reactive-streams:1.0.4"
