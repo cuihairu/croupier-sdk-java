@@ -1,30 +1,24 @@
 package io.github.cuihairu.croupier.sdk;
 
-import io.github.cuihairu.croupier.control.v1.ControlServiceGrpc;
-import io.github.cuihairu.croupier.control.v1.ProviderMeta;
-import io.github.cuihairu.croupier.control.v1.RegisterCapabilitiesRequest;
-import com.google.protobuf.ByteString;
-import io.grpc.ManagedChannel;
-import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
-import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * Default implementation of CroupierClient
+ * Default implementation of CroupierClient.
+ *
+ * Note: This is a refactored version without gRPC dependencies.
+ * Transport layer should be implemented separately.
  */
 public class CroupierClientImpl implements CroupierClient {
     private static final Logger logger = LoggerFactory.getLogger(CroupierClientImpl.class);
@@ -36,7 +30,6 @@ public class CroupierClientImpl implements CroupierClient {
     private final AtomicBoolean connected = new AtomicBoolean(false);
     private final AtomicBoolean serving = new AtomicBoolean(false);
 
-    private GrpcManager grpcManager;
     private String sessionId;
     private String localAddress;
 
@@ -69,42 +62,22 @@ public class CroupierClientImpl implements CroupierClient {
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                logger.info("🔌 Connecting to Croupier Agent: {}", config.getAgentAddr());
+                logger.info("Connecting to Croupier Agent: {}", config.getAgentAddr());
 
-                // Initialize gRPC manager
-                grpcManager = new GrpcManager(config, handlers);
-
-                // Connect to agent
-                grpcManager.connect();
-
-                // Start local server
-                localAddress = grpcManager.startLocalServer();
-
-                // Register functions with agent
-                List<LocalFunctionDescriptor> localFunctions = convertToLocalFunctions();
-                sessionId = grpcManager.registerWithAgent(
-                    config.getServiceId(),
-                    config.getServiceVersion(),
-                    localFunctions
-                );
-
-                connected.set(true);
-
-                logger.info("✅ Successfully connected and registered with Agent");
-                logger.info("📍 Local service address: {}", localAddress);
-                logger.info("🔑 Session ID: {}", sessionId);
-
-                if (!isNullOrEmpty(config.getControlAddr())) {
-                    try {
-                        registerCapabilitiesWithControlPlane();
-                    } catch (Exception e) {
-                        logger.warn("⚠️ Failed to upload provider capabilities", e);
-                    }
+                if (handlers.isEmpty()) {
+                    throw new CroupierException("Register at least one function before connecting");
                 }
+
+                // TODO: Implement transport connection (NNG, etc.)
+                connected.set(true);
+                localAddress = config.getAgentAddr();
+
+                logger.info("Successfully connected");
+                logger.info("Local service address: {}", localAddress);
 
                 return null;
             } catch (Exception e) {
-                logger.error("❌ Connection failed", e);
+                logger.error("Connection failed", e);
                 throw new RuntimeException(new CroupierException("Connection failed", e));
             }
         });
@@ -128,21 +101,14 @@ public class CroupierClientImpl implements CroupierClient {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 serving.set(true);
-                logger.info("🚀 Croupier client service started");
-                logger.info("📍 Local service address: {}", localAddress);
-                logger.info("🎯 Registered functions: {}", handlers.size());
-                logger.info("💡 Use stop() method to stop the service");
-                logger.info("===============================================");
+                logger.info("Croupier client service started");
+                logger.info("Local service address: {}", localAddress);
+                logger.info("Registered functions: {}", handlers.size());
 
                 // Keep serving until stopped
                 while (serving.get()) {
-                    if (!grpcManager.isConnected()) {
-                        logger.warn("⚠️ Connection to agent lost");
-                        break;
-                    }
-
                     try {
-                        Thread.sleep(100); // Check every 100ms
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;
@@ -150,7 +116,7 @@ public class CroupierClientImpl implements CroupierClient {
                 }
 
                 serving.set(false);
-                logger.info("🛑 Service has stopped");
+                logger.info("Service has stopped");
                 return null;
             } catch (Exception e) {
                 serving.set(false);
@@ -164,13 +130,8 @@ public class CroupierClientImpl implements CroupierClient {
         serving.set(false);
         connected.set(false);
 
-        logger.info("🛑 Stopping Croupier client...");
-
-        if (grpcManager != null) {
-            grpcManager.disconnect();
-        }
-
-        logger.info("✅ Client stopped successfully");
+        logger.info("Stopping Croupier client...");
+        logger.info("Client stopped successfully");
     }
 
     @Override
@@ -195,6 +156,19 @@ public class CroupierClientImpl implements CroupierClient {
         return serving.get();
     }
 
+    /**
+     * Invoke a registered function handler directly.
+     */
+    public String invoke(String functionId, String payload, Map<String, String> metadata) throws CroupierException {
+        FunctionHandler handler = handlers.get(functionId);
+        if (handler == null) {
+            throw new CroupierException("Function not found: " + functionId);
+        }
+
+        String context = toJson(metadata != null ? metadata : Map.of());
+        return handler.handle(context, payload);
+    }
+
     private void validateConfig() {
         if (config.getGameId() == null || config.getGameId().trim().isEmpty()) {
             logger.warn("Warning: gameId is required for proper backend separation");
@@ -215,65 +189,33 @@ public class CroupierClientImpl implements CroupierClient {
         }
     }
 
-    private List<LocalFunctionDescriptor> convertToLocalFunctions() {
+    /**
+     * Get local function descriptors for registration.
+     */
+    public List<LocalFunctionDescriptor> getLocalFunctions() {
         return descriptors.values().stream()
                 .map(desc -> new LocalFunctionDescriptor(desc.getId(), desc.getVersion()))
                 .collect(Collectors.toList());
     }
 
-    private void registerCapabilitiesWithControlPlane() throws Exception {
-        byte[] manifest = buildManifest();
-        byte[] compressed = gzip(manifest);
-
-        NettyChannelBuilder builder = NettyChannelBuilder.forTarget(config.getControlAddr());
-        if (config.isInsecure()) {
-            builder.usePlaintext();
-        } else {
-            if (grpcManager == null) {
-                throw new CroupierException("gRPC manager not initialized, cannot configure TLS");
-            }
-            SslContext sslContext = grpcManager.buildClientSslContext();
-            builder.sslContext(sslContext);
-        }
-
-        builder.keepAliveTime(30, TimeUnit.SECONDS)
-               .keepAliveTimeout(5, TimeUnit.SECONDS)
-               .keepAliveWithoutCalls(true);
-
-        ManagedChannel controlChannel = builder.build();
-        try {
-            ControlServiceGrpc.ControlServiceBlockingStub stub = ControlServiceGrpc.newBlockingStub(controlChannel);
-            if (config.getTimeoutSeconds() > 0) {
-                stub = stub.withDeadlineAfter(config.getTimeoutSeconds(), TimeUnit.SECONDS);
-            }
-
-            RegisterCapabilitiesRequest request = RegisterCapabilitiesRequest.newBuilder()
-                    .setProvider(ProviderMeta.newBuilder()
-                            .setId(defaultValue(config.getServiceId(), "java-service"))
-                            .setVersion(defaultVersion(config.getServiceVersion()))
-                            .setLang(defaultValue(config.getProviderLang(), "java"))
-                            .setSdk(defaultValue(config.getProviderSdk(), "croupier-java-sdk"))
-                            .build())
-                    .setManifestJsonGz(ByteString.copyFrom(compressed))
-                    .build();
-
-            stub.registerCapabilities(request);
-            logger.info("📤 Uploaded provider capabilities manifest ({} functions)", descriptors.size());
-        } finally {
-            controlChannel.shutdown();
-            try {
-                if (!controlChannel.awaitTermination(5, TimeUnit.SECONDS)) {
-                    controlChannel.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                controlChannel.shutdownNow();
-                Thread.currentThread().interrupt();
-                throw new CroupierException("Interrupted while closing control channel", e);
-            }
-        }
+    /**
+     * Build a registration request for the agent.
+     */
+    public Map<String, Object> getRegisterRequest() {
+        return Map.of(
+            "serviceId", config.getServiceId(),
+            "version", config.getServiceVersion(),
+            "rpcAddr", localAddress != null ? localAddress : "",
+            "functions", getLocalFunctions().stream()
+                .map(f -> Map.of("id", f.getId(), "version", f.getVersion()))
+                .collect(Collectors.toList())
+        );
     }
 
-    private byte[] buildManifest() {
+    /**
+     * Build provider manifest JSON.
+     */
+    public byte[] buildManifest() {
         StringBuilder builder = new StringBuilder();
         builder.append("{\"provider\":{");
         builder.append("\"id\":\"").append(escapeJson(defaultValue(config.getServiceId(), "java-service"))).append("\",");
@@ -323,6 +265,26 @@ public class CroupierClientImpl implements CroupierClient {
         return builder.toString().getBytes(StandardCharsets.UTF_8);
     }
 
+    /**
+     * Get gzipped manifest.
+     */
+    public byte[] getManifestGzipped() throws IOException {
+        return gzip(buildManifest());
+    }
+
+    private String toJson(Map<String, String> map) {
+        StringBuilder sb = new StringBuilder("{");
+        boolean first = true;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            if (!first) sb.append(",");
+            sb.append("\"").append(escapeJson(entry.getKey())).append("\":");
+            sb.append("\"").append(escapeJson(entry.getValue())).append("\"");
+            first = false;
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+
     private String escapeJson(String value) {
         if (value == null) {
             return "";
@@ -331,27 +293,13 @@ public class CroupierClientImpl implements CroupierClient {
         for (int i = 0; i < value.length(); i++) {
             char ch = value.charAt(i);
             switch (ch) {
-                case '"':
-                    out.append("\\\"");
-                    break;
-                case '\\':
-                    out.append("\\\\");
-                    break;
-                case '\b':
-                    out.append("\\b");
-                    break;
-                case '\f':
-                    out.append("\\f");
-                    break;
-                case '\n':
-                    out.append("\\n");
-                    break;
-                case '\r':
-                    out.append("\\r");
-                    break;
-                case '\t':
-                    out.append("\\t");
-                    break;
+                case '"': out.append("\\\""); break;
+                case '\\': out.append("\\\\"); break;
+                case '\b': out.append("\\b"); break;
+                case '\f': out.append("\\f"); break;
+                case '\n': out.append("\\n"); break;
+                case '\r': out.append("\\r"); break;
+                case '\t': out.append("\\t"); break;
                 default:
                     if (ch < 0x20) {
                         out.append(String.format("\\u%04x", (int) ch));
