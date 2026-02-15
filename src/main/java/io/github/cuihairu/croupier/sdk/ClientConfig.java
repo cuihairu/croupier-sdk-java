@@ -5,7 +5,7 @@ package io.github.cuihairu.croupier.sdk;
  */
 public class ClientConfig {
     // Agent connection settings
-    private String agentAddr = "localhost:19090"; // Agent gRPC address
+    private String agentAddr = "localhost:19090"; // Agent NNG address
 
     // Service identification (multi-tenant support)
     private String gameId;          // game identifier for tenant isolation
@@ -15,12 +15,12 @@ public class ClientConfig {
     private String agentId;         // agent identifier for load balancing
 
     // Local server settings
-    private String localListen;     // local gRPC listener address
+    private String localListen;     // local NNG listener address
     private String controlAddr;     // optional control-plane addr for manifest upload
 
     // Connection settings
     private int timeoutSeconds = 30; // connection timeout in seconds
-    private boolean insecure = true; // use insecure gRPC (for development)
+    private boolean insecure = true; // use insecure connection (for development)
 
     // TLS settings (when not insecure)
     private String caFile;   // CA certificate file path

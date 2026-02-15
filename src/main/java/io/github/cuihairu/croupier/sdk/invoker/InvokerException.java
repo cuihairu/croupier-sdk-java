@@ -88,34 +88,52 @@ public class InvokerException extends Exception {
     }
 
     /**
-     * Creates a new InvokerException from a gRPC status code and message.
+     * Creates a new InvokerException from a status code and message.
+     * Status codes follow standard error code conventions (compatible with gRPC codes).
      *
-     * @param grpcStatusCode the gRPC status code as an integer
+     * @param statusCode the status code as an integer
      * @param message the error message
      * @return a new InvokerException with appropriate error code
      */
-    public static InvokerException fromGrpcStatus(int grpcStatusCode, String message) {
-        ErrorCode errorCode = fromGrpcCode(grpcStatusCode);
+    public static InvokerException fromStatusCode(int statusCode, String message) {
+        ErrorCode errorCode = fromStatusCode(statusCode);
         return new InvokerException(errorCode, message);
     }
 
     /**
-     * Creates a new InvokerException from a gRPC status code, message, and cause.
+     * Creates a new InvokerException from a status code, message, and cause.
+     * Status codes follow standard error code conventions (compatible with gRPC codes).
      *
-     * @param grpcStatusCode the gRPC status code as an integer
+     * @param statusCode the status code as an integer
      * @param message the error message
      * @param cause the underlying cause
      * @return a new InvokerException with appropriate error code
      */
-    public static InvokerException fromGrpcStatus(int grpcStatusCode, String message, Throwable cause) {
-        ErrorCode errorCode = fromGrpcCode(grpcStatusCode);
+    public static InvokerException fromStatusCode(int statusCode, String message, Throwable cause) {
+        ErrorCode errorCode = fromStatusCode(statusCode);
         return new InvokerException(errorCode, message, cause);
     }
 
-    private static ErrorCode fromGrpcCode(int grpcStatusCode) {
-        // Map gRPC status codes to our error codes
-        // See: https://grpc.github.io/grpc/core/md_doc_statuscodes.html
-        return switch (grpcStatusCode) {
+    /**
+     * @deprecated Use {@link #fromStatusCode(int, String)} instead.
+     */
+    @Deprecated
+    public static InvokerException fromGrpcStatus(int grpcStatusCode, String message) {
+        return fromStatusCode(grpcStatusCode, message);
+    }
+
+    /**
+     * @deprecated Use {@link #fromStatusCode(int, String, Throwable)} instead.
+     */
+    @Deprecated
+    public static InvokerException fromGrpcStatus(int grpcStatusCode, String message, Throwable cause) {
+        return fromStatusCode(grpcStatusCode, message, cause);
+    }
+
+    private static ErrorCode fromStatusCode(int statusCode) {
+        // Map standard status codes to our error codes
+        // Compatible with gRPC status codes for backward compatibility
+        return switch (statusCode) {
             case 1 -> ErrorCode.CANCELLED;
             case 2 -> ErrorCode.UNKNOWN;
             case 3 -> ErrorCode.INVALID_ARGUMENT;

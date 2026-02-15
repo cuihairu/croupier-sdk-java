@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Proto generator for CI builds
- * Downloads proto files and generates Java gRPC code
+ * Downloads proto files and generates Java protobuf code
  */
 public class ProtoGenerator {
     private static final String[] PROTO_FILES = {
@@ -30,8 +30,8 @@ public class ProtoGenerator {
 
         // Check if we're in CI or local development
         if (!isCI()) {
-            System.out.println("Local development build detected, using mock gRPC implementation");
-            System.out.println("To enable real gRPC, set CROUPIER_CI_BUILD=1");
+            System.out.println("Local development build detected, using mock implementation");
+            System.out.println("To enable real proto generation, set CROUPIER_CI_BUILD=1");
             return;
         }
 
@@ -50,7 +50,7 @@ public class ProtoGenerator {
             // This script just downloads the proto files
 
             System.out.println("CI build setup completed with proto download");
-            System.out.println("Maven protobuf plugin will generate the gRPC code");
+            System.out.println("Maven protobuf plugin will generate the protobuf code");
 
         } catch (Exception e) {
             System.err.println("Proto generation failed: " + e.getMessage());

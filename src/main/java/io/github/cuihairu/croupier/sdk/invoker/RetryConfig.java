@@ -123,7 +123,8 @@ public class RetryConfig {
     }
 
     /**
-     * Gets the list of gRPC status codes that should trigger a retry.
+     * Gets the list of status codes that should trigger a retry.
+     * Status codes follow standard error code conventions.
      *
      * @return list of retryable status codes
      */
@@ -249,7 +250,8 @@ public class RetryConfig {
         }
 
         /**
-         * Sets the gRPC status codes that should trigger a retry.
+         * Sets the status codes that should trigger a retry.
+         * Status codes follow standard error code conventions.
          *
          * @param retryableStatusCodes list of status codes
          * @return this builder
