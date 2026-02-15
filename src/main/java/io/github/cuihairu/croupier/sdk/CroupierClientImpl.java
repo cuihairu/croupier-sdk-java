@@ -166,7 +166,14 @@ public class CroupierClientImpl implements CroupierClient {
         }
 
         String context = toJson(metadata != null ? metadata : Map.of());
-        return handler.handle(context, payload);
+        try {
+            return handler.handle(context, payload);
+        } catch (Exception e) {
+            if (e instanceof CroupierException) {
+                throw (CroupierException) e;
+            }
+            throw new CroupierException("Function execution failed: " + e.getMessage(), e);
+        }
     }
 
     private void validateConfig() {

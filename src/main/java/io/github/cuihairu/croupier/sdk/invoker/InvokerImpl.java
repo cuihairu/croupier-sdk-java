@@ -1,10 +1,10 @@
 package io.github.cuihairu.croupier.sdk.invoker;
 
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,63 +28,85 @@ public class InvokerImpl implements Invoker {
     }
 
     @Override
-    public CompletableFuture<Void> connect() {
+    public void connect() throws InvokerException {
         if (connected) {
-            return CompletableFuture.completedFuture(null);
+            return;
         }
 
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                logger.info("Connecting to server/agent at: {}", config.getAddress());
+        try {
+            logger.info("Connecting to server/agent at: {}", config.getAddress());
 
-                // TODO: Implement transport connection (NNG, etc.)
-                connected = true;
+            // TODO: Implement transport connection (NNG, etc.)
+            connected = true;
 
-                logger.info("Connected to: {}", config.getAddress());
-                return null;
-            } catch (Exception e) {
-                logger.error("Connection failed", e);
-                throw new RuntimeException("Connection failed: " + e.getMessage(), e);
-            }
-        });
+            logger.info("Connected to: {}", config.getAddress());
+        } catch (Exception e) {
+            logger.error("Connection failed", e);
+            throw new InvokerException("Connection failed: " + e.getMessage(), e);
+        }
     }
 
     @Override
-    public CompletableFuture<String> invoke(String functionId, String payload, InvokeOptions options) {
-        if (!connected) {
-            return connect().thenCompose(v -> doInvoke(functionId, payload, options));
-        }
-        return doInvoke(functionId, payload, options);
+    public String invoke(String functionId, String payload) throws InvokerException {
+        return invoke(functionId, payload, new InvokeOptions());
     }
 
-    private CompletableFuture<String> doInvoke(String functionId, String payload, InvokeOptions options) {
-        return CompletableFuture.supplyAsync(() -> {
+    @Override
+    public String invoke(String functionId, String payload, InvokeOptions options) throws InvokerException {
+        if (!connected) {
+            connect();
+        }
+
+        try {
             // TODO: Implement via transport layer
             throw new UnsupportedOperationException("Invoke not implemented without transport layer");
-        });
+        } catch (Exception e) {
+            if (e instanceof InvokerException) {
+                throw (InvokerException) e;
+            }
+            throw new InvokerException("Invoke failed: " + e.getMessage(), e);
+        }
     }
 
     @Override
-    public CompletableFuture<String> startJob(String functionId, String payload, InvokeOptions options) {
-        if (!connected) {
-            return connect().thenCompose(v -> doStartJob(functionId, payload, options));
-        }
-        return doStartJob(functionId, payload, options);
+    public String startJob(String functionId, String payload) throws InvokerException {
+        return startJob(functionId, payload, new InvokeOptions());
     }
 
-    private CompletableFuture<String> doStartJob(String functionId, String payload, InvokeOptions options) {
-        return CompletableFuture.supplyAsync(() -> {
+    @Override
+    public String startJob(String functionId, String payload, InvokeOptions options) throws InvokerException {
+        if (!connected) {
+            connect();
+        }
+
+        try {
             // TODO: Implement via transport layer
             throw new UnsupportedOperationException("StartJob not implemented without transport layer");
-        });
+        } catch (Exception e) {
+            if (e instanceof InvokerException) {
+                throw (InvokerException) e;
+            }
+            throw new InvokerException("StartJob failed: " + e.getMessage(), e);
+        }
     }
 
     @Override
-    public CompletableFuture<Void> cancelJob(String jobId) {
-        return CompletableFuture.runAsync(() -> {
+    public Publisher<JobEventInfo> streamJob(String jobId) {
+        // TODO: Implement via transport layer
+        throw new UnsupportedOperationException("StreamJob not implemented without transport layer");
+    }
+
+    @Override
+    public void cancelJob(String jobId) throws InvokerException {
+        try {
             // TODO: Implement via transport layer
             throw new UnsupportedOperationException("CancelJob not implemented without transport layer");
-        });
+        } catch (Exception e) {
+            if (e instanceof InvokerException) {
+                throw (InvokerException) e;
+            }
+            throw new InvokerException("CancelJob failed: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -94,12 +116,10 @@ public class InvokerImpl implements Invoker {
     }
 
     @Override
-    public CompletableFuture<Void> close() {
-        return CompletableFuture.runAsync(() -> {
-            connected = false;
-            schemas.clear();
-            logger.info("Invoker closed");
-        });
+    public void close() throws InvokerException {
+        connected = false;
+        schemas.clear();
+        logger.info("Invoker closed");
     }
 
     @Override
