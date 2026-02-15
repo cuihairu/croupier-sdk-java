@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static io.github.cuihairu.croupier.sdk.invoker.InvokerException.ErrorCode;
+
 /**
  * Implementation of the Invoker interface.
  *
@@ -42,13 +44,13 @@ public class InvokerImpl implements Invoker {
             logger.info("Connected to: {}", config.getAddress());
         } catch (Exception e) {
             logger.error("Connection failed", e);
-            throw new InvokerException("Connection failed: " + e.getMessage(), e);
+            throw new InvokerException(ErrorCode.CONNECTION_FAILED, "Connection failed: " + e.getMessage(), e);
         }
     }
 
     @Override
     public String invoke(String functionId, String payload) throws InvokerException {
-        return invoke(functionId, payload, new InvokeOptions());
+        return invoke(functionId, payload, InvokeOptions.create());
     }
 
     @Override
@@ -64,13 +66,13 @@ public class InvokerImpl implements Invoker {
             if (e instanceof InvokerException) {
                 throw (InvokerException) e;
             }
-            throw new InvokerException("Invoke failed: " + e.getMessage(), e);
+            throw new InvokerException(ErrorCode.INTERNAL, "Invoke failed: " + e.getMessage(), e);
         }
     }
 
     @Override
     public String startJob(String functionId, String payload) throws InvokerException {
-        return startJob(functionId, payload, new InvokeOptions());
+        return startJob(functionId, payload, InvokeOptions.create());
     }
 
     @Override
@@ -86,7 +88,7 @@ public class InvokerImpl implements Invoker {
             if (e instanceof InvokerException) {
                 throw (InvokerException) e;
             }
-            throw new InvokerException("StartJob failed: " + e.getMessage(), e);
+            throw new InvokerException(ErrorCode.INTERNAL, "StartJob failed: " + e.getMessage(), e);
         }
     }
 
@@ -105,7 +107,7 @@ public class InvokerImpl implements Invoker {
             if (e instanceof InvokerException) {
                 throw (InvokerException) e;
             }
-            throw new InvokerException("CancelJob failed: " + e.getMessage(), e);
+            throw new InvokerException(ErrorCode.INTERNAL, "CancelJob failed: " + e.getMessage(), e);
         }
     }
 
