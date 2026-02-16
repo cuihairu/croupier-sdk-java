@@ -1,5 +1,11 @@
 package io.github.cuihairu.croupier.sdk;
 
+import io.github.cuihairu.croupier.sdk.invoker.InvokeOptions;
+import io.github.cuihairu.croupier.sdk.invoker.Invoker;
+import io.github.cuihairu.croupier.sdk.invoker.InvokerConfig;
+import io.github.cuihairu.croupier.sdk.invoker.InvokerException;
+import io.github.cuihairu.croupier.sdk.invoker.JobEventInfo;
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,12 +38,19 @@ public class CroupierClientImpl implements CroupierClient {
 
     private String sessionId;
     private String localAddress;
+    private final Invoker invoker;
 
     public CroupierClientImpl(ClientConfig config) {
         this.config = config;
         validateConfig();
         logger.info("Initialized CroupierClient for game '{}' in '{}' environment",
                    config.getGameId(), config.getEnv());
+
+        // Initialize invoker for client-side operations
+        InvokerConfig invokerConfig = InvokerConfig.builder()
+            .address(config.getAgentAddr())
+            .build();
+        this.invoker = new io.github.cuihairu.croupier.sdk.invoker.InvokerImpl(invokerConfig);
     }
 
     @Override
@@ -139,6 +152,13 @@ public class CroupierClientImpl implements CroupierClient {
         stop();
         handlers.clear();
         descriptors.clear();
+
+        // Close invoker
+        try {
+            invoker.close();
+        } catch (InvokerException e) {
+            logger.warn("Failed to close invoker", e);
+        }
     }
 
     @Override
@@ -154,6 +174,40 @@ public class CroupierClientImpl implements CroupierClient {
     @Override
     public boolean isServing() {
         return serving.get();
+    }
+
+    // ========== Job Management Methods ==========
+
+    @Override
+    public String startJob(String functionId, String payload) throws CroupierException {
+        return startJob(functionId, payload, Map.of());
+    }
+
+    @Override
+    public String startJob(String functionId, String payload, Map<String, String> metadata) throws CroupierException {
+        try {
+            InvokeOptions options = InvokeOptions.builder()
+                .headers(metadata)
+                .build();
+            return invoker.startJob(functionId, payload, options);
+        } catch (InvokerException e) {
+            throw new CroupierException("Failed to start job: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public Publisher<JobEventInfo> streamJob(String jobId) {
+        return invoker.streamJob(jobId);
+    }
+
+    @Override
+    public boolean cancelJob(String jobId) throws CroupierException {
+        try {
+            invoker.cancelJob(jobId);
+            return true;
+        } catch (InvokerException e) {
+            throw new CroupierException("Failed to cancel job: " + e.getMessage(), e);
+        }
     }
 
     /**

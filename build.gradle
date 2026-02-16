@@ -31,7 +31,8 @@ dependencies {
     // Protobuf runtime (no gRPC)
     implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
 
-    // NNG Java binding (using JNA)
+    // NNG Java binding (using JNA) - requires nng library installed
+    // For installation instructions, see: https://github.com/nanomsg/nng
     implementation "net.java.dev.jna:jna:5.14.0"
 
     // Reactive Streams for async job streaming

@@ -2,7 +2,12 @@
  * NNG Transport Layer for Croupier Java SDK.
  *
  * <p>Implements the NNG (nanomsg-next-gen) based transport for communication
- * with Croupier Agent using REQ/REP pattern.
+ * with Croupier Agent using REQ/REP pattern.</p>
+ *
+ * <p>This implementation uses JNA to call the native NNG library.</p>
+ *
+ * <p><b>Prerequisites:</b> The NNG native library must be installed on the system.
+ * See: https://github.com/nanomsg/nng</p>
  */
 package io.github.cuihairu.croupier.sdk.transport;
 
@@ -14,14 +19,43 @@ import com.sun.jna.ptr.PointerByReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 /**
  * NNG-based transport client using REQ/REP pattern.
  */
 public class NNGTransport {
     private static final Logger LOG = LoggerFactory.getLogger(NNGTransport.class);
+
+    /**
+     * JNA interface to NNG native library.
+     */
+    public interface NNGLibrary extends Library {
+        NNGLibrary INSTANCE = Native.load("nng", NNGLibrary.class);
+
+        // Socket functions
+        int nng_req0_open(IntByReference socket);
+        int nng_close(int socket);
+
+        // Dial functions
+        int nng_dial(int socket, String url, PointerByReference dialer, int flags);
+
+        // Send/receive functions
+        int nng_send(int socket, Pointer data, int size, int flags);
+        int nng_recv(int socket, PointerByReference buf, IntByReference size, int flags);
+
+        // Memory functions
+        void nng_free(Pointer data, int size);
+
+        // Options
+        int nng_setopt_int(int socket, String option, int value);
+        int nng_setopt_ms(int socket, String option, int milliseconds);
+
+        // Flags
+        int NNG_FLAG_ALLOC = 1;
+        int NNG_FLAG_NONBLOCK = 2;
+    }
 
     private final String address;
     private final int timeoutMs;
@@ -53,27 +87,43 @@ public class NNGTransport {
 
         LOG.info("Connecting to NNG server at: {}", address);
 
-        // Create REQ socket
-        int[] socketPtr = new int[1];
-        int rv = NNGLibrary.INSTANCE.nng_req0_open(socketPtr);
-        if (rv != 0) {
-            throw new RuntimeException("Failed to create socket: " + NNGLibrary.INSTANCE.nng_strerror(rv));
+        try {
+            NNGLibrary nng = NNGLibrary.INSTANCE;
+
+            // Create REQ socket
+            IntByReference socketRef = new IntByReference();
+            int result = nng.nng_req0_open(socketRef);
+            if (result != 0) {
+                throw new RuntimeException("Failed to open socket: error " + result);
+            }
+            this.socket = socketRef.getValue();
+
+            // Set receive timeout
+            result = nng.nng_setopt_ms(this.socket, "recv-timeout", timeoutMs);
+            if (result != 0) {
+                nng.nng_close(this.socket);
+                this.socket = -1;
+                throw new RuntimeException("Failed to set timeout: error " + result);
+            }
+
+            // Dial to server
+            result = nng.nng_dial(this.socket, address, null, 0);
+            if (result != 0) {
+                nng.nng_close(this.socket);
+                this.socket = -1;
+                throw new RuntimeException("Failed to dial: error " + result);
+            }
+
+            connected = true;
+            LOG.info("Connected to: {}", address);
+        } catch (UnsatisfiedLinkError e) {
+            throw new RuntimeException(
+                "NNG native library not found. Please install NNG: https://github.com/nanomsg/nng",
+                e
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to connect: " + e.getMessage(), e);
         }
-        socket = socketPtr[0];
-
-        // Set timeouts
-        NNGLibrary.INSTANCE.nng_socket_set_ms(socket, "nng:recv-timeout", timeoutMs);
-        NNGLibrary.INSTANCE.nng_socket_set_ms(socket, "nng:send-timeout", timeoutMs);
-
-        // Dial to server
-        rv = NNGLibrary.INSTANCE.nng_dial(socket, address, null, 0);
-        if (rv != 0) {
-            NNGLibrary.INSTANCE.nng_close(socket);
-            throw new RuntimeException("Failed to dial: " + NNGLibrary.INSTANCE.nng_strerror(rv));
-        }
-
-        connected = true;
-        LOG.info("Connected to: {}", address);
     }
 
     /**
@@ -84,9 +134,16 @@ public class NNGTransport {
             return;
         }
 
-        NNGLibrary.INSTANCE.nng_close(socket);
-        socket = -1;
-        connected = false;
+        try {
+            if (socket != -1) {
+                NNGLibrary.INSTANCE.nng_close(socket);
+                socket = -1;
+            }
+        } catch (Exception e) {
+            LOG.warn("Error closing socket: {}", e.getMessage());
+        } finally {
+            connected = false;
+        }
 
         LOG.info("NNG transport closed");
     }
@@ -103,7 +160,7 @@ public class NNGTransport {
      *
      * @param msgType Protocol message type (e.g., MSG_INVOKE_REQUEST)
      * @param data    Protobuf serialized request body
-     * @return Pair of [responseMsgType, responseData]
+     * @return Pair of [responseMsgType, responseDataLength]
      */
     public synchronized int[] call(int msgType, byte[] data) {
         if (!connected) {
@@ -118,43 +175,64 @@ public class NNGTransport {
 
         LOG.debug("Sending message type=0x{}, reqId={}", Integer.toHexString(msgType), requestId);
 
-        // Send request
-        int rv = NNGLibrary.INSTANCE.nng_send(socket, message, message.length, 0);
-        if (rv != 0) {
-            throw new RuntimeException("Send failed: " + NNGLibrary.INSTANCE.nng_strerror(rv));
+        try {
+            NNGLibrary nng = NNGLibrary.INSTANCE;
+
+            // Send request
+            Pointer sendBuf = ByteBuffer.allocateDirect(message.length)
+                .put(message)
+                .flip()
+                .asNativeBuffer();
+
+            int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
+            if (sendResult != 0) {
+                throw new IOException("Send failed: error " + sendResult);
+            }
+
+            // Receive response
+            PointerByReference recvBufRef = new PointerByReference();
+            IntByReference sizeRef = new IntByReference();
+
+            int recvResult = nng.nng_recv(socket, recvBufRef, sizeRef, NNGLibrary.NNG_FLAG_ALLOC);
+            if (recvResult != 0) {
+                throw new IOException("Receive failed: error " + recvResult);
+            }
+
+            Pointer recvBuf = recvBufRef.getValue();
+            int recvSize = sizeRef.getValue();
+
+            try {
+                // Copy response data
+                byte[] responseData = recvBuf.getByteArray(0, recvSize);
+
+                // Parse response
+                Protocol.ParsedMessage parsed = Protocol.parseMessage(responseData);
+
+                LOG.debug("Received response type=0x{}, reqId={}", Integer.toHexString(parsed.msgId), parsed.reqId);
+
+                // Verify request ID matches
+                if (parsed.reqId != requestId) {
+                    LOG.warn("Request ID mismatch: expected {}, got {}", requestId, parsed.reqId);
+                }
+
+                // Verify response type
+                int expectedRespType = Protocol.getResponseMsgID(msgType);
+                if (parsed.msgId != expectedRespType) {
+                    throw new RuntimeException(String.format(
+                        "Unexpected response type: expected 0x%06X, got 0x%06X",
+                        expectedRespType, parsed.msgId));
+                }
+
+                return new int[]{parsed.msgId, parsed.body.length};
+
+            } finally {
+                // Free receive buffer
+                nng.nng_free(recvBuf, recvSize);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException("NNG call failed: " + e.getMessage(), e);
         }
-
-        // Receive response
-        PointerByReference responsePtr = new PointerByReference();
-        IntByReference responseSize = new IntByReference();
-        rv = NNGLibrary.INSTANCE.nng_recv(socket, responsePtr, responseSize, NNGLibrary.NNG_FLAG_ALLOC);
-        if (rv != 0) {
-            throw new RuntimeException("Receive failed: " + NNGLibrary.INSTANCE.nng_strerror(rv));
-        }
-
-        // Copy response data
-        byte[] responseData = responsePtr.getValue().getByteArray(0, responseSize.getValue());
-        NNGLibrary.INSTANCE.nng_free(responsePtr.getValue(), responseSize.getValue());
-
-        // Parse response
-        Protocol.ParsedMessage parsed = Protocol.parseMessage(responseData);
-
-        LOG.debug("Received response type=0x{}, reqId={}", Integer.toHexString(parsed.msgId), parsed.reqId);
-
-        // Verify request ID matches
-        if (parsed.reqId != requestId) {
-            LOG.warn("Request ID mismatch: expected {}, got {}", requestId, parsed.reqId);
-        }
-
-        // Verify response type
-        int expectedRespType = Protocol.getResponseMsgID(msgType);
-        if (parsed.msgId != expectedRespType) {
-            throw new RuntimeException(String.format(
-                "Unexpected response type: expected 0x%06X, got 0x%06X",
-                expectedRespType, parsed.msgId));
-        }
-
-        return new int[]{parsed.msgId, parsed.body.length};
     }
 
     /**
@@ -168,50 +246,51 @@ public class NNGTransport {
         requestId = (requestId + 1) & 0xFFFFFFFF;
         byte[] message = Protocol.newMessage(msgType, requestId, data);
 
-        int rv = NNGLibrary.INSTANCE.nng_send(socket, message, message.length, 0);
-        if (rv != 0) {
-            throw new RuntimeException("Send failed: " + NNGLibrary.INSTANCE.nng_strerror(rv));
+        try {
+            NNGLibrary nng = NNGLibrary.INSTANCE;
+
+            // Send request
+            Pointer sendBuf = ByteBuffer.allocateDirect(message.length)
+                .put(message)
+                .flip()
+                .asNativeBuffer();
+
+            int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
+            if (sendResult != 0) {
+                throw new IOException("Send failed: error " + sendResult);
+            }
+
+            // Receive response
+            PointerByReference recvBufRef = new PointerByReference();
+            IntByReference sizeRef = new IntByReference();
+
+            int recvResult = nng.nng_recv(socket, recvBufRef, sizeRef, NNGLibrary.NNG_FLAG_ALLOC);
+            if (recvResult != 0) {
+                throw new IOException("Receive failed: error " + recvResult);
+            }
+
+            Pointer recvBuf = recvBufRef.getValue();
+            int recvSize = sizeRef.getValue();
+
+            try {
+                byte[] responseData = recvBuf.getByteArray(0, recvSize);
+                Protocol.ParsedMessage parsed = Protocol.parseMessage(responseData);
+
+                int expectedRespType = Protocol.getResponseMsgID(msgType);
+                if (parsed.msgId != expectedRespType) {
+                    throw new RuntimeException(String.format(
+                        "Unexpected response type: expected 0x%06X, got 0x%06X",
+                        expectedRespType, parsed.msgId));
+                }
+
+                return parsed.body;
+
+            } finally {
+                nng.nng_free(recvBuf, recvSize);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException("NNG call failed: " + e.getMessage(), e);
         }
-
-        PointerByReference responsePtr = new PointerByReference();
-        IntByReference responseSize = new IntByReference();
-        rv = NNGLibrary.INSTANCE.nng_recv(socket, responsePtr, responseSize, NNGLibrary.NNG_FLAG_ALLOC);
-        if (rv != 0) {
-            throw new RuntimeException("Receive failed: " + NNGLibrary.INSTANCE.nng_strerror(rv));
-        }
-
-        byte[] responseData = responsePtr.getValue().getByteArray(0, responseSize.getValue());
-        NNGLibrary.INSTANCE.nng_free(responsePtr.getValue(), responseSize.getValue());
-
-        Protocol.ParsedMessage parsed = Protocol.parseMessage(responseData);
-
-        int expectedRespType = Protocol.getResponseMsgID(msgType);
-        if (parsed.msgId != expectedRespType) {
-            throw new RuntimeException(String.format(
-                "Unexpected response type: expected 0x%06X, got 0x%06X",
-                expectedRespType, parsed.msgId));
-        }
-
-        return parsed.body;
-    }
-
-    /**
-     * JNA interface to NNG library.
-     */
-    public interface NNGLibrary extends Library {
-        NNGLibrary INSTANCE = Native.load("nng", NNGLibrary.class);
-
-        int NNG_FLAG_ALLOC = 1;
-
-        int nng_req0_open(int[] socket);
-        int nng_rep0_open(int[] socket);
-        int nng_dial(int socket, String url, PointerByReference dialer, int flags);
-        int nng_listen(int socket, String url, PointerByReference listener, int flags);
-        int nng_close(int socket);
-        int nng_send(int socket, byte[] data, int size, int flags);
-        int nng_recv(int socket, PointerByReference data, IntByReference size, int flags);
-        void nng_free(Pointer ptr, int size);
-        String nng_strerror(int error);
-        int nng_socket_set_ms(int socket, String option, int value);
     }
 }
