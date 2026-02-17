@@ -20,6 +20,10 @@ dependencies {
 
     // Optional: Provide spring-boot-starter for developers who want it
     compileOnly 'org.springframework.boot:spring-boot-starter:3.4.0'
+
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.0'
 }
 
 java {
