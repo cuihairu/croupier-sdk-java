@@ -179,10 +179,11 @@ public class NNGTransport {
             NNGLibrary nng = NNGLibrary.INSTANCE;
 
             // Send request
-            Pointer sendBuf = ByteBuffer.allocateDirect(message.length)
-                .put(message)
-                .flip()
-                .asNativeBuffer();
+            Pointer sendBuf = Native.getDirectBufferPointer(
+                ByteBuffer.allocateDirect(message.length)
+                    .put(message)
+                    .flip()
+            );
 
             int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
             if (sendResult != 0) {
@@ -250,10 +251,11 @@ public class NNGTransport {
             NNGLibrary nng = NNGLibrary.INSTANCE;
 
             // Send request
-            Pointer sendBuf = ByteBuffer.allocateDirect(message.length)
-                .put(message)
-                .flip()
-                .asNativeBuffer();
+            Pointer sendBuf = Native.getDirectBufferPointer(
+                ByteBuffer.allocateDirect(message.length)
+                    .put(message)
+                    .flip()
+            );
 
             int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
             if (sendResult != 0) {
