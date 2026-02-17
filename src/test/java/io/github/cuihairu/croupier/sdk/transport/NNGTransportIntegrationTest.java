@@ -108,6 +108,15 @@ class NNGTransportIntegrationTest {
                 t.close();
             } catch (UnsatisfiedLinkError | NoClassDefFoundError e) {
                 // NNG library not available - expected
+                // Test passes as long as no unexpected exception is thrown
+            } catch (RuntimeException e) {
+                // May wrap UnsatisfiedLinkError - check cause
+                if (e.getCause() instanceof UnsatisfiedLinkError ||
+                    e.getCause() instanceof NoClassDefFoundError) {
+                    // NNG library not available - expected
+                } else {
+                    fail("Unexpected exception: " + e.getMessage());
+                }
             }
         }
     }
