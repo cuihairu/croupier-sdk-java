@@ -104,13 +104,13 @@ Maven:
 <dependency>
     <groupId>croupier.cuihairu.github.io</groupId>
     <artifactId>croupier-sdk-java</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
 Gradle:
 ```groovy
-implementation 'croupier.cuihairu.github.io:croupier-sdk-java:0.1.0'
+implementation 'croupier.cuihairu.github.io:croupier-sdk-java:0.1.1'
 ```
 
 ### 基础使用

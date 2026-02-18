@@ -32,7 +32,7 @@ Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 的 Java 
 <dependency>
     <groupId>com.github.cuihairu</groupId>
     <artifactId>croupier-sdk-java</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 

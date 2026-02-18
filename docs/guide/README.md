@@ -19,14 +19,14 @@
 <dependency>
     <groupId>io.github.cuihairu.croupier</groupId>
     <artifactId>croupier-spring-boot-starter</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
 #### Gradle
 
 ```groovy
-implementation 'io.github.cuihairu.croupier:croupier-spring-boot-starter:0.1.0'
+implementation 'io.github.cuihairu.croupier:croupier-spring-boot-starter:0.1.1'
 ```
 
 #### 配置
@@ -61,7 +61,7 @@ public class MyGameService {
         // 注册函数
         FunctionDescriptor desc = FunctionDescriptor.builder()
             .id("hello.world")
-            .version("0.1.0")
+            .version("0.1.1")
             .name("Hello World")
             .description("A simple hello function")
             .build();
@@ -83,14 +83,14 @@ public class MyGameService {
 <dependency>
     <groupId>io.github.cuihairu.croupier</groupId>
     <artifactId>croupier-java-sdk</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 
 #### Gradle
 
 ```groovy
-implementation 'io.github.cuihairu.croupier:croupier-java-sdk:0.1.0'
+implementation 'io.github.cuihairu.croupier:croupier-java-sdk:0.1.1'
 ```
 
 #### 使用
@@ -112,7 +112,7 @@ public class Example {
         // 注册函数
         FunctionDescriptor desc = FunctionDescriptor.builder()
             .id("hello.world")
-            .version("0.1.0")
+            .version("0.1.1")
             .name("Hello World")
             .description("A simple hello function")
             .build();
