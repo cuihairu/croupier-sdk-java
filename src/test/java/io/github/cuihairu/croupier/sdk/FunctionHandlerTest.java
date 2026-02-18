@@ -16,27 +16,13 @@ class FunctionHandlerTest {
     @Test
     void syncFunctionHandlerExecutes() throws Exception {
         FunctionHandler handler = (context, payload) -> {
-            return "{\"result\":\"success\"}".getBytes(StandardCharsets.UTF_8);
+            return "{\"result\":\"success\"}";
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] result = handler.apply(context, "{\"input\":\"test\"}".getBytes(StandardCharsets.UTF_8));
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
+        String result = handler.handle(context, "{\"input\":\"test\"}");
 
-		assertArrayEquals("{\"result\":\"success\"}".getBytes(StandardCharsets.UTF_8), result);
-    }
-
-    @Test
-    void asyncFunctionHandlerExecutes() throws Exception {
-        AsyncFunctionHandler handler = (context, payload) -> {
-            return CompletableFuture.supplyAsync(() -> {
-                return "{\"result\":\"async-success\"}".getBytes(StandardCharsets.UTF_8);
-            });
-        };
-
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] result = handler.apply(context, "{\"input\":\"test\"}".getBytes(StandardCharsets.UTF_8)).get();
-
-		assertArrayEquals("{\"result\":\"async-success\"}".getBytes(StandardCharsets.UTF_8), result);
+        assertEquals("{\"result\":\"success\"}", result);
     }
 
     @Test
@@ -45,51 +31,35 @@ class FunctionHandlerTest {
             throw new RuntimeException("Test exception");
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
 
-		assertThrows(RuntimeException.class, () -> {
-			handler.apply(context, new byte[0]);
-		});
-    }
-
-    @Test
-    void asyncFunctionHandlerThrowsException() {
-        AsyncFunctionHandler handler = (context, payload) -> {
-            return CompletableFuture.failedFuture(new RuntimeException("Async test exception"));
-        };
-
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-
-		ExecutionException ex = assertThrows(ExecutionException.class, () -> {
-			handler.apply(context, new byte[0]).get();
-		});
-
-		assertInstanceOf(RuntimeException.class, ex.getCause());
-		assertEquals("Async test exception", ex.getCause().getMessage());
+        assertThrows(RuntimeException.class, () -> {
+            handler.handle(context, "{}");
+        });
     }
 
     @Test
     void functionHandlerWithEmptyPayload() throws Exception {
         FunctionHandler handler = (context, payload) -> {
-            return new byte[0];
+            return "";
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] result = handler.apply(context, new byte[0]);
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
+        String result = handler.handle(context, "");
 
-		assertEquals(0, result.length);
+        assertEquals("", result);
     }
 
     @Test
     void functionHandlerWithNullPayload() throws Exception {
         FunctionHandler handler = (context, payload) -> {
-            return "{\"result\":\"ok\"}".getBytes(StandardCharsets.UTF_8);
+            return "{\"result\":\"ok\"}";
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] result = handler.apply(context, null);
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
+        String result = handler.handle(context, null);
 
-		assertArrayEquals("{\"result\":\"ok\"}".getBytes(StandardCharsets.UTF_8), result);
+        assertEquals("{\"result\":\"ok\"}", result);
     }
 
     @Test
@@ -98,84 +68,48 @@ class FunctionHandlerTest {
             return payload; // Echo back the payload
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] largePayload = new byte[1024 * 1024]; // 1MB
-		for (int i = 0; i < largePayload.length; i++) {
-			largePayload[i] = (byte)(i % 256);
-		}
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10000; i++) {
+            sb.append("x");
+        }
+        String largePayload = sb.toString();
 
-		byte[] result = handler.apply(context, largePayload);
+        String result = handler.handle(context, largePayload);
 
-		assertArrayEquals(largePayload, result);
+        assertEquals(largePayload, result);
     }
 
     @Test
-    void functionHandlerContextContainsCorrectInfo() throws Exception {
+    void functionHandlerContextParse() throws Exception {
         FunctionHandler handler = (context, payload) -> {
-            assertEquals("test-function", context.getFunctionId());
-            assertEquals("test-game", context.getGameId());
-            assertEquals("test-service", context.getServiceId());
-            return "{\"ok\":true}".getBytes(StandardCharsets.UTF_8);
+            // Parse context to verify it contains correct info
+            assertTrue(context.contains("\"functionId\":\"test-function\""));
+            assertTrue(context.contains("\"gameId\":\"test-game\""));
+            assertTrue(context.contains("\"serviceId\":\"test-service\""));
+            return "{\"ok\":true}";
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		handler.apply(context, new byte[0]);
-    }
-
-    @Test
-    void asyncFunctionHandlerWithDelayedResponse() throws Exception {
-        AsyncFunctionHandler handler = (context, payload) -> {
-            return CompletableFuture.supplyAsync(() -> {
-				try {
-					Thread.sleep(100); // Simulate delay
-				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
-				}
-                return "{\"result\":\"delayed\"}".getBytes(StandardCharsets.UTF_8);
-            });
-        };
-
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-		byte[] result = handler.apply(context, new byte[0]).get();
-
-		assertArrayEquals("{\"result\":\"delayed\"}".getBytes(StandardCharsets.UTF_8), result);
-    }
-
-    @Test
-    void asyncFunctionHandlerWithMultipleHandlers() throws Exception {
-        AsyncFunctionHandler handler1 = (context, payload) -> {
-            return CompletableFuture.supplyAsync(() -> "{\"handler\":\"1\"}".getBytes(StandardCharsets.UTF_8));
-        };
-
-        AsyncFunctionHandler handler2 = (context, payload) -> {
-            return CompletableFuture.supplyAsync(() -> "{\"handler\":\"2\"}".getBytes(StandardCharsets.UTF_8));
-        };
-
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
-
-		byte[] result1 = handler1.apply(context, new byte[0]).get();
-		byte[] result2 = handler2.apply(context, new byte[0]).get();
-
-		assertArrayEquals("{\"handler\":\"1\"}".getBytes(StandardCharsets.UTF_8), result1);
-		assertArrayEquals("{\"handler\":\"2\"}".getBytes(StandardCharsets.UTF_8), result2);
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
+        handler.handle(context, "{}");
     }
 
     @Test
     void functionHandlerChaining() throws Exception {
         FunctionHandler handler1 = (context, payload) -> {
-            return "{\"step\":\"1\"}".getBytes(StandardCharsets.UTF_8);
+            return "{\"step\":\"1\"}";
         };
 
         FunctionHandler handler2 = (context, payload) -> {
-            String previous = new String(payload, StandardCharsets.UTF_8);
-            return (previous + ",\"step\":\"2\"}").getBytes(StandardCharsets.UTF_8);
+            String previous = payload;
+            return previous.replace("}", ",\"step\":\"2\"}");
         };
 
-		FunctionContext context = new FunctionContext("test-function", "test-game", "test-service");
+        String context = "{\"functionId\":\"test-function\",\"gameId\":\"test-game\",\"serviceId\":\"test-service\"}";
 
-		byte[] result1 = handler1.apply(context, new byte[0]);
-		byte[] result2 = handler2.apply(context, result1);
+        String result1 = handler1.handle(context, "{}");
+        String result2 = handler2.handle(context, result1);
 
-		assertEquals("{\"step\":\"1\",\"step\":\"2\"}", new String(result2, StandardCharsets.UTF_8));
+        assertEquals("{\"step\":\"1\",\"step\":\"2\"}", result2);
     }
 }

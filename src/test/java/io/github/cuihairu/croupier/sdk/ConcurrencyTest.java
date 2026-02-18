@@ -36,7 +36,7 @@ public class ConcurrencyTest {
                     startLatch.await(); // Wait for all threads to be ready
                     ClientConfig config = new ClientConfig();
                     config.setServiceId("service-" + threadId);
-                    CroupierClient client = new CroupierClient(config);
+                    CroupierClientImpl client = new CroupierClientImpl(config);
                     assertNotNull(client);
                 } catch (Exception e) {
                     exceptions.add(e);
@@ -436,7 +436,7 @@ public class ConcurrencyTest {
                 try {
                     ClientConfig config = new ClientConfig();
                     config.setServiceId("temp-service");
-                    CroupierClient client = new CroupierClient(config);
+                    CroupierClientImpl client = new CroupierClientImpl(config);
                     // Client will be garbage collected
                 } catch (Exception e) {
                     exceptions.add(e);
