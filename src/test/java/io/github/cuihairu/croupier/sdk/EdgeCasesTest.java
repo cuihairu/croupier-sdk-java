@@ -239,7 +239,7 @@ public class EdgeCasesTest {
 
     @Test
     public void testStringWithControlCharacters() {
-        String s = "test\a\b\f\n\r\t\vstring";
+        String s = "test\u0007\b\f\n\r\t\u000Bstring";
         assertTrue(s.length() > 4);
     }
 
