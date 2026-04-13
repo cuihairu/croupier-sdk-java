@@ -202,7 +202,7 @@ class CroupierClientImplConfigTest {
 
         assertEquals("development", config.getEnv());
         assertEquals("1.0.0", config.getServiceVersion());
-        assertEquals("localhost:19090", config.getAgentAddr());
+        assertEquals("127.0.0.1:19090", config.getAgentAddr());
         assertEquals(30, config.getTimeoutSeconds());
         assertTrue(config.isInsecure());
         assertEquals("java", config.getProviderLang());

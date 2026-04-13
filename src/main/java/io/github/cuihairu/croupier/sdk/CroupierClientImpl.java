@@ -1,10 +1,18 @@
 package io.github.cuihairu.croupier.sdk;
 
+import io.github.cuihairu.croupier.sdk.transport.NNGServer;
+import io.github.cuihairu.croupier.sdk.transport.NNGTransport;
+import io.github.cuihairu.croupier.sdk.transport.Protocol;
+import io.github.cuihairu.croupier.sdk.transport.RequestServer;
+import io.github.cuihairu.croupier.sdk.transport.TransportAddresses;
+import io.github.cuihairu.croupier.sdk.transport.TransportClient;
 import io.github.cuihairu.croupier.sdk.invoker.InvokeOptions;
 import io.github.cuihairu.croupier.sdk.invoker.Invoker;
 import io.github.cuihairu.croupier.sdk.invoker.InvokerConfig;
 import io.github.cuihairu.croupier.sdk.invoker.InvokerException;
 import io.github.cuihairu.croupier.sdk.invoker.JobEventInfo;
+import io.github.cuihairu.croupier.sdk.invoker.InvokerImpl;
+import io.github.cuihairu.croupier.sdk.wire.SdkWireMessages;
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +22,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
@@ -32,16 +45,33 @@ public class CroupierClientImpl implements CroupierClient {
     private final ClientConfig config;
     private final Map<String, FunctionHandler> handlers = new ConcurrentHashMap<>();
     private final Map<String, FunctionDescriptor> descriptors = new ConcurrentHashMap<>();
+    private final Map<String, LocalJobState> localJobs = new ConcurrentHashMap<>();
+    private final BiFunction<String, Integer, TransportClient> transportFactory;
+    private final BiFunction<String, Integer, RequestServer> serverFactory;
 
     private final AtomicBoolean connected = new AtomicBoolean(false);
     private final AtomicBoolean serving = new AtomicBoolean(false);
 
-    private String sessionId;
+    private volatile TransportClient transport;
+    private volatile RequestServer server;
+    private String sessionId = "";
     private String localAddress;
+    private volatile boolean stopHeartbeat;
+    private Thread heartbeatThread;
     private final Invoker invoker;
 
     public CroupierClientImpl(ClientConfig config) {
-        this.config = config;
+        this(config, NNGTransport::new, NNGServer::new);
+    }
+
+    CroupierClientImpl(
+        ClientConfig config,
+        BiFunction<String, Integer, TransportClient> transportFactory,
+        BiFunction<String, Integer, RequestServer> serverFactory
+    ) {
+        this.config = Objects.requireNonNull(config, "config");
+        this.transportFactory = transportFactory;
+        this.serverFactory = serverFactory;
         validateConfig();
         logger.info("Initialized CroupierClient for game '{}' in '{}' environment",
                    config.getGameId(), config.getEnv());
@@ -50,13 +80,13 @@ public class CroupierClientImpl implements CroupierClient {
         InvokerConfig invokerConfig = InvokerConfig.builder()
             .address(config.getAgentAddr())
             .build();
-        this.invoker = new io.github.cuihairu.croupier.sdk.invoker.InvokerImpl(invokerConfig);
+        this.invoker = new InvokerImpl(invokerConfig, transportFactory);
     }
 
     @Override
     public void registerFunction(FunctionDescriptor descriptor, FunctionHandler handler) throws CroupierException {
-        if (serving.get()) {
-            throw new CroupierException("Cannot register functions while client is serving");
+        if (connected.get() || serving.get()) {
+            throw new CroupierException("Cannot register functions after client has connected");
         }
 
         validateFunctionDescriptor(descriptor);
@@ -73,7 +103,8 @@ public class CroupierClientImpl implements CroupierClient {
             return CompletableFuture.completedFuture(null);
         }
 
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
+            TransportClient nextTransport = null;
             try {
                 logger.info("Connecting to Croupier Agent: {}", config.getAgentAddr());
 
@@ -81,17 +112,35 @@ public class CroupierClientImpl implements CroupierClient {
                     throw new CroupierException("Register at least one function before connecting");
                 }
 
-                // TODO: Implement transport connection (NNG, etc.)
+                ensureServerStarted();
+                nextTransport = transportFactory.apply(
+                    TransportAddresses.normalizeNngAddress(config.getAgentAddr()),
+                    config.getTimeoutSeconds() * 1000
+                );
+                nextTransport.connect();
+                SdkWireMessages.RegisterLocalResponse response = registerLocal(nextTransport);
+                if (response.sessionId.isEmpty()) {
+                    throw new CroupierException("RegisterLocal returned empty session_id");
+                }
+
+                if (transport != null) {
+                    transport.close();
+                }
+                transport = nextTransport;
+                sessionId = response.sessionId;
                 connected.set(true);
-                localAddress = config.getAgentAddr();
+                startHeartbeatLoop();
 
                 logger.info("Successfully connected");
                 logger.info("Local service address: {}", localAddress);
-
-                return null;
             } catch (Exception e) {
+                connected.set(false);
+                sessionId = "";
+                if (nextTransport != null) {
+                    nextTransport.close();
+                }
                 logger.error("Connection failed", e);
-                throw new RuntimeException(new CroupierException("Connection failed", e));
+                throw wrapAsyncFailure("Connection failed", e);
             }
         });
     }
@@ -111,7 +160,7 @@ public class CroupierClientImpl implements CroupierClient {
     }
 
     private CompletableFuture<Void> doServe() {
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             try {
                 serving.set(true);
                 logger.info("Croupier client service started");
@@ -130,10 +179,9 @@ public class CroupierClientImpl implements CroupierClient {
 
                 serving.set(false);
                 logger.info("Service has stopped");
-                return null;
             } catch (Exception e) {
                 serving.set(false);
-                throw new RuntimeException(new CroupierException("Serving failed", e));
+                throw wrapAsyncFailure("Serving failed", e);
             }
         });
     }
@@ -142,6 +190,10 @@ public class CroupierClientImpl implements CroupierClient {
     public void stop() {
         serving.set(false);
         connected.set(false);
+        sessionId = "";
+        stopHeartbeatLoop();
+        closeTransport();
+        closeServer();
 
         logger.info("Stopping Croupier client...");
         logger.info("Client stopped successfully");
@@ -152,6 +204,7 @@ public class CroupierClientImpl implements CroupierClient {
         stop();
         handlers.clear();
         descriptors.clear();
+        localJobs.clear();
 
         // Close invoker
         try {
@@ -187,7 +240,7 @@ public class CroupierClientImpl implements CroupierClient {
     public String startJob(String functionId, String payload, Map<String, String> metadata) throws CroupierException {
         try {
             InvokeOptions options = InvokeOptions.builder()
-                .headers(metadata)
+                .headers(metadata != null ? metadata : Map.of())
                 .build();
             return invoker.startJob(functionId, payload, options);
         } catch (InvokerException e) {
@@ -230,6 +283,236 @@ public class CroupierClientImpl implements CroupierClient {
         }
     }
 
+    private void ensureServerStarted() {
+        if (server != null && server.isListening()) {
+            return;
+        }
+
+        localAddress = TransportAddresses.resolveLocalListenAddress(config.getLocalListen());
+        server = serverFactory.apply(localAddress, config.getTimeoutSeconds() * 1000);
+        server.setHandler(this::handleLocalRequest);
+        server.listen();
+    }
+
+    private void closeServer() {
+        if (server != null) {
+            server.close();
+            server = null;
+        }
+    }
+
+    private void closeTransport() {
+        if (transport != null) {
+            transport.close();
+            transport = null;
+        }
+    }
+
+    private SdkWireMessages.RegisterLocalResponse registerLocal(TransportClient nextTransport) {
+        return SdkWireMessages.decodeRegisterLocalResponse(
+            nextTransport.request(
+                Protocol.MSG_REGISTER_LOCAL_REQUEST,
+                SdkWireMessages.encodeRegisterLocalRequest(buildRegisterLocalRequest())
+            )
+        );
+    }
+
+    private SdkWireMessages.RegisterLocalRequest buildRegisterLocalRequest() {
+        List<SdkWireMessages.LocalFunctionDescriptor> functions = descriptors.values().stream()
+            .map(this::toWireDescriptor)
+            .collect(Collectors.toList());
+        return new SdkWireMessages.RegisterLocalRequest(
+            config.getServiceId(),
+            config.getServiceVersion(),
+            localAddress != null ? localAddress : "",
+            functions
+        );
+    }
+
+    private SdkWireMessages.LocalFunctionDescriptor toWireDescriptor(FunctionDescriptor descriptor) {
+        return new SdkWireMessages.LocalFunctionDescriptor(
+            descriptor.getId(),
+            descriptor.getVersion(),
+            descriptor.getTags(),
+            descriptor.getSummary(),
+            descriptor.getDescription(),
+            descriptor.getOperationId(),
+            descriptor.isDeprecated(),
+            descriptor.getInputSchema(),
+            descriptor.getOutputSchema(),
+            descriptor.getCategory(),
+            descriptor.getRisk(),
+            descriptor.getEntity(),
+            descriptor.getOperation()
+        );
+    }
+
+    private void startHeartbeatLoop() {
+        stopHeartbeatLoop();
+        stopHeartbeat = false;
+        heartbeatThread = new Thread(() -> {
+            long intervalMillis = Math.max(config.getHeartbeatInterval(), 1) * 1000L;
+            while (!stopHeartbeat) {
+                try {
+                    Thread.sleep(intervalMillis);
+                    if (!stopHeartbeat && connected.get() && transport != null && !sessionId.isEmpty()) {
+                        sendHeartbeat();
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                } catch (Exception e) {
+                    logger.warn("Heartbeat failed: {}", e.getMessage());
+                }
+            }
+        }, "croupier-java-client-heartbeat");
+        heartbeatThread.setDaemon(true);
+        heartbeatThread.start();
+    }
+
+    private void stopHeartbeatLoop() {
+        stopHeartbeat = true;
+        if (heartbeatThread != null) {
+            heartbeatThread.interrupt();
+            try {
+                heartbeatThread.join(1000L);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                heartbeatThread = null;
+            }
+        }
+    }
+
+    private void sendHeartbeat() {
+        transport.request(
+            Protocol.MSG_HEARTBEAT_LOCAL_REQUEST,
+            SdkWireMessages.encodeHeartbeatRequest(new SdkWireMessages.HeartbeatRequest(
+                config.getServiceId(),
+                sessionId
+            ))
+        );
+    }
+
+    private byte[] handleLocalRequest(int msgType, int requestId, byte[] body) throws Exception {
+        return switch (msgType) {
+            case Protocol.MSG_INVOKE_REQUEST -> handleInvokeRequest(body);
+            case Protocol.MSG_START_JOB_REQUEST -> handleStartJobRequest(body);
+            case Protocol.MSG_STREAM_JOB_REQUEST -> handleStreamJobRequest(body);
+            case Protocol.MSG_CANCEL_JOB_REQUEST -> handleCancelJobRequest(body);
+            default -> throw new CroupierException("Unsupported local request type: " + requestId);
+        };
+    }
+
+    private byte[] handleInvokeRequest(byte[] body) throws Exception {
+        SdkWireMessages.InvokeRequest request = SdkWireMessages.decodeInvokeRequest(body);
+        String result = invoke(
+            request.functionId,
+            new String(request.payload, StandardCharsets.UTF_8),
+            request.metadata
+        );
+        return SdkWireMessages.encodeInvokeResponse(
+            new SdkWireMessages.InvokeResponse(result.getBytes(StandardCharsets.UTF_8))
+        );
+    }
+
+    private byte[] handleStartJobRequest(byte[] body) throws Exception {
+        SdkWireMessages.InvokeRequest request = SdkWireMessages.decodeInvokeRequest(body);
+        String functionId = request.functionId;
+        FunctionHandler handler = handlers.get(functionId);
+        if (handler == null) {
+            throw new CroupierException("Function not found: " + functionId);
+        }
+
+        String payload = new String(request.payload, StandardCharsets.UTF_8);
+        String jobId = functionId + "-" + UUID.randomUUID().toString().substring(0, 12);
+        LocalJobState jobState = new LocalJobState(jobId);
+        localJobs.put(jobId, jobState);
+        appendLocalJobEvent(jobState, JobEventInfo.builder()
+            .type("started")
+            .jobId(jobId)
+            .message("Job started")
+            .progress(0)
+            .done(false)
+            .build());
+
+        String context = toJson(request.metadata);
+        Thread worker = new Thread(() -> {
+            try {
+                String result = handler.handle(context, payload);
+                if (jobState.cancelled.get()) {
+                    return;
+                }
+                appendLocalJobEvent(jobState, JobEventInfo.builder()
+                    .type("completed")
+                    .jobId(jobId)
+                    .message("Job completed")
+                    .progress(100)
+                    .payload(result)
+                    .done(true)
+                    .build());
+            } catch (Exception e) {
+                if (jobState.cancelled.get()) {
+                    return;
+                }
+                appendLocalJobEvent(jobState, JobEventInfo.builder()
+                    .type("error")
+                    .jobId(jobId)
+                    .message(e.getMessage())
+                    .error(e.getMessage())
+                    .done(true)
+                    .build());
+            }
+        }, "croupier-java-local-job-" + jobId);
+        worker.setDaemon(true);
+        jobState.worker = worker;
+        worker.start();
+
+        return SdkWireMessages.encodeStartJobResponse(new SdkWireMessages.StartJobResponse(jobId));
+    }
+
+    private byte[] handleStreamJobRequest(byte[] body) {
+        SdkWireMessages.JobStreamRequest request = SdkWireMessages.decodeJobStreamRequest(body);
+        LocalJobState state = localJobs.get(request.jobId);
+        JobEventInfo event = state != null ? state.latest() : JobEventInfo.builder()
+            .type("error")
+            .jobId(request.jobId)
+            .message("Job not found")
+            .error("Job not found")
+            .done(true)
+            .build();
+
+        return SdkWireMessages.encodeJobEvent(new SdkWireMessages.JobEvent(
+            event.getType(),
+            event.getError() != null ? event.getError() : defaultValue(event.getMessage(), ""),
+            event.getProgress() != null ? event.getProgress() : 0,
+            event.getPayload() != null ? event.getPayload().getBytes(StandardCharsets.UTF_8) : new byte[0]
+        ));
+    }
+
+    private byte[] handleCancelJobRequest(byte[] body) {
+        SdkWireMessages.CancelJobRequest request = SdkWireMessages.decodeCancelJobRequest(body);
+        LocalJobState state = localJobs.get(request.jobId);
+        if (state != null && !state.done.get()) {
+            state.cancelled.set(true);
+            appendLocalJobEvent(state, JobEventInfo.builder()
+                .type("cancelled")
+                .jobId(request.jobId)
+                .message("Job cancelled")
+                .error("Job cancelled")
+                .done(true)
+                .build());
+        }
+        return new byte[0];
+    }
+
+    private void appendLocalJobEvent(LocalJobState state, JobEventInfo event) {
+        state.events.add(event);
+        if (event.isDone()) {
+            state.done.set(true);
+        }
+    }
+
     private void validateConfig() {
         if (config.getGameId() == null || config.getGameId().trim().isEmpty()) {
             logger.warn("Warning: gameId is required for proper backend separation");
@@ -248,6 +531,16 @@ public class CroupierClientImpl implements CroupierClient {
         if (descriptor.getVersion() == null || descriptor.getVersion().trim().isEmpty()) {
             throw new CroupierException("Function version cannot be empty");
         }
+    }
+
+    private CompletionException wrapAsyncFailure(String message, Exception error) {
+        if (error instanceof CompletionException completionException) {
+            return completionException;
+        }
+        if (error instanceof CroupierException croupierException) {
+            return new CompletionException(croupierException);
+        }
+        return new CompletionException(new CroupierException(message, error));
     }
 
     /**
@@ -300,6 +593,34 @@ public class CroupierClientImpl implements CroupierClient {
             functionsBuilder.append("{");
             functionsBuilder.append("\"id\":\"").append(escapeJson(descriptor.getId())).append("\"");
             functionsBuilder.append(",\"version\":\"").append(escapeJson(defaultVersion(descriptor.getVersion()))).append("\"");
+            if (descriptor.getTags() != null && !descriptor.getTags().isEmpty()) {
+                functionsBuilder.append(",\"tags\":[");
+                for (int i = 0; i < descriptor.getTags().size(); i++) {
+                    if (i > 0) {
+                        functionsBuilder.append(",");
+                    }
+                    functionsBuilder.append("\"").append(escapeJson(descriptor.getTags().get(i))).append("\"");
+                }
+                functionsBuilder.append("]");
+            }
+            if (!isNullOrEmpty(descriptor.getSummary())) {
+                functionsBuilder.append(",\"summary\":\"").append(escapeJson(descriptor.getSummary())).append("\"");
+            }
+            if (!isNullOrEmpty(descriptor.getDescription())) {
+                functionsBuilder.append(",\"description\":\"").append(escapeJson(descriptor.getDescription())).append("\"");
+            }
+            if (!isNullOrEmpty(descriptor.getOperationId())) {
+                functionsBuilder.append(",\"operation_id\":\"").append(escapeJson(descriptor.getOperationId())).append("\"");
+            }
+            if (descriptor.isDeprecated()) {
+                functionsBuilder.append(",\"deprecated\":true");
+            }
+            if (!isNullOrEmpty(descriptor.getInputSchema())) {
+                functionsBuilder.append(",\"input_schema\":\"").append(escapeJson(descriptor.getInputSchema())).append("\"");
+            }
+            if (!isNullOrEmpty(descriptor.getOutputSchema())) {
+                functionsBuilder.append(",\"output_schema\":\"").append(escapeJson(descriptor.getOutputSchema())).append("\"");
+            }
             if (!isNullOrEmpty(descriptor.getCategory())) {
                 functionsBuilder.append(",\"category\":\"").append(escapeJson(descriptor.getCategory())).append("\"");
             }
@@ -390,5 +711,30 @@ public class CroupierClientImpl implements CroupierClient {
 
     private boolean isNullOrEmpty(String value) {
         return value == null || value.trim().isEmpty();
+    }
+
+    private static final class LocalJobState {
+        private final String jobId;
+        private final CopyOnWriteArrayList<JobEventInfo> events = new CopyOnWriteArrayList<>();
+        private final AtomicBoolean done = new AtomicBoolean(false);
+        private final AtomicBoolean cancelled = new AtomicBoolean(false);
+        private volatile Thread worker;
+
+        private LocalJobState(String jobId) {
+            this.jobId = jobId;
+        }
+
+        private JobEventInfo latest() {
+            if (events.isEmpty()) {
+                return JobEventInfo.builder()
+                    .type("started")
+                    .jobId(jobId)
+                    .message("Job started")
+                    .progress(0)
+                    .done(false)
+                    .build();
+            }
+            return events.get(events.size() - 1);
+        }
     }
 }

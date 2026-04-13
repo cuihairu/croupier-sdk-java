@@ -11,7 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * croupier:
  *   game-id: my-game
  *   service-id: my-service
- *   agent-address: localhost:19090
+ *   agent-address: 127.0.0.1:19090
+ *   local-listen: 127.0.0.1:0
  *   env: production
  *   insecure: false
  * </pre>
@@ -32,7 +33,7 @@ public class CroupierProperties {
     /**
      * Agent gRPC address.
      */
-    private String agentAddress = "localhost:19090";
+    private String agentAddress = "127.0.0.1:19090";
 
     /**
      * Environment: development, staging, or production.
@@ -52,7 +53,7 @@ public class CroupierProperties {
     /**
      * Local gRPC listener address.
      */
-    private String localListen;
+    private String localListen = "127.0.0.1:0";
 
     /**
      * Optional control-plane address for manifest upload.

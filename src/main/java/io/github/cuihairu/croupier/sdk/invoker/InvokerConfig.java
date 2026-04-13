@@ -11,7 +11,7 @@ import java.util.Objects;
  * <p>Example usage:</p>
  * <pre>{@code
  * InvokerConfig config = InvokerConfig.builder()
- *     .address("127.0.0.1:8080")
+ *     .address("127.0.0.1:19090")
  *     .timeout(30000)
  *     .insecure(true)
  *     .build();
@@ -53,7 +53,7 @@ public class InvokerConfig {
     /**
      * Creates a default configuration for development.
      * <ul>
-     *   <li>address: 127.0.0.1:8080</li>
+     *   <li>address: 127.0.0.1:19090</li>
      *   <li>timeout: 30000ms</li>
      *   <li>insecure: true</li>
      * </ul>
@@ -185,7 +185,7 @@ public class InvokerConfig {
      * Builder for creating InvokerConfig instances.
      */
     public static class Builder {
-        private String address = "127.0.0.1:8080";
+        private String address = "127.0.0.1:19090";
         private int timeout = 30000;
         private boolean insecure = true;
         private String caFile = "";

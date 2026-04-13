@@ -19,8 +19,9 @@ class ClientConfigTest {
         assertEquals("game1", config.getGameId());
         assertEquals("svc1", config.getServiceId());
         assertEquals("development", config.getEnv());
-        assertEquals("localhost:19090", config.getAgentAddr());
+        assertEquals("127.0.0.1:19090", config.getAgentAddr());
         assertTrue(config.isInsecure());
+        assertEquals("127.0.0.1:0", config.getLocalListen());
     }
 
     @Test

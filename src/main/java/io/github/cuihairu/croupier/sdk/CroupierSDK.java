@@ -115,6 +115,41 @@ public class CroupierSDK {
             return this;
         }
 
+        public FunctionDescriptorBuilder tags(java.util.List<String> tags) {
+            descriptor.setTags(tags);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder summary(String summary) {
+            descriptor.setSummary(summary);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder description(String description) {
+            descriptor.setDescription(description);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder operationId(String operationId) {
+            descriptor.setOperationId(operationId);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder deprecated(boolean deprecated) {
+            descriptor.setDeprecated(deprecated);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder inputSchema(String inputSchema) {
+            descriptor.setInputSchema(inputSchema);
+            return this;
+        }
+
+        public FunctionDescriptorBuilder outputSchema(String outputSchema) {
+            descriptor.setOutputSchema(outputSchema);
+            return this;
+        }
+
         public FunctionDescriptorBuilder risk(String risk) {
             descriptor.setRisk(risk);
             return this;

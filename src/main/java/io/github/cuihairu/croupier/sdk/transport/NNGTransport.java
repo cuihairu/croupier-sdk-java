@@ -25,7 +25,7 @@ import java.nio.ByteBuffer;
 /**
  * NNG-based transport client using REQ/REP pattern.
  */
-public class NNGTransport {
+public class NNGTransport implements TransportClient {
     private static final Logger LOG = LoggerFactory.getLogger(NNGTransport.class);
 
     /**
@@ -36,10 +36,12 @@ public class NNGTransport {
 
         // Socket functions
         int nng_req0_open(IntByReference socket);
+        int nng_rep0_open(IntByReference socket);
         int nng_close(int socket);
 
         // Dial functions
         int nng_dial(int socket, String url, PointerByReference dialer, int flags);
+        int nng_listen(int socket, String url, PointerByReference listener, int flags);
 
         // Send/receive functions
         int nng_send(int socket, Pointer data, int size, int flags);
@@ -80,6 +82,7 @@ public class NNGTransport {
     /**
      * Connect to the NNG server (Agent).
      */
+    @Override
     public synchronized void connect() {
         if (connected) {
             return;
@@ -129,6 +132,7 @@ public class NNGTransport {
     /**
      * Close the connection.
      */
+    @Override
     public synchronized void close() {
         if (!connected) {
             return;
@@ -151,8 +155,14 @@ public class NNGTransport {
     /**
      * Check if connected.
      */
+    @Override
     public boolean isConnected() {
         return connected;
+    }
+
+    @Override
+    public byte[] request(int msgType, byte[] data) {
+        return callWithData(msgType, data);
     }
 
     /**
@@ -179,11 +189,10 @@ public class NNGTransport {
             NNGLibrary nng = NNGLibrary.INSTANCE;
 
             // Send request
-            Pointer sendBuf = Native.getDirectBufferPointer(
-                ByteBuffer.allocateDirect(message.length)
-                    .put(message)
-                    .flip()
-            );
+            ByteBuffer directBuffer = ByteBuffer.allocateDirect(message.length);
+            directBuffer.put(message);
+            directBuffer.flip();
+            Pointer sendBuf = Native.getDirectBufferPointer(directBuffer);
 
             int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
             if (sendResult != 0) {
@@ -251,11 +260,10 @@ public class NNGTransport {
             NNGLibrary nng = NNGLibrary.INSTANCE;
 
             // Send request
-            Pointer sendBuf = Native.getDirectBufferPointer(
-                ByteBuffer.allocateDirect(message.length)
-                    .put(message)
-                    .flip()
-            );
+            ByteBuffer directBuffer = ByteBuffer.allocateDirect(message.length);
+            directBuffer.put(message);
+            directBuffer.flip();
+            Pointer sendBuf = Native.getDirectBufferPointer(directBuffer);
 
             int sendResult = nng.nng_send(socket, sendBuf, message.length, 0);
             if (sendResult != 0) {

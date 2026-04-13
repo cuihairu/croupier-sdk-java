@@ -45,7 +45,7 @@ class InvokerConfigTest {
     void testBuilderDefaults() {
         InvokerConfig config = InvokerConfig.builder().build();
 
-        assertEquals("127.0.0.1:8080", config.getAddress());
+        assertEquals("127.0.0.1:19090", config.getAddress());
         assertTrue(config.isInsecure());
         assertEquals(30000, config.getTimeout());
     }
@@ -56,7 +56,7 @@ class InvokerConfigTest {
         InvokerConfig config = InvokerConfig.createDefault();
 
         assertNotNull(config);
-        assertEquals("127.0.0.1:8080", config.getAddress());
+        assertEquals("127.0.0.1:19090", config.getAddress());
         assertTrue(config.isInsecure());
     }
 

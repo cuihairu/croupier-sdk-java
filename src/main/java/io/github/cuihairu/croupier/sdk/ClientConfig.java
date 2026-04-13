@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class ClientConfig {
     // ========== Agent Connection Settings ==========
-    private String agentAddr = "localhost:19090"; // Agent NNG address
+    private String agentAddr = "127.0.0.1:19090"; // Agent NNG address
     private String agentId;                       // Agent unique identifier (auto-generated if empty)
 
     // ========== Service Identification (multi-tenant support) ==========
@@ -18,7 +18,7 @@ public class ClientConfig {
     private String serviceVersion = "1.0.0"; // service version for compatibility
 
     // ========== Local Server Settings ==========
-    private String localListen;     // local NNG listener address (e.g., "tcp://127.0.0.1:0")
+    private String localListen = "127.0.0.1:0";  // local NNG listener address
     private String controlAddr;     // optional control-plane addr for manifest upload
 
     // ========== Connection Settings ==========
