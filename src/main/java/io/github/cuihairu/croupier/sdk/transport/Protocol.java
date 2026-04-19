@@ -1,5 +1,5 @@
 /**
- * Croupier wire protocol implementation for NNG transport.
+ * Croupier wire protocol implementation for TCP transport.
  *
  * <p>Message Format:
  * <pre>

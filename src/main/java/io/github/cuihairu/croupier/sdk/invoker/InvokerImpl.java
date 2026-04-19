@@ -1,8 +1,7 @@
 package io.github.cuihairu.croupier.sdk.invoker;
 
-import io.github.cuihairu.croupier.sdk.transport.NNGTransport;
 import io.github.cuihairu.croupier.sdk.transport.Protocol;
-import io.github.cuihairu.croupier.sdk.transport.TransportAddresses;
+import io.github.cuihairu.croupier.sdk.transport.TCPTransport;
 import io.github.cuihairu.croupier.sdk.transport.TransportClient;
 import io.github.cuihairu.croupier.sdk.wire.SdkWireMessages;
 import org.reactivestreams.Publisher;
@@ -37,7 +36,17 @@ public class InvokerImpl implements Invoker {
     private volatile boolean connected;
 
     public InvokerImpl(InvokerConfig config) {
-        this(config, NNGTransport::new);
+        this(config, createTransportFactory(config));
+    }
+
+    private static BiFunction<String, Integer, TransportClient> createTransportFactory(InvokerConfig config) {
+        // TCP transport: parse host:port
+        return (address, timeout) -> {
+            String[] parts = address.replace("tcp://", "").split(":");
+            String host = parts[0];
+            int port = parts.length > 1 ? Integer.parseInt(parts[1]) : 19090;
+            return new TCPTransport(host, port, timeout);
+        };
     }
 
     public InvokerImpl(InvokerConfig config, BiFunction<String, Integer, TransportClient> transportFactory) {
@@ -57,7 +66,7 @@ public class InvokerImpl implements Invoker {
         try {
             logger.info("Connecting to server/agent at: {}", config.getAddress());
             TransportClient nextTransport = transportFactory.apply(
-                TransportAddresses.normalizeNngAddress(config.getAddress()),
+                config.getAddress(),
                 config.getTimeout()
             );
             nextTransport.connect();
@@ -66,7 +75,7 @@ public class InvokerImpl implements Invoker {
             }
             transport = nextTransport;
             connected = true;
-            logger.info("Connected to: {}", TransportAddresses.normalizeNngAddress(config.getAddress()));
+            logger.info("Connected to: {}", config.getAddress());
         } catch (Exception e) {
             logger.error("Connection failed", e);
             throw new InvokerException(ErrorCode.CONNECTION_FAILED, "Connection failed: " + e.getMessage(), e);

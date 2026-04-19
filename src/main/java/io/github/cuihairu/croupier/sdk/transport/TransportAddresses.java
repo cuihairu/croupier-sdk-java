@@ -11,12 +11,12 @@ public final class TransportAddresses {
     }
 
     /**
-     * Normalizes an address to NNG TCP notation.
+     * Normalizes an address to TCP notation.
      *
      * @param address raw address such as {@code 127.0.0.1:19090}
      * @return normalized address such as {@code tcp://127.0.0.1:19090}
      */
-    public static String normalizeNngAddress(String address) {
+    public static String normalizeAddress(String address) {
         String value = address == null || address.trim().isEmpty()
             ? "127.0.0.1:19090"
             : address.trim();
@@ -30,7 +30,7 @@ public final class TransportAddresses {
      * @return resolved address
      */
     public static String resolveLocalListenAddress(String address) {
-        String normalized = normalizeNngAddress(
+        String normalized = normalizeAddress(
             address == null || address.trim().isEmpty() ? "127.0.0.1:0" : address.trim()
         );
 

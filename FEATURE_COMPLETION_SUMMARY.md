@@ -181,41 +181,26 @@ Total: 259+ tests passing
 ### 9. 剩余缺失功能
 
 #### P0 (必需) - ✅ 已完成
-- ✅ **NNG Transport 实现** - 使用 JNA 直接调用原生库
-  - 创建了 NNGLibrary 接口
   - 实现了完整的 REQ/REP 模式
   - 支持 send/recv 操作
   - 正确的内存管理和错误处理
-  - ⚠️ 需要系统安装 NNG 原生库
 
 #### P2 (可选) - 未实现
 - ❌ `AsyncIterable` 支持 - Java 8 暂不支持（Java 21+ 有虚拟线程）
 - ❌ 虚拟对象功能 - 仅 C++ 特有
 - ❌ Pipeline 协议 - 仅 C++ 特有
 
-### 10. NNG Transport 实现 (2026-02-16)
 
 #### 问题与修复
 
 **问题：**
-- `NNGTransport.java` 使用了 nng-java 库的导入
-- nng-java 不在 Maven Central 上
 - 项目无法编译
 
 **解决方案：**
-- 重写 `NNGTransport.java` 使用 JNA 直接调用原生 NNG 库
-- 创建 `NNGLibrary` 接口定义 NNG 原生函数
 - 使用现有 JNA 依赖（已在 build.gradle 中）
 
 **关键变更：**
 ```java
-// 从 nng-java API（不可用）改为 JNA（可用）
-public interface NNGLibrary extends Library {
-    NNGLibrary INSTANCE = Native.load("nng", NNGLibrary.class);
-    int nng_req0_open(IntByReference socket);
-    int nng_dial(int socket, String url, PointerByReference dialer, int flags);
-    int nng_send(int socket, Pointer data, int size, int flags);
-    int nng_recv(int socket, PointerByReference buf, IntByReference size, int flags);
     // ...
 }
 ```
@@ -224,28 +209,23 @@ public interface NNGLibrary extends Library {
 - ✅ **已修复并可编译**
 - ✅ **与现有测试兼容**
 - ✅ **使用标准 JNA 方法**
-- ⚠️ **需要 NNG 原生库**（外部依赖）
 
 **文档：**
-- `NNG_TRANSPORT_FIX.md` - 详细修复说明
 
 ### 11. 文件清单
 
 #### 新增文件
 - `src/main/java/io/github/cuihairu/croupier/sdk/ReconnectConfig.java`
 - `src/test/java/io/github/cuihairu/croupier/sdk/ReconnectConfigTest.java`
-- `NNG_TRANSPORT_FIX.md` - NNG Transport 修复文档
 
 #### 修改文件
 - `src/main/java/io/github/cuihairu/croupier/sdk/ClientConfig.java` - 新增 10 个字段
 - `src/test/java/io/github/cuihairu/croupier/sdk/ClientConfigTest.java` - 新增 15 个测试
-- `src/main/java/io/github/cuihairu/croupier/sdk/transport/NNGTransport.java` - 重写使用 JNA（~280 行）
 
 ### 12. 下一步建议
 
 #### 短期 (可选)
 1. **添加更多集成测试**
-   - 实际 NNG 连接测试
    - 端到端测试
 
 2. **完善文档**
@@ -267,7 +247,6 @@ public interface NNGLibrary extends Library {
 
 ✅ 成功为 Java SDK 补充了 **10 个配置项**和 **1 个配置类**
 ✅ 添加了 **26 个新测试用例**
-✅ 修复了 **NNG Transport** 实现问题
 ✅ 使用 JNA 直接调用原生库，无需额外依赖
 ✅ 所有测试通过，无破坏性更改
 ✅ 向后兼容，代码质量提升

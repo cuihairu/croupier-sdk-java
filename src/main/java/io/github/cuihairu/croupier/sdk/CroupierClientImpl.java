@@ -1,10 +1,8 @@
 package io.github.cuihairu.croupier.sdk;
 
-import io.github.cuihairu.croupier.sdk.transport.NNGServer;
-import io.github.cuihairu.croupier.sdk.transport.NNGTransport;
 import io.github.cuihairu.croupier.sdk.transport.Protocol;
 import io.github.cuihairu.croupier.sdk.transport.RequestServer;
-import io.github.cuihairu.croupier.sdk.transport.TransportAddresses;
+import io.github.cuihairu.croupier.sdk.transport.TCPTransport;
 import io.github.cuihairu.croupier.sdk.transport.TransportClient;
 import io.github.cuihairu.croupier.sdk.invoker.InvokeOptions;
 import io.github.cuihairu.croupier.sdk.invoker.Invoker;
@@ -61,7 +59,22 @@ public class CroupierClientImpl implements CroupierClient {
     private final Invoker invoker;
 
     public CroupierClientImpl(ClientConfig config) {
-        this(config, NNGTransport::new, NNGServer::new);
+        this(config, createTransportFactory(config), createServerFactory(config));
+    }
+
+    private static BiFunction<String, Integer, TransportClient> createTransportFactory(ClientConfig config) {
+        // TCP transport: parse host:port
+        return (address, timeout) -> {
+            String[] parts = address.replace("tcp://", "").split(":");
+            String host = parts[0];
+            int port = parts.length > 1 ? Integer.parseInt(parts[1]) : 19090;
+            return new TCPTransport(host, port, timeout);
+        };
+    }
+
+    private static BiFunction<String, Integer, RequestServer> createServerFactory(ClientConfig config) {
+        // TODO: Implement TCP server
+        throw new UnsupportedOperationException("TCP server not yet implemented");
     }
 
     CroupierClientImpl(
@@ -114,7 +127,7 @@ public class CroupierClientImpl implements CroupierClient {
 
                 ensureServerStarted();
                 nextTransport = transportFactory.apply(
-                    TransportAddresses.normalizeNngAddress(config.getAgentAddr()),
+                    config.getAgentAddr(),
                     config.getTimeoutSeconds() * 1000
                 );
                 nextTransport.connect();

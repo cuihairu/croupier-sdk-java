@@ -23,7 +23,6 @@ java { withSourcesJar() }
 // ============================================================================
 // buf.build/protocolbuffers/java:v25.1 generates code using protobuf 4.29.5
 // Using protobuf-java 4.29.5 to match generated code version
-// NNG transport replaces gRPC
 // ============================================================================
 def protobufVersion = "4.29.5"  // Must match gencode version in generated/ directory
 
@@ -31,8 +30,6 @@ dependencies {
     // Protobuf runtime (no gRPC)
     implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
 
-    // NNG Java binding (using JNA) - requires nng library installed
-    // For installation instructions, see: https://github.com/nanomsg/nng
     implementation "net.java.dev.jna:jna:5.14.0"
 
     // Reactive Streams for async job streaming
