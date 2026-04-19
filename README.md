@@ -60,7 +60,6 @@ Croupier Java SDK 是 [Croupier](https://github.com/cuihairu/croupier) 游戏后
 | 项目 | 描述 | 链接 |
 |------|------|------|
 | **Croupier** | 游戏后端平台主项目 | [cuihairu/croupier](https://github.com/cuihairu/croupier) |
-| **Croupier Proto** | 协议定义（Protobuf/gRPC） | [cuihairu/croupier-proto](https://github.com/cuihairu/croupier-proto) |
 
 ## 其他语言 SDK
 
@@ -217,7 +216,7 @@ SDK 实现两层注册系统：
 
 ### Proto 与构建流水线
 
-- `proto/`：Git submodule 指向 [`cuihairu/croupier-proto`](https://github.com/cuihairu/croupier-proto)
+- `proto/`：Protobuf 协议定义文件
 - `generated/`：已提交的 `.java` gRPC Stubs，方便依赖方直接使用
 - `./gradlew`：内置 Gradle Wrapper + `com.google.protobuf` 插件
 - CI 会在 JDK 17/21 上运行 `./gradlew --no-daemon clean build`

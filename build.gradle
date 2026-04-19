@@ -19,7 +19,7 @@ if (System.getenv('GITHUB_REF_TYPE') == 'tag') {
 java { withSourcesJar() }
 
 // ============================================================================
-// Version Locking - Must align with croupier-proto/CLAUDE.md!
+// Version Locking
 // ============================================================================
 // buf.build/protocolbuffers/java:v25.1 generates code using protobuf 4.29.5
 // Using protobuf-java 4.29.5 to match generated code version
@@ -65,7 +65,7 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 17
 }
 
-// Proto 代码由 croupier-proto 的 sync-sdks workflow 统一生成并同步到 generated/ 目录
+// Proto 代码统一生成并同步到 generated/ 目录
 // 不再使用 gradle protobuf 插件在构建时生成
 sourceSets {
     main {
