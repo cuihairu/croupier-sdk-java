@@ -411,33 +411,33 @@ public String startJob(String functionId, String payload, InvokeOptions options)
 
 ---
 
-#### streamJob
+#### streamTask
 
 流式获取任务事件。
 
 ```java
-public void streamJob(String jobId, Consumer<JobEvent> eventHandler)
+public void streamTask(String taskId, Consumer<TaskEvent> eventHandler)
     throws InvokeException;
 ```
 
 ---
 
-#### cancelJob
+#### cancelTask
 
 取消任务。
 
 ```java
-public void cancelJob(String jobId) throws InvokeException;
+public void cancelTask(String taskId) throws InvokeException;
 ```
 
 ---
 
-#### getJobResult
+#### getTaskResult
 
 获取任务结果。
 
 ```java
-public JobResult getJobResult(String jobId) throws InvokeException;
+public TaskResult getTaskResult(String taskId) throws InvokeException;
 ```
 
 ---
@@ -470,12 +470,12 @@ String result = invoker.invoke("player.ban", payload, options);
 
 ---
 
-### JobEvent
+### TaskEvent
 
 任务事件。
 
 ```java
-public class JobEvent {
+public class TaskEvent {
     private String type;        // 事件类型: "progress"|"log"|"done"|"error"
     private String message;     // 事件消息
     private int progress;       // 进度 0-100
@@ -483,19 +483,19 @@ public class JobEvent {
 }
 ```
 
-### JobResult
+### TaskResult
 
 任务结果。
 
 ```java
-public class JobResult {
-    private String jobId;       // 任务 ID
-    private JobStatus status;   // 任务状态
+public class TaskResult {
+    private String taskId;      // 任务 ID
+    private TaskStatus status;  // 任务状态
     private byte[] payload;     // 结果数据
     private String error;       // 错误信息
 }
 
-public enum JobStatus {
+public enum TaskStatus {
     PENDING,
     RUNNING,
     COMPLETED,
